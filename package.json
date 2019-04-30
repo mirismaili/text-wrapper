@@ -15,15 +15,8 @@
   },
   "keywords": [
     "editor",
-    "live-editor",
-    "html-editor",
-    "rich-text-html-editor",
-    "formatted-text-html-editor",
-    "clean-html-editor",
-    "live-html-editor",
-    "clean-output",
-    "neat-html-editor",
-    "contenteditable",
+    "wrapper",
+    "wrap-long-lines",
     "dev4dev"
   ],
   "author": "S. M. Mir-Ismaili <s.m.mirismaili@gmail.com>",

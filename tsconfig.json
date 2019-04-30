@@ -3,8 +3,7 @@
 		"outDir": "./dist/",
 		"noImplicitAny": true,
 		"lib": [
-			"es2018",
-			"dom"
+			"es2018"
 		],
 		"module": "commonjs",
 		"moduleResolution": "node",
