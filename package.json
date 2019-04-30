@@ -1,0 +1,41 @@
+{
+  "name": "@live-html-editor/text-wrap",
+  "version": "0.1.0",
+  "description": "A utility to wrap (break) long lines of large texts into limited-length lines, based on given options",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "patch-and-publish": "npm version patch && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/live-html-editor/text-wrap.git"
+  },
+  "keywords": [
+    "editor",
+    "live-editor",
+    "html-editor",
+    "rich-text-html-editor",
+    "formatted-text-html-editor",
+    "clean-html-editor",
+    "live-html-editor",
+    "clean-output",
+    "neat-html-editor",
+    "contenteditable",
+    "dev4dev"
+  ],
+  "author": "S. M. Mir-Ismaili <s.m.mirismaili@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/live-html-editor/text-wrap/issues"
+  },
+  "homepage": "https://github.com/live-html-editor/text-wrap#readme",
+  "devDependencies": {
+    "js-sha256": "^0.9.0",
+    "mocha": "^6.1.4",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.4.3"
+  }
+}

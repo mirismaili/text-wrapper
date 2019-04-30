@@ -1,0 +1,7 @@
+/src/
+/tsconfig.json
+/webpack.config.js
+/.babelrc
+/.eslintrc
+/test.js
+/.gitignore
