@@ -3,5 +3,5 @@
 /webpack.config.js
 /.babelrc
 /.eslintrc
-/test.js
+/test*
 /.gitignore

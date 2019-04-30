@@ -4,6 +4,7 @@
  */
 import {initiateObject} from "./utilities";
 
+// noinspection JSUnusedGlobalSymbols
 export class TextWrap implements WrapStyle {
 	private readonly tabLength_1: number;
 	private readonly continuationIndentVLength: number;
@@ -18,24 +19,6 @@ export class TextWrap implements WrapStyle {
 		this.tabLength_1 = this.tabLength - 1;
 		
 		this.continuationIndentVLength = this.getVisualLength(this.continuationIndent);
-	}
-	
-	private getVisualLength(s: string): number {
-		return s.length + this.tabLength_1 * (s.split('\t').length - 1);  // (s.split('\t').length-1) counts '\t's in `s`
-	}
-	
-	private reduceToVisualLength(s: string, visualLen: number): number {
-		const l = s.length;
-		let i = 0;
-		
-		if (visualLen > l)
-			for (let j = 0; i < l && j < visualLen; ++i)
-				j += s[i] === '\t' ? this.tabLength : 1;
-		else
-			for (let j = 0; j < visualLen; ++i)
-				j += s[i] === '\t' ? this.tabLength : 1;
-		
-		return i;
 	}
 	
 	wrap(text: string, indents: string): WrapResult {
@@ -106,6 +89,24 @@ export class TextWrap implements WrapStyle {
 			wrappedText: wrappedText.slice(0, wrappedText.length - indentsN.length) + text.slice(from, length),  // CAVEAT: Don't omit `wrappedText.length` from the second argument of .slice()! Maybe: indentsN.length===0
 		}
 	}
+	
+	private getVisualLength(s: string): number {
+		return s.length + this.tabLength_1 * (s.split('\t').length - 1);  // (s.split('\t').length-1) counts '\t's in `s`
+	}
+	
+	// private reduceToVisualLength(s: string, visualLen: number): number {
+	// 	const l = s.length;
+	// 	let i = 0;
+	//
+	// 	if (visualLen > l)
+	// 		for (let j = 0; i < l && j < visualLen; ++i)
+	// 			j += s[i] === '\t' ? this.tabLength : 1;
+	// 	else
+	// 		for (let j = 0; j < visualLen; ++i)
+	// 			j += s[i] === '\t' ? this.tabLength : 1;
+	//
+	// 	return i;
+	// }
 }
 
 export interface WrapResult {
