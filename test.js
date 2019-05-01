@@ -2,10 +2,10 @@
  * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io).
  * Created on 1398/2/11 (2019/5/1).
  */
-///* global require */
+/* global require */
 "use strict";
 
-const assert = require('assert');
+const assert = require('assert').strict;
 const fs = require('fs');
 
 const sha256 = require('js-sha256');
@@ -19,6 +19,7 @@ const indents = '';
 const maxLineLength = 120;
 const wrapResult = (new lib.TextWrap({wrapOn: maxLineLength})).wrap(input, indents);
 const output = wrapResult.wrappedText;
+//*********************************************************/
 
 const joinedInput = input.replace(/\n/g, '');
 const joinedOutput = output.replace(/\n/g, '');
@@ -37,7 +38,30 @@ it('Check output itself', () => assert.equal(joinedOutput, joinedInput));
 
 it('Check num of markers', () => assert.equal(wrapResult.markers.length, output.length - input.length));
 
-it('Check all lines and markers', () => {
+it("Try to find an illegal short line (two markers which [the distance between the first marker and the first" +
+		" breakable character after the second marker] is less than or equal with [maxLineLength])", () => {
+	// noinspection JSUnusedAssignment
+	let b = 0;
+	let a = 0;
+	for (b of wrapResult.markers) {
+		const regexp = /[^\S\xA0]/g;
+		regexp.lastIndex = b;
+		
+		const upBound = regexp.test(input) ? regexp.lastIndex - 1 : input.length;
+		const distance = upBound - a;
+		
+		assert.equal(distance > maxLineLength, true);
+		
+		a = b;
+	}
+});
+
+it("Try to find an illegal long line in output (a line that should to be wrapped, but didn't)", () => assert.equal(
+		new RegExp(`^(?=.{${maxLineLength},}[\\S\\xA0])(?=.*[^\\S\\xA0\\n]).*`, 'm').test(output),  // https://regex101.com/r/bdWnCx/1/
+		false
+));
+
+it('Check markers against output', () => {
 	let anotherOutput = '';
 	let a = 0;
 	for (const b of wrapResult.markers) {
@@ -50,13 +74,8 @@ it('Check all lines and markers', () => {
 	
 	assert.equal(anotherOutput, output);
 });
-
-it("Try to find an illegal long line in output (a line that should to be wrapped, but didn't)", () => assert.equal(
-		new RegExp(`^(?=.{${maxLineLength},}[\\S\\xA0])(?=.*[^\\S\\xA0\\n]).*`, 'm').test(output),  // https://regex101.com/r/bdWnCx/1/
-		false
-));
-
-//******************** Case-specific tests:
+//*********************************************************/
+// CASE-SPECIFIC TESTS:
 
 it("Check input's hash", () => assert.equal(
 		sha256(input), '1492be56b606c3467846e592d3e2c3eba3af600737705c70e8005e6c28a8ca3b')
