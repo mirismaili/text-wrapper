@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "curly": [true, "as-needed"],
+    "one-variable-per-declaration": [true, "ignore-for-loop"],
+    "comment-format": [false, "check-space", {"ignore-pattern": "[*-]{10}"}]
+  },
+  "extends": [
+    "tslint-config-standard",
+    "tslint-config-prettier"
+  ]
+}

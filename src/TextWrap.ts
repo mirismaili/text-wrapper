@@ -45,15 +45,12 @@ export default class TextWrap implements WrapStyle {
 				const isNotBreakable = /^[\S\x0A]$/.test(c) // [\S\x0A]: All non-breakable characters ('\n' already filtered)
 				
 				searchWhiteSpace: do {
-					if (vLen > this.wrapOn) {
-						// tslint:disable-next-line:no-conditional-assignment
-						if (
-								fastCheck ||
-								((fastCheck = true) &&
-										// The 2nd condition will always be true if the 1st is true. Actually, it is the main condition we
-										// need to check, but we know in most cases (more than 95%) the 1st is true.
-										(marker - start > indentsNVLen ||
-												this.getVisualLength(text.slice(start, marker)) > indentsNVLen))
+					if (vLen > this.wrapOn) // tslint:disable-next-line:no-conditional-assignment
+						if (fastCheck || ((fastCheck = true) &&
+								// The 2nd condition will always be true if the 1st is true. Actually, it is the main condition
+								// we need to check, but we know in most cases (more than 95%) the 1st is true.
+								(marker - start > indentsNVLen ||
+										this.getVisualLength(text.slice(start, marker)) > indentsNVLen))
 						) {
 							if (isNotBreakable) break searchWhiteSpace
 						} else {
@@ -61,9 +58,8 @@ export default class TextWrap implements WrapStyle {
 							
 							fastCheck = false
 						}
-					} else if (isNotBreakable) {
+					else if (isNotBreakable)
 						continue mainLoop
-					}
 					
 					// Any breakable character (white-space except '\n' and '\xA0'):
 					
@@ -89,7 +85,7 @@ export default class TextWrap implements WrapStyle {
 			vLen = 0 // Reset vLen
 		} // /mainLoop
 		
-		// console.debug(`OK:${from}\n${wrappedText}`);
+		//console.debug(`OK:${from}\n${wrappedText}`);
 		
 		return {
 			markers: markers,

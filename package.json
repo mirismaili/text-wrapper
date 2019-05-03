@@ -6,7 +6,8 @@
 	"module": "dist/text-wrap.es5.js",
 	"typings": "dist/types/text-wrap.d.ts",
 	"scripts": {
-		"test": "jest --coverage",
+		"lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
+		"test": "jest",
 		"test:watch": "jest --coverage --watch",
 		"test:prod": "npm run test -- --no-cache",
 		"prebuild": "rimraf dist",
@@ -60,6 +61,10 @@
 			"src/*.{js,ts}"
 		]
 	},
+	"prettier": {
+		"semi": false,
+		"singleQuote": true
+	},
 	"devDependencies": {
 		"@types/jest": "^24.0.12",
 		"jest": "^24.7.1",
@@ -75,6 +80,9 @@
 		"rollup-plugin-typescript2": "^0.21.0",
 		"ts-jest": "^24.0.2",
 		"ts-loader": "^5.3.3",
+		"tslint": "^5.16.0",
+		"tslint-config-prettier": "^1.18.0",
+		"tslint-config-standard": "^8.0.1",
 		"typescript": "^3.4.3"
 	},
 	"dependencies": {}
