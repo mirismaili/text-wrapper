@@ -1,48 +1,81 @@
 {
-  "name": "@live-html-editor/text-wrap",
-  "version": "0.1.2",
-  "description": "A utility to wrap (break) long lines of large texts into limited-length lines, based on given options",
-  "main": "dist/text-wrap.umd.js",
-  "module": "dist/text-wrap.es5.js",
-  "typings": "dist/types/text-wrap.d.ts",
-  "scripts": {
-    "test": "mocha",
-    "prebuild": "rimraf dist",
-    "build": "rollup -c rollup.config.ts",
-    "start": "rollup -c rollup.config.ts -w",
-    "tsc": "tsc --module commonjs",
-    "tsc:watch": "tsc --module commonjs --watch",
-    "patch-and-publish": "npm version patch && npm publish"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/live-html-editor/text-wrap.git"
-  },
-  "keywords": [
-    "editor",
-    "wrapper",
-    "wrap-long-lines",
-    "break-long-lines",
-    "dev4dev"
-  ],
-  "author": "S. M. Mir-Ismaili <s.m.mirismaili@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/live-html-editor/text-wrap/issues"
-  },
-  "homepage": "https://github.com/live-html-editor/text-wrap#readme",
-  "devDependencies": {
-    "js-sha256": "^0.9.0",
-    "lodash.camelcase": "^4.3.0",
-    "mocha": "^6.1.4",
-    "rimraf": "^2.6.3",
-    "rollup": "^1.10.1",
-    "rollup-plugin-commonjs": "^9.3.4",
-    "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-node-resolve": "^4.2.3",
-    "rollup-plugin-sourcemaps": "^0.4.2",
-    "rollup-plugin-typescript2": "^0.21.0",
-    "ts-loader": "^5.3.3",
-    "typescript": "^3.4.3"
-  }
+	"name": "@live-html-editor/text-wrap",
+	"version": "0.1.2",
+	"description": "A utility to wrap (break) long lines of large texts into limited-length lines, based on given options",
+	"main": "dist/text-wrap.umd.js",
+	"module": "dist/text-wrap.es5.js",
+	"typings": "dist/types/text-wrap.d.ts",
+	"scripts": {
+		"test": "jest --coverage",
+		"test:watch": "jest --coverage --watch",
+		"test:prod": "npm run test -- --no-cache",
+		"prebuild": "rimraf dist",
+		"build": "rollup -c rollup.config.ts",
+		"start": "rollup -c rollup.config.ts -w",
+		"tsc": "tsc --module commonjs",
+		"tsc:watch": "tsc --module commonjs --watch",
+		"patch-and-publish": "npm version patch && npm publish"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/live-html-editor/text-wrap.git"
+	},
+	"keywords": [
+		"editor",
+		"wrapper",
+		"wrap-long-lines",
+		"break-long-lines",
+		"dev4dev"
+	],
+	"author": "S. M. Mir-Ismaili <s.m.mirismaili@gmail.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/live-html-editor/text-wrap/issues"
+	},
+	"homepage": "https://github.com/live-html-editor/text-wrap#readme",
+	"jest": {
+		"transform": {
+			".(ts|tsx)": "ts-jest"
+		},
+		"testEnvironment": "node",
+		"testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+		"moduleFileExtensions": [
+			"ts",
+			"tsx",
+			"js"
+		],
+		"coveragePathIgnorePatterns": [
+			"/node_modules/",
+			"/test/"
+		],
+		"coverageThreshold": {
+			"global": {
+				"branches": 90,
+				"functions": 95,
+				"lines": 95,
+				"statements": 95
+			}
+		},
+		"collectCoverageFrom": [
+			"src/*.{js,ts}"
+		]
+	},
+	"devDependencies": {
+		"@types/jest": "^24.0.12",
+		"jest": "^24.7.1",
+		"jest-config": "^24.7.1",
+		"js-sha256": "^0.9.0",
+		"lodash.camelcase": "^4.3.0",
+		"rimraf": "^2.6.3",
+		"rollup": "^1.10.1",
+		"rollup-plugin-commonjs": "^9.3.4",
+		"rollup-plugin-json": "^4.0.0",
+		"rollup-plugin-node-resolve": "^4.2.3",
+		"rollup-plugin-sourcemaps": "^0.4.2",
+		"rollup-plugin-typescript2": "^0.21.0",
+		"ts-jest": "^24.0.2",
+		"ts-loader": "^5.3.3",
+		"typescript": "^3.4.3"
+	},
+	"dependencies": {}
 }
