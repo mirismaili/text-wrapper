@@ -1,12 +1,17 @@
 {
   "name": "@live-html-editor/text-wrap",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A utility to wrap (break) long lines of large texts into limited-length lines, based on given options",
-  "main": "dist/TextWrap.js",
+  "main": "dist/text-wrap.umd.js",
+  "module": "dist/text-wrap.es5.js",
+  "typings": "dist/types/text-wrap.d.ts",
   "scripts": {
     "test": "mocha",
-    "build": "tsc",
-    "watch": "tsc --watch",
+    "prebuild": "rimraf dist",
+    "build": "rollup -c rollup.config.ts",
+    "start": "rollup -c rollup.config.ts -w",
+    "tsc": "tsc --module commonjs",
+    "tsc:watch": "tsc --module commonjs --watch",
     "patch-and-publish": "npm version patch && npm publish"
   },
   "repository": {
@@ -28,7 +33,15 @@
   "homepage": "https://github.com/live-html-editor/text-wrap#readme",
   "devDependencies": {
     "js-sha256": "^0.9.0",
+    "lodash.camelcase": "^4.3.0",
     "mocha": "^6.1.4",
+    "rimraf": "^2.6.3",
+    "rollup": "^1.10.1",
+    "rollup-plugin-commonjs": "^9.3.4",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^4.2.3",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "rollup-plugin-typescript2": "^0.21.0",
     "ts-loader": "^5.3.3",
     "typescript": "^3.4.3"
   }

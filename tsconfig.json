@@ -1,19 +1,22 @@
 {
 	"compilerOptions": {
-		"outDir": "./dist/",
+		"outDir": "dist/lib",
 		"noImplicitAny": true,
 		"lib": [
 			"es2018"
 		],
-		"module": "commonjs",
+		"module": "es2015",
 		"moduleResolution": "node",
 		"target": "es6",
-		"sourceMap": true
+		"strict": true,
+		"sourceMap": true,
+		"declaration": true,
+		"allowSyntheticDefaultImports": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"declarationDir": "dist/types"
 	},
-	"exclude": [
-		"node_modules"
-	],
-	"files": [
-		"src/TextWrap.ts"
+	"include": [
+		"src"
 	]
 }

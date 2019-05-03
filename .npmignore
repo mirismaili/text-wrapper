@@ -3,5 +3,9 @@
 /webpack.config.js
 /.babelrc
 /.eslintrc
-/test*
+test*
+tempst*
 /.gitignore
+/rollup.config.ts
+/.rpt2_cache/
+/dist/lib

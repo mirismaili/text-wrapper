@@ -10,14 +10,14 @@ const fs = require('fs');
 
 const sha256 = require('js-sha256');
 
-const lib = require('./dist/TextWrap');
+const TextWrap = require('./dist/text-wrap.umd').default;
 //*********************************************************/
 
 const input = fs.readFileSync('./test.txt', 'utf8').replace(/(?:\r\n|\r)/g, '\n');
 
 const indents = '';
 const maxLineLength = 120;
-const wrapResult = (new lib.TextWrap({wrapOn: maxLineLength})).wrap(input, indents);
+const wrapResult = (new TextWrap({wrapOn: maxLineLength})).wrap(input, indents);
 const output = wrapResult.wrappedText;
 //*********************************************************/
 
