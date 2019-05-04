@@ -2,6 +2,5 @@ node_modules/
 dist/
 tsc-out/
 tempst*
-/.rpt2_cache/
 /coverage/
 *.iml

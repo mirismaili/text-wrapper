@@ -4,7 +4,8 @@ import sourceMaps from 'rollup-plugin-sourcemaps'
 import camelCase from 'lodash.camelcase'
 import typescript from 'rollup-plugin-typescript2'
 import json from 'rollup-plugin-json'
-import { terser } from "rollup-plugin-terser"
+import {terser} from "rollup-plugin-terser"
+import tempDir from "temp-dir"
 
 const pkg = require('./package.json')
 
@@ -27,8 +28,8 @@ export default {
 	plugins: [
 		// Allow json resolution
 		json(),
-		// Compile TypeScript files
-		typescript({useTsconfigDeclarationDir: true}),
+		// Compile TypeScript files. For `cacheRoot` see: https://github.com/ezolenko/rollup-plugin-typescript2/issues/34#issuecomment-332591290
+		typescript({useTsconfigDeclarationDir: true, cacheRoot: `${tempDir}/.rpt2_cache`}),
 		// Allow bundling cjs modules (unlike webpack, rollup doesn't understand cjs)
 		commonjs(),
 		// Allow node_modules resolution, so you can use 'external' to control
