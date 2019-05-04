@@ -1,9 +1,10 @@
 {
 	"name": "@live-html-editor/text-wrap",
-	"version": "0.1.7",
+	"version": "0.1.13",
 	"description": "A utility to wrap (break) long lines of large texts into limited-length lines, based on given options",
-	"main": "dist/text-wrap.umd.js",
-	"module": "dist/text-wrap.es5.js",
+	"main": "./dist/text-wrap.umd.js",
+	"module": "./dist/text-wrap.esm.js",
+	"types": "./dist/types/TextWrap.d.ts",
 	"scripts": {
 		"lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
 		"test": "jest --coverage",

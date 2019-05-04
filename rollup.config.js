@@ -10,11 +10,11 @@ const pkg = require('./package.json')
 
 const libraryName = 'text-wrap'
 const libVarName = camelCase(libraryName)
-const libClassName = `src/${libVarName[0] + libVarName.slice(1)}.ts` // PascalCase
+const libClassName = `${libVarName[0].toUpperCase() + libVarName.slice(1)}` // PascalCase
 
 // noinspection JSUnusedGlobalSymbols
 export default {
-	input: libClassName,
+	input: `src/${libClassName}.ts`,
 	output: [
 		{file: pkg.main, name: libVarName, format: 'umd', sourcemap: true, exports: 'named'},
 		{file: pkg.module, format: 'esm', sourcemap: true},

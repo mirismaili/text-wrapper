@@ -11,10 +11,10 @@
 		"strict": true,
 		"sourceMap": true,
 		"declaration": true,
+		"declarationDir": "dist/types",
 		"allowSyntheticDefaultImports": true,
 		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true,
-		"declarationDir": "dist/types"
+		"emitDecoratorMetadata": true
 	},
 	"include": [
 		"src"
