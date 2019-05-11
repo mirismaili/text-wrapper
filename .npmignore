@@ -2,4 +2,3 @@
 !/LICENSE
 !/dist/types/**/*
 !/dist/*.js
-!/dist/*.js.map

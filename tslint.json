@@ -1,6 +1,6 @@
 {
   "rules": {
-    "curly": [true, "as-needed"],
+    "curly": false,
     "one-variable-per-declaration": [true, "ignore-for-loop"],
     "comment-format": [false, "check-space", {"ignore-pattern": "[*-]{10}"}]
   },

@@ -1,7 +1,7 @@
 import {initiateObject} from "./utilities";
 
 /**
- * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io).
+ * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io)
  * Created on 1398/2/6 (2019/4/26).
  */
 export default class TextWrap implements WrapStyle {
@@ -37,28 +37,33 @@ export default class TextWrap implements WrapStyle {
 		) {
 			c = text[i]
 			vLen += c === '\t' ? tabLength : 1
-			// console.debug(`A: ${c} / ${vLen}`);
+			//console.debug(`A: ${c} / ${vLen}`);
 			
-			searchBreakLine: do {
+			// tslint:disable-next-line:label-position
+			searchBreakLine: {
 				if (c === '\n') break searchBreakLine
 				
 				const isNotBreakable = /^[\S\x0A]$/.test(c) // [\S\x0A]: All non-breakable characters ('\n' already filtered)
 				
-				searchWhiteSpace: do {
-					if (vLen > this.wrapOn) // tslint:disable-next-line:no-conditional-assignment
-						if (fastCheck || ((fastCheck = true) &&
+				// tslint:disable-next-line:label-position
+				searchWhiteSpace: {
+					if (vLen > this.wrapOn) { //console.debug('X: ' + fastCheck)
+						if (fastCheck ||
 								// The 2nd condition will always be true if the 1st is true. Actually, it is the main condition
-								// we need to check, but we know in most cases (more than 95%) the 1st is true.
-								(marker - start > indentsNVLen ||
-										this.getVisualLength(text.slice(start, marker)) > indentsNVLen))
+								// we need to check, but we know in most cases (~ 100%) the 1st is true.
+								!(marker - start > indentsNVLen ||
+										this.getVisualLength(text.slice(start, marker)) > indentsNVLen)
+								// tslint:disable-next-line:no-conditional-assignment
+								&& (fastCheck = true)
 						) {
-							if (isNotBreakable) break searchWhiteSpace
-						} else {
+							//console.debug('Y: ' + (marker - start > indentsNVLen))
 							if (isNotBreakable) continue mainLoop
 							
+							//console.debug('Z')
 							fastCheck = false
-						}
-					else if (isNotBreakable)
+						} else if (isNotBreakable)
+							break searchWhiteSpace
+					} else if (isNotBreakable)
 						continue mainLoop
 					
 					// Any breakable character (white-space except '\n' and '\xA0'):
@@ -66,20 +71,22 @@ export default class TextWrap implements WrapStyle {
 					marker = i + 1 // Store the value of i
 					vLen0 = vLen // Store the value of vLen
 					continue mainLoop
-				} while (false) // /searchWhiteSpace
+				} //------------------------------------------/searchWhiteSpace
 				
+				// noinspection UnreachableCodeJS
 				markers.push(marker)
 				wrappedText += text.slice(from, marker) + '\n' + indentsN
-				// console.debug(`L: [${from}, ${marker}) - ${vLen} - ${indentsNVLen + (vLen - vLen0)}\n${text.slice(from, marker)}`);
+				//console.debug(`L: [${from}, ${marker}) - ${vLen} - ${indentsNVLen + (vLen - vLen0)}\n${text.slice(from, marker)}`);
 				vLen = indentsNVLen + (vLen - vLen0)
 				vLen0 = indentsNVLen
 				start = marker // Set to start of the next line
 				from = marker // Store the value of marker
 				fastCheck = false
 				continue mainLoop
-			} while (false) // /searchBreakLine
+			} //------------------------------------------/searchBreakLine
 			
-			// console.debug('NN');
+			//console.debug('NN');
+			// noinspection UnreachableCodeJS
 			start = i // Set to start of the next line
 			vLen0 = 0 // Reset vLen0
 			vLen = 0 // Reset vLen
