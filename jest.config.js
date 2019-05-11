@@ -1,5 +1,5 @@
 /**
- * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io).
+ * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io)
  * Created on 1398/2/14 (2019/5/4).
  */
 "use strict";
@@ -18,6 +18,7 @@ module.exports = {
 	coveragePathIgnorePatterns: [
 		"/node_modules/",
 		"/test/",
+		"/src/utilities.ts",
 	],
 	coverageThreshold: {
 		global: {
