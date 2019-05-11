@@ -1,6 +1,6 @@
 <p dir="auto">
-	<a href="https://github.com/live-html-editor/TextWrap">
-			<img src="https://badge.fury.io/gh/live-html-editor%2FTextWrap.svg" alt="GitHub version">
+	<a href="https://travis-ci.com/live-html-editor/TextWrap">
+			<img src="https://travis-ci.com/live-html-editor/TextWrap.svg?branch=master" alt="Build Status">
 	</a>
 	<a href="https://npmjs.com/package/@live-html-editor/text-wrap">
 		<img alt="npm (scoped)" src="https://img.shields.io/npm/v/@live-html-editor/text-wrap.svg">
@@ -21,7 +21,6 @@
 	<a href="https://github.com/live-html-editor/TextWrap/blob/master/LICENSE">
 		<img alt="GitHub" src="https://img.shields.io/github/license/live-html-editor/TextWrap.svg">
 	</a>
-	<br>
 	<a href="https://github.com/live-html-editor/TextWrap/fork">
 		<img src="https://img.shields.io/github/forks/live-html-editor/TextWrap.svg?style=social" alt="GitHub forks">
 	</a>
