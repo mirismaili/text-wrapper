@@ -1,13 +1,13 @@
 {
 	"name": "@live-html-editor/text-wrap",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "A utility to wrap (break) long lines of large texts into limited-length lines, based on given options",
 	"main": "dist/text-wrap.umd.js",
 	"module": "dist/text-wrap.esm.js",
 	"types": "dist/types/TextWrap.d.ts",
 	"scripts": {
 		"lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
-		"test": "jest --coverage",
+		"test": "jest",
 		"test:watch": "jest --coverage --watch",
 		"test:prod": "jest --coverage --no-cache",
 		"prebuild": "rimraf dist",
@@ -19,7 +19,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/live-html-editor/text-wrap.git"
+		"url": "git+https://github.com/live-html-editor/TextWrap.git"
 	},
 	"keywords": [
 		"editor",
@@ -31,9 +31,9 @@
 	"author": "S. M. Mir-Ismaili <s.m.mirismaili@gmail.com>",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/live-html-editor/text-wrap/issues"
+		"url": "https://github.com/live-html-editor/TextWrap/issues"
 	},
-	"homepage": "https://github.com/live-html-editor/text-wrap#readme",
+	"homepage": "https://github.com/live-html-editor/TextWrap#readme",
 	"prettier": {
 		"semi": false,
 		"singleQuote": true
