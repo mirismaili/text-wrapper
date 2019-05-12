@@ -66,8 +66,10 @@ describe('General tests:', () => {
 })
 
 describe('Case-specific tests:', () => {
-	it("Check input and output's hash", () => {
-		expect(sha256(input)).toBe('6c94bcab86aa20960f1708e73b302d9527d6ca556bba3b117dbc3fc58af7288e')
-		expect(sha256(output)).toBe('b409da357652ebdba18de1cefe70de66eb4308cdc8dda362df1dbc19d2e81e4b')
-	})
+	it("Check input's hash", () =>
+		expect(sha256(input)).toBe('fe1a8a1dc2891f6f9d8b60cf25a47386390b032a66e5046bc807184a66c90d67')
+	)
+	it("Check output's hash", () =>
+		expect(sha256(output)).toBe('9c99d544df3d4b36b2f719d555551000e94f374ee3e8bd2fe0792f89de096f69')
+	)
 })
