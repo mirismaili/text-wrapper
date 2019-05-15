@@ -30,7 +30,7 @@
 </p>
 
 <h1 dir="auto">
-	Wrap-Text
+	Text-Wrap
 </h1>
 
 <p dir="auto">

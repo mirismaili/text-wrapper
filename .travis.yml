@@ -1,26 +1,22 @@
 language: node_js
-cache:
-  directories:
-    - "~/.npm"
 node_js:
-  - '11'
-  - '10'
-  - '8'
-branches:
-  except:
-    - "/^v\\d+\\.\\d+\\.\\d+$/"
-script: echo "Running tests against $(node -v) ..."
+  - "11"
+  - "10"
+
+before_script: echo "Running tests against $(node -v) ..."
+script: npm run test
 
 jobs:
   include:
-    - stage: npm release
-      node_js: "11"
-      script: echo "Deploying to npm ..."
+    - stage: deploy to npm
+      if: tag IS present
+      node_js: "10"
+      before_script: echo "Deploying to npm ..."
+      script: npm run build
       deploy:
         provider: npm
-        email: s.m.mirismaili@gmail.com
-        api_key:
-          secure: mFtQmk9gV2EU4ml1JcxlQ4cRhbF70z70feX15d0F0eKcsPOebB0k3LB2nF2wWoShUB3AsPo8rAoc1JYaxmADKnOwKpbiDw4cR/tY/hnXUzauTEqE3MDLnoI6b0IprrpfwsmsK2SF6itzRygFNmtMc6+bD9fYw4fMgiRDbKPfYNmle31vrfjznbVoWqGNVtAlpRC8X9GolUg+ivLChND+Nca1R6ItIu9VASkn4Z5H4vvxdWKLRf4Euiue9k06ZGGtYCUsCOwUDfNKgWUr/WtU+5iG70vl0+zIBX0YNkbCmnU6J6nXhmsFQvdnIuSkqoTFXhZ05W0i967M5qgS90E+LUv9DEFJsbCKw0ZzwDiq3xiCdWobEllo9Y2rL8suNMVLczIUB3DqNXAvNc87u3vBnrj9fMUlYEpNISlxsxgq14PVtiaOnfRYl0avjAmIYY+4210StfZ8FO+Fuy+RxuQUTLq/PMoyGkhrvsGGFf1KVRpVVMqV2CAMJ7hamPkJaVMFvpS2+TKVLRQ+C0f1USfa0y2qm3xkMv8CtiD8whAdr1E/QoesVwcKejE8JX9kb9+/MRl0pm9+Q/XbleFcP+TiKQc5/rd1BZ/FQtqFWQCTeFsRPvy/bym1XEOu7ZvqQZOnVyZGQidhSAu2oVEpJFC4QSbFHQ0lARufVYi8R3/L78I=
+        email: $NPM_EMAIL
+        api_key: $NPM_TOKEN
         on:
           tags: true
           repo: live-html-editor/TextWrap
