@@ -15,7 +15,8 @@
 		"build:dev": "rollup -c --environment BUILD:development",
 		"build": "rollup -c --environment BUILD:production",
 		"tsc": "tsc --module commonjs",
-		"tsc:watch": "tsc --module commonjs --watch"
+		"tsc:watch": "tsc --module commonjs --watch",
+		"commit": "git-cz"
 	},
 	"repository": {
 		"type": "git",
@@ -40,6 +41,8 @@
 	},
 	"devDependencies": {
 		"@types/jest": "^24.0.12",
+		"commitizen": "^3.1.1",
+		"cz-conventional-changelog": "^2.1.0",
 		"jest": "^24.7.1",
 		"jest-config": "^24.7.1",
 		"js-sha256": "^0.9.0",
@@ -58,5 +61,10 @@
 		"tslint-config-standard": "^8.0.1",
 		"typescript": "^3.4.3"
 	},
-	"dependencies": {}
+	"dependencies": {},
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-conventional-changelog"
+		}
+	}
 }

@@ -21,6 +21,9 @@
 	<a href="https://github.com/live-html-editor/TextWrap/blob/master/LICENSE">
 		<img alt="GitHub" src="https://img.shields.io/github/license/live-html-editor/TextWrap.svg">
 	</a>
+	<a href="http://commitizen.github.io/cz-cli/">
+		<img alt="Commitizen friendly" src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg">
+	</a>
 	<a href="https://github.com/live-html-editor/TextWrap/fork">
 		<img src="https://img.shields.io/github/forks/live-html-editor/TextWrap.svg?style=social" alt="GitHub forks">
 	</a>
