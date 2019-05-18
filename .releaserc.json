@@ -1,0 +1,13 @@
+{
+	"plugins": [
+		"@semantic-release/commit-analyzer",
+		"@semantic-release/release-notes-generator",
+		"@semantic-release/npm",
+		["@semantic-release/github", {
+			"assets": [
+				{"path": "dist/text-wrap.umd.js", "label": "UMD distribution"},
+				{"path": "dist/text-wrap.esm.js", "label": "ESM distribution"}
+			]
+		}]
+	]
+}

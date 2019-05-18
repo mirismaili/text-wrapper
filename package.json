@@ -8,19 +8,20 @@
 	"scripts": {
 		"lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
 		"test:dev": "jest",
-		"test:watch": "jest --coverage --watch",
+		"test:watch": "jest --watch",
 		"test": "jest --coverage --no-cache",
 		"prebuild": "rimraf dist",
-		"start": "rollup -cw",
-		"build:dev": "rollup -c --environment BUILD:development",
-		"build": "rollup -c --environment BUILD:production",
+		"start": "rollup --config --watch",
+		"build:dev": "rollup --config --environment BUILD:development",
+		"build": "rollup --config --environment BUILD:production",
 		"tsc": "tsc --module commonjs",
 		"tsc:watch": "tsc --module commonjs --watch",
-		"commit": "git-cz"
+		"commit": "git-cz",
+		"semantic-release": "semantic-release"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/live-html-editor/TextWrap.git"
+		"url": "https://github.com/live-html-editor/TextWrap.git"
 	},
 	"keywords": [
 		"editor",
@@ -54,6 +55,7 @@
 		"rollup-plugin-sourcemaps": "^0.4.2",
 		"rollup-plugin-terser": "^4.0.4",
 		"rollup-plugin-typescript2": "^0.21.0",
+		"semantic-release": "^15.13.14",
 		"temp-dir": "^2.0.0",
 		"ts-jest": "^24.0.2",
 		"tslint": "^5.16.0",

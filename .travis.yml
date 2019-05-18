@@ -1,23 +1,31 @@
 language: node_js
-node_js:
-  - "11"
-  - "10"
 
-before_script: echo "Running tests against $(node -v) ..."
-script: npm run test
+cache:
+  directories:
+    - ~/.npm
 
 jobs:
   include:
-    - stage: deploy to npm
-      if: tag IS present
+    - stage: "Unit Tests"
+      if: tag !~ /^v\d+\.\d+\.\d+/
+      node_js: "11"
+      name: "Unit Tests (1)"
+      script: npm run test
+    - script: npm run test
+      if: tag !~ /^v\d+\.\d+\.\d+/
       node_js: "10"
-      before_script: echo "Deploying to npm ..."
+      name: "Unit Tests (2)"
+
+    - stage: "Build and Release"
+      if: tag !~ /^v\d+\.\d+\.\d+/
+      node_js: lts/*
       script: npm run build
       deploy:
-        provider: npm
-        email: $NPM_EMAIL
-        api_key: $NPM_TOKEN
-        on:
-          tags: true
-          repo: live-html-editor/TextWrap
+        provider: script
         skip_cleanup: true
+        script: npx semantic-release
+
+    - stage: "Do nothing"
+      node_js: lts/*
+      if: tag =~ /^v\d+\.\d+\.\d+/
+      script: echo OK
