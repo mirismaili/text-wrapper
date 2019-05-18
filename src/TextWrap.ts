@@ -7,7 +7,6 @@ import {initiateObject} from "./utilities";
 export default class TextWrap implements WrapStyle {
 	// tslint:disable-next-line:variable-name
 	private readonly tabLength_1: number
-	private readonly continuationIndentVLength: number
 	
 	readonly continuationIndent!: string
 	readonly tabLength!: number
@@ -16,8 +15,6 @@ export default class TextWrap implements WrapStyle {
 	constructor(wrapStyle: WrapStyle = DEF_WRAP_STYLE) {
 		initiateObject(this, wrapStyle, DEF_WRAP_STYLE)
 		this.tabLength_1 = this.tabLength - 1
-		
-		this.continuationIndentVLength = this.getVisualLength(this.continuationIndent)
 	}
 	
 	wrap(text: string, indents: string): WrapResult {
@@ -25,7 +22,7 @@ export default class TextWrap implements WrapStyle {
 		const tabLength = this.tabLength
 		const length = text.length
 		const indentsN = indents + this.continuationIndent
-		const indentsNVLen = this.getVisualLength(indentsN)
+		const indentsNVLen = this.getVisualLength(indentsN, 0)
 		
 		let from = 0
 		let wrappedText = ''
@@ -36,7 +33,8 @@ export default class TextWrap implements WrapStyle {
 				++i
 		) {
 			c = text[i]
-			vLen += c === '\t' ? tabLength : 1
+			vLen += c === '\t' ?
+					tabLength - vLen % tabLength : 1
 			//console.debug(`A: ${c} / ${vLen}`);
 			
 			// tslint:disable-next-line:label-position
@@ -101,8 +99,21 @@ export default class TextWrap implements WrapStyle {
 		}
 	}
 	
-	private getVisualLength(s: string): number {
-		return s.length + this.tabLength_1 * (s.split('\t').length - 1) // (s.split('\t').length-1) counts '\t's in `s`
+	private getVisualLength(s: string, visualOffset: number = 0): number {
+		let a = 0
+		let b: number
+		let vLen = 0
+		while (true) {
+			b = s.indexOf('\t', a)
+			if (b === -1) return vLen + (s.length - a);
+			
+			vLen += (b - a)
+			vLen += this.tabLength - (vLen + visualOffset) % this.tabLength
+			
+			a = b + 1
+		}
+		
+		//return s.length + this.tabLength_1 * (s.split('\t').length - 1) // (s.split('\t').length-1) counts '\t's in `s`
 	}
 	
 	// private reduceToVisualLength(s: string, visualLen: number): number {
