@@ -24,8 +24,3 @@ jobs:
         provider: script
         skip_cleanup: true
         script: npx semantic-release
-
-    - stage: "Do nothing"
-      node_js: lts/*
-      if: tag =~ /^v\d+\.\d+\.\d+/
-      script: echo OK
