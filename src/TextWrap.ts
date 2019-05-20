@@ -99,7 +99,7 @@ export default class TextWrap implements WrapStyle {
 		}
 	}
 	
-	private getVisualLength(s: string, visualOffset: number = 0): number {
+	getVisualLength(s: string, visualOffset: number = 0): number {
 		let a = 0
 		let b: number
 		let vLen = 0

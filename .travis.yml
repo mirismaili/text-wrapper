@@ -11,17 +11,17 @@ jobs:
       if: type == push && tag !~ ^v\d+\.\d+\.\d+ && commit_message =~ /^(test|feat|fix|refactor|pref|build|revert)\(/
       node_js: "11"
       before_script: echo -e "BUILD_DIR          = $TRAVIS_BUILD_DIR\nBUILD_ID           = $TRAVIS_BUILD_ID\nBUILD_NUMBER       = $TRAVIS_BUILD_NUMBER\nBUILD_WEB_URL      = $TRAVIS_BUILD_WEB_URL\nCOMMIT             = $TRAVIS_COMMIT\nCOMMIT_MESSAGE     = $TRAVIS_COMMIT_MESSAGE\nCOMMIT_RANGE       = $TRAVIS_COMMIT_RANGE\nDEBUG_MODE         = $TRAVIS_DEBUG_MODE\nEVENT_TYPE         = $TRAVIS_EVENT_TYPE\nJOB_ID             = $TRAVIS_JOB_ID\nJOB_NAME           = $TRAVIS_JOB_NAME\nJOB_NUMBER         = $TRAVIS_JOB_NUMBER\nJOB_WEB_URL        = $TRAVIS_JOB_WEB_URL\nOS_NAME            = $TRAVIS_OS_NAME\nOSX_IMAGE          = $TRAVIS_OSX_IMAGE\nPULL_REQUEST       = $TRAVIS_PULL_REQUEST\nPULL_REQUEST_BRANCH= $TRAVIS_PULL_REQUEST_BRANCH\nPULL_REQUEST_SHA   = $TRAVIS_PULL_REQUEST_SHA\nPULL_REQUEST_SLUG  = $TRAVIS_PULL_REQUEST_SLUG\nSECURE_ENV_VARS    = $TRAVIS_SECURE_ENV_VARS\nSUDO               = $TRAVIS_SUDO\nTEST_RESULT        = $TRAVIS_TEST_RESULT\nTAG                = $TRAVIS_TAG\nBUILD_STAGE_NAME   = $TRAVIS_BUILD_STAGE_NAME"
-      script: npm run test
+      script: npm run test:prod
     - name: "Unit Test (10) + Report Coverage"
       if: type == push && tag !~ ^v\d+\.\d+\.\d+ && commit_message =~ /^(test|feat|fix|refactor|pref|build|revert)\(/
       node_js: "10"
-      script: npm run test
+      script: npm run test:prod
       after_success: npx codecov
 
     - stage: "Release"
       name: "Build and Release"
       if: type == push && tag !~ ^v\d+\.\d+\.\d+ && branch == master && commit_message =~ /^(feat|fix|refactor|pref|build|revert)\(/
-      script: npm run build
+      script: npm run build:prod
       node_js: lts/*
       deploy:
         provider: script
