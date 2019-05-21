@@ -51,7 +51,7 @@ const dependentOutput = {
 	input: input,
 	output: {
 		format: 'umd', file: pkg.main, name: libVarName, sourcemap: true, exports: 'named',
-		globals: {}
+		globals: {debug: 'Debug'}
 	},
 	watch: watch,
 	plugins: commonPlugins.concat([

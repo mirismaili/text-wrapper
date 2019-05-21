@@ -1,4 +1,12 @@
-import {initiateObject} from "./utilities";
+import Debug from 'debug'
+
+import {initiateObject} from './utilities';
+
+const logAnyChar   = Debug('AC')
+const logFastCheck = Debug('FC')
+const logWhiteSpace= Debug('WS')
+const logBreakLine = Debug('BL')
+const logMainLoop  = Debug('ML')
 
 /**
  * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io)
@@ -33,9 +41,8 @@ export default class TextWrap implements WrapStyle {
 				++i
 		) {
 			c = text[i]
-			vLen += c === '\t' ?
-					tabLength - vLen % tabLength : 1
-			//console.debug(`A: ${c} / ${vLen}`);
+			vLen += c === '\t' ? tabLength - vLen % tabLength : 1
+			logAnyChar(`${c} / ${vLen}`);
 			
 			// tslint:disable-next-line:label-position
 			searchBreakLine: {
@@ -45,7 +52,7 @@ export default class TextWrap implements WrapStyle {
 				
 				// tslint:disable-next-line:label-position
 				searchWhiteSpace: {
-					if (vLen > this.wrapOn) { //console.debug('X: ' + fastCheck)
+					if (vLen > this.wrapOn) { //logFastCheck(fastCheck)
 						if (fastCheck ||
 								// The 2nd condition will always be true if the 1st is true. Actually, it is the main condition
 								// we need to check, but we know in most cases (~ 100%) the 1st is true.
@@ -54,10 +61,10 @@ export default class TextWrap implements WrapStyle {
 								// tslint:disable-next-line:no-conditional-assignment
 								&& (fastCheck = true)
 						) {
-							//console.debug('Y: ' + (marker - start > indentsNVLen))
+							logFastCheck(marker - start > indentsNVLen)
 							if (isNotBreakable) continue mainLoop
 							
-							//console.debug('Z')
+							logFastCheck('')
 							fastCheck = false
 						} else if (isNotBreakable)
 							break searchWhiteSpace
@@ -69,28 +76,29 @@ export default class TextWrap implements WrapStyle {
 					marker = i + 1 // Store the value of i
 					vLen0 = vLen // Store the value of vLen
 					continue mainLoop
-				} //------------------------------------------/searchWhiteSpace
+				} //----------------------------------------------------------------------/searchWhiteSpace
 				
 				// noinspection UnreachableCodeJS
 				markers.push(marker)
 				wrappedText += text.slice(from, marker) + '\n' + indentsN
-				//console.debug(`L: [${from}, ${marker}) - ${vLen} - ${indentsNVLen + (vLen - vLen0)}\n${text.slice(from, marker)}`);
-				vLen = indentsNVLen + (vLen - vLen0)
+				const nextVLen = indentsNVLen + (vLen - vLen0)
+				logWhiteSpace(`[${from}, ${marker}) / vLen: ${vLen} / nextVLen: ${nextVLen}\n${text.slice(from, marker)}`);
+				vLen = nextVLen
 				vLen0 = indentsNVLen
 				start = marker // Set to start of the next line
 				from = marker // Store the value of marker
 				fastCheck = false
 				continue mainLoop
-			} //------------------------------------------/searchBreakLine
+			} //----------------------------------------------------------------------/searchBreakLine
 			
-			//console.debug('NN');
 			// noinspection UnreachableCodeJS
+			logBreakLine('');
 			start = i // Set to start of the next line
 			vLen0 = 0 // Reset vLen0
 			vLen = 0 // Reset vLen
-		} // /mainLoop
+		} //----------------------------------------------------------------------/mainLoop
 		
-		//console.debug(`OK:${from}\n${wrappedText}`);
+		logMainLoop(`from: ${from}\n${wrappedText}`);
 		
 		return {
 			markers: markers,
