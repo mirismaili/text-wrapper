@@ -1,4 +1,4 @@
 *
 !/LICENSE
 !/dist/types/**/*
-!/dist/*.js
+!/dist/main.js

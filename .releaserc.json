@@ -5,8 +5,14 @@
 		"@semantic-release/npm",
 		["@semantic-release/github", {
 			"assets": [
-				{"path": "dist/text-wrap.umd.js", "label": "UMD distribution"},
-				{"path": "dist/text-wrap.esm.js", "label": "ESM distribution"}
+				{"path": "dist/bundle.umd.js", "label": "Suitable for use in browser via script tag: `<script src=\"...\">`"},
+				{"path": "dist/bundle.umd.js.map", "label": "The source-map for `bundle.umd.js`"},
+				
+				{"path": "dist/bundle.esm.js", "label": "Suitable for use in browser via ES6-module-import: `import TextWrapper from '...'` (or: `<script src=\"...\"  type=\"module\">`)"},
+				{"path": "dist/bundle.esm.js.map", "label": "The source-map for `bundle.esm.js`"},
+				
+				{"path": "dist/main.umd.js", "label": "Suitable for Node.js projects (and any other UMD-compatible environment that can resolve dependencies)\nThis one has been published on [NPM](https://www.npmjs.com/package/@live-html-editor/text-wrap) and you can install it with `npm install ...`."},
+				{"path": "dist/main.umd.js.map", "label": "The source-map for `main.umd.js`"}
 			]
 		}]
 	]
