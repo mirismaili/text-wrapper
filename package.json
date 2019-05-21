@@ -7,9 +7,12 @@
 	"types": "dist/types/TextWrap.d.ts",
 	"scripts": {
 		"lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
-		"test": "jest --verbose --colors",
-		"test:watch": "npm run test -- --watch",
-		"test:prod": "npm run test -- --coverage --no-cache",
+		"test:unit": "jest --verbose --colors --config jest.unit.config.js",
+		"test:unit:watch": "npm run test:unit -- --watch",
+		"pretest:unit:coverage": "rimraf coverage/unit",
+		"test:unit:coverage": "npm run test:unit -- --coverage",
+		"test:unit:prod": "npm run test:unit:coverage -- --no-cache",
+		"test:outms": "jest --verbose --colors --config jest.outms.config.json",
 		"prebuild": "rimraf dist",
 		"build": "rollup --config",
 		"build:watch": "npm run build -- --watch",
@@ -41,7 +44,10 @@
 		"singleQuote": true
 	},
 	"devDependencies": {
+		"@babel/core": "^7.4.4",
+		"@babel/preset-env": "^7.4.4",
 		"@types/jest": "^24.0.12",
+		"babel-jest": "^24.8.0",
 		"commitizen": "^3.1.1",
 		"cz-conventional-changelog": "^2.1.0",
 		"jest": "^24.7.1",

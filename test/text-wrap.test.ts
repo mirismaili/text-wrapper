@@ -1,8 +1,6 @@
 import * as fs from 'fs'
 import {sha256} from 'js-sha256'
 import TextWrapper from '../src/TextWrap'
-// import TextWrapper3 from '../dist/bundle.esm.js'
-//const TextWrapper2 = require('../dist/main.umd.js').default
 
 /**
  * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io)
@@ -71,10 +69,6 @@ describe('General tests:', () => {
 })
 
 describe('Case-specific tests:', () => {
-	it("Check input's hash", () =>
-			expect(sha256(input)).toBe(inputExpectedHash)
-	)
-	it("Check output's hash", () =>
-			expect(sha256(output)).toBe(outputExpectedHash)
-	)
+	it("Check input's hash", () => expect(sha256(input)).toBe(inputExpectedHash))
+	it("Check output's hash", () => expect(sha256(output)).toBe(outputExpectedHash))
 })
