@@ -1,4 +1,4 @@
-import TextWrapper from '../src/TextWrap'
+import TextWrapper from '../../src/TextWrap'
 
 /**
  * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io)

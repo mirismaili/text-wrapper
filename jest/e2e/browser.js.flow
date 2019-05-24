@@ -1,0 +1,45 @@
+/**
+ * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io)
+ * Created on 1398/3/1 (2019/5/22).
+ */
+'use strict'
+
+const path = require('path')
+const Page = require('puppeteer')
+const Browser = require('puppeteer')
+const PORT = require('./config/options.js').listenPort
+
+const mockPagePath = path.relative(process.cwd(), path.resolve(__dirname, 'mock', 'index.html'))
+		.replace(/\\/g, '/')
+const mockPageUrl = `http://127.0.0.1:${PORT}/${mockPagePath}`
+
+const timeout = 5000
+
+describe(`Browser environment: "bundle.umd.js" & "bundle.esm.js" (at: ${mockPageUrl})`, () => {
+	let browser: Browser
+	let page: Page
+	let pageTitle: string
+	let errors = []
+	
+	beforeAll(async () => {
+		// noinspection JSUnresolvedVariable
+		browser = global.__BROWSER__
+		
+		page = (await browser.pages())[0];
+		
+		const handler = err => errors.push(err)
+		
+		page.on('requestfailed', handler)
+		page.on('pageerror', handler)
+		page.on('error', handler)
+		
+		await page.goto(mockPageUrl)
+		
+		pageTitle = await page.title()
+	}, timeout)
+	
+	it('Should load without error', () => {
+		expect(pageTitle).toBe('Mock HTML')
+		expect(errors).toStrictEqual([])
+	})
+}, timeout)

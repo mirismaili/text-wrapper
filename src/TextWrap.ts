@@ -7,6 +7,7 @@ const logFastCheck = Debug('FC')
 const logWhiteSpace= Debug('WS')
 const logBreakLine = Debug('BL')
 const logMainLoop  = Debug('ML')
+Debug.log = console.debug.bind(console);
 
 /**
  * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io)

@@ -1,8 +1,6 @@
 language: node_js
 
-cache:
-  directories:
-    - ~/.npm
+cache: npm
 
 jobs:
   include:
@@ -20,9 +18,10 @@ jobs:
 
     - stage: "Release"
       name: "Build and Release"
-      if: type == push && tag !~ ^v\d+\.\d+\.\d+ && branch == master && commit_message =~ /^(feat|fix|refactor|pref|build|revert)\(/
+      if: type == push && tag !~ ^v\d+\.\d+\.\d+ && branch == master &&
+        commit_message =~ /^((feat|fix|refactor|pref|build|revert)\(|test\((?i)[\s\S]*?\b(E2E|END-TO-END|END2END)\b)/ # https://regex101.com/r/XWKT5J/1/
       script: npm run build:prod
-      after_success: npm run test:outms
+      after_success: npm run test:e2e
       node_js: lts/*
       deploy:
         provider: script

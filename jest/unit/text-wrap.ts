@@ -1,6 +1,7 @@
 import * as fs from 'fs'
+import * as path from 'path'
 import {sha256} from 'js-sha256'
-import TextWrapper from '../src/TextWrap'
+import TextWrapper from '../../src/TextWrap'
 
 /**
  * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io)
@@ -10,7 +11,8 @@ import TextWrapper from '../src/TextWrap'
 const inputExpectedHash = '117677f3e12ded864c527d4f03583d4dd0be3cc0542c3cbbdbb01574dcf280c8'
 const outputExpectedHash = '2e1bd0f9ae5b0ee9406908f58bd5b4030bbcdf464e5462e0fd1b142d49dbac2d'
 
-const input = fs.readFileSync('./test/input.txt', 'utf8').replace(/\r\n|\r/g, '\n')
+const input = fs.readFileSync(path.resolve(__dirname, 'stub.txt'), 'utf8')
+		.replace(/\r\n|\r/g, '\n')
 
 const indents = ''
 const maxLineLength = 50

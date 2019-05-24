@@ -1,4 +1,0 @@
-{
-	"testEnvironment": "node",
-	"testRegex": "\\.test\\.outms\\.js$"
-}
