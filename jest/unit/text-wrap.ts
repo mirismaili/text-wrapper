@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import {sha256} from 'js-sha256'
-import TextWrapper from '../../src/TextWrap'
+import TextWrap from '../../src/TextWrap'
 
 /**
  * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io)
@@ -16,7 +16,7 @@ const input = fs.readFileSync(path.resolve(__dirname, 'stub.txt'), 'utf8')
 
 const indents = ''
 const maxLineLength = 50
-const textWrapper = new TextWrapper({wrapOn: maxLineLength})
+const textWrapper = new TextWrap({wrapOn: maxLineLength})
 const wrapResult = textWrapper.wrap(input, indents)
 const output = wrapResult.wrappedText
 

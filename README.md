@@ -22,9 +22,6 @@
 		<img src="https://david-dm.org/live-html-editor/textwrap/dev-status.svg" alt="devDependency Status">
 	</a>
 	<br>
-	<a href="https://github.com/live-html-editor/TextWrap/blob/master/LICENSE">
-		<img alt="GitHub" src="https://img.shields.io/github/license/live-html-editor/TextWrap.svg">
-	</a>
 	<a href="http://commitizen.github.io/cz-cli/">
 		<img alt="Commitizen friendly" src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg">
 	</a>
@@ -33,6 +30,10 @@
 	</a>
 	<a href="https://github.com/live-html-editor/TextWrap">
 		<img src="https://img.shields.io/github/stars/live-html-editor/TextWrap.svg?style=social" alt="GitHub stars">
+	</a>
+	<br>
+	<a href="https://github.com/live-html-editor/TextWrap/blob/master/LICENSE">
+		<img alt="GitHub" src="https://img.shields.io/github/license/live-html-editor/TextWrap.svg">
 	</a>
 </p>
 

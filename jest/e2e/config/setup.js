@@ -9,7 +9,15 @@ const path = require('path')
 const url = require('url')
 const http = require('http')
 
-const puppeteer = require('puppeteer')
+// noinspection NpmUsedModulesInstalled
+const puppeteer = require('puppeteer') // Error: Cannot find module 'puppeteer' => See below note:
+
+// Before run `test:e2e` you need to run `npm i -g puppeteer && npm link puppeteer` as a one-time-action.
+// Why it's not in devDependencies?
+// Regularly we install such packages locally (--save or --save-dev) but exceptionally I suggest installing `puppeteer`
+// globally, because of its extra installation step: [node install.js ---> Downloading Chromium r662092 - 140.3 Mb] and
+// because it just required for end-to-end tests.
+
 const mkdirp = require('mkdirp')
 
 const PORT = require('./options.js').listenPort
