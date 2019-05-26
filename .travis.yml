@@ -59,7 +59,7 @@ jobs:
         provider: script
         skip_cleanup: true
 
-        # Sub-shell is required for the script in `deploy` section:
+        # `bash -c ...` is required for the script in `deploy` section:
         script: bash -c "
           if [ $SEMANTIC_RELEASE == true ]; then
             npx semantic-release;

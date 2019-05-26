@@ -9,14 +9,14 @@ const path = require('path')
 const url = require('url')
 const http = require('http')
 
-// noinspection NpmUsedModulesInstalled
-const puppeteer = require('puppeteer') // Error: Cannot find module 'puppeteer' => See below note:
-
-// Before run `test:e2e` you need to run `npm i -g puppeteer && npm link puppeteer` as a one-time-action.
+// Before run `test:e2e` you need to run `npm i -g puppeteer && npm link puppeteer` (as a one-time-action).
 // Why it's not in devDependencies?
 // Regularly we install such packages locally (--save or --save-dev) but exceptionally I suggest installing `puppeteer`
-// globally, because of its extra installation step: [node install.js ---> Downloading Chromium r662092 - 140.3 Mb] and
+// globally, because of its extra installation step (node install.js ---> Downloading Chromium r662092 - 140.3 Mb) and
 // because it just required for end-to-end tests.
+
+// noinspection NpmUsedModulesInstalled
+const puppeteer = require('puppeteer') // Error: Cannot find module 'puppeteer' => See above note
 
 const mkdirp = require('mkdirp')
 
@@ -56,11 +56,13 @@ const staticServerPromise = new Promise((resolve, reject) => {
 				return
 			}
 			//----------------------------------------------------------/e404:
+			
 			// noinspection UnreachableCodeJS
 			console.error(`File not found: "${filePath}"`)
 			res.writeHead(404, {'Content-Type': 'text/plain'})
 			res.write('404/ Not Found\n')
 			res.end()
+			
 		} catch (exeption) {
 			console.error(e.stack)
 			res.writeHead(500, {'Content-Type': 'text/plain'})
@@ -75,7 +77,7 @@ const staticServerPromise = new Promise((resolve, reject) => {
 		// noinspection JSUndefinedPropertyAssignment
 		global.__STATIC_SERVER__ = staticServer
 		
-		console.info(`Static file server running on: http://127.0.0.1:${PORT}`)
+		console.info(`Static file server running at: http://127.0.0.1:${PORT}`)
 		resolve()
 	})
 })
@@ -101,4 +103,3 @@ const launchPuppeteerPromise = new Promise((resolve, reject) => {
 
 // noinspection JSCheckFunctionSignatures
 module.exports = async () => await Promise.all([staticServerPromise, launchPuppeteerPromise])
-

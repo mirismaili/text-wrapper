@@ -5,8 +5,12 @@
 'use strict'
 
 const path = require('path')
-const Page = require('puppeteer')
+
+// noinspection NpmUsedModulesInstalled
+const Page = require('puppeteer')    // Cannot find module 'puppeteer' => See the note in "./config/setup.js"
+// noinspection NpmUsedModulesInstalled
 const Browser = require('puppeteer')
+
 const PORT = require('./config/options.js').listenPort
 
 const mockPagePath = path.relative(process.cwd(), path.resolve(__dirname, 'mock', 'index.html'))

@@ -4,13 +4,13 @@
 		"@semantic-release/release-notes-generator",
 		["@semantic-release/github", {
 			"assets": [
-				{"path": "dist/bundle.umd.js", "label": "1. bundle.umd.js (Use it in browser and via script tag: <script src=\"...\">)"},
+				{"path": "dist/bundle.umd.js", "label": "1. bundle.umd.js - Use this in browser and via script tag: <script src=\"...\">."},
 				{"path": "dist/bundle.umd.js.map", "label": "1. bundle.umd.js.map"},
 				
-				{"path": "dist/bundle.esm.js", "label": "2. bundle.esm.js (Use it in browser and via ES6-module-import-system: [import ... from '...'] (or: <script src=\"...\"  type=\"module\">))"},
+				{"path": "dist/bundle.esm.js", "label": "2. bundle.esm.js - Use this in browser and via ES6-module-import-system: [import ... from '...'] (or: <script src=\"...\"  type=\"module\">)."},
 				{"path": "dist/bundle.esm.js.map", "label": "2. bundle.esm.js.map"},
 				
-				{"path": "dist/main.umd.js", "label": "3. main.umd.js (This is the one has been published on npm.js and you can install it with [npm install ...])"},
+				{"path": "dist/main.umd.js", "label": "3. main.umd.js - This is the one has been published on npm.js and you can install it with [npm install ...]."},
 				{"path": "dist/main.umd.js.map", "label": "3. main.umd.js.map"}
 			]
 		}]
