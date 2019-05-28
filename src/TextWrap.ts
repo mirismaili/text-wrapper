@@ -54,25 +54,34 @@ export default class TextWrap implements WrapStyle {
 				// tslint:disable-next-line:label-position
 				searchWhiteSpace: {
 					if (vLen > this.wrapOn) { //logFastCheck(fastCheck)
+						// 1. PASSED
 						if (fastCheck ||
 								// The 2nd condition will always be true if the 1st is true. Actually, it is the main condition
-								// we need to check, but we know in most cases (~ 100%) the 1st is true.
+								// we need to check, but we know in almost all cases the 1st (that is much simpler) is true.
 								!(marker - start > indentsNVLen ||
 										this.getVisualLength(text.slice(start, marker)) > indentsNVLen)
 								// tslint:disable-next-line:no-conditional-assignment
 								&& (fastCheck = true)
 						) {
+							// 1.1. PASSED but CAN'T
 							logFastCheck(marker - start > indentsNVLen)
-							if (isNotBreakable) continue mainLoop
+							if (isNotBreakable) /* 1.1.1. PASSED but CAN'T and NO MARKER NEEDED */ continue mainLoop
+							
+							// 1.1.2. PASSED but CAN'T and MARKER NEEDED
 							
 							logFastCheck('')
 							fastCheck = false
-						} else if (isNotBreakable)
+						} else /* 1.2. PASSED and CAN */ if (isNotBreakable) // 1.2.1. PASSED and CAN and MUST
 							break searchWhiteSpace
-					} else if (isNotBreakable)
+					} else /* 2. NOT PASSED */ if (isNotBreakable) // 2.1. NOT PASSED and NO MARKER NEEDED
 						continue mainLoop
 					
 					// Any breakable character (white-space except '\n' and '\xA0'):
+					
+					// 1.1.2. PASSED but CAN'T and MARKER NEEDED
+					// 1.2.2. PASSED and CAN but MUST NOT
+					// 2.2. NOT PASSED and MARKER NEEDED
+					// => MARKER NEEDED
 					
 					marker = i + 1 // Store the value of i
 					vLen0 = vLen // Store the value of vLen
