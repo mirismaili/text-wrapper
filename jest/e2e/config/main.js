@@ -10,7 +10,7 @@ const parentPath = path.resolve(__dirname, '..').replace(/\\/g, '/')
 module.exports = {
 	rootDir: path.relative(__dirname, process.cwd()),
 	moduleFileExtensions: ['js', 'flow'],
-	testRegex: `${parentPath}/(?!config|mock).+?\\.js(\\.flow)?$`,
+	testRegex: `${parentPath}/(?!config/|mock/).+?\\.js(\\.flow)?$`,
 	globalSetup: `${__dirname}/setup.js`,
 	globalTeardown: `${__dirname}/teardown.js`,
 	testEnvironment: `${__dirname}/puppeteer_environment.js`,

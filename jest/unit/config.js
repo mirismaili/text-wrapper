@@ -13,7 +13,7 @@ module.exports = {
 	transform: {
 		'.(ts|tsx)': 'ts-jest'
 	},
-	testRegex: `${__dirname}/(?!config).+?\\.[jt]s$`,
+	testRegex: `${__dirname}/(?!config|disabled/|temp/).+?\\.[jt]s$`,
 	coveragePathIgnorePatterns: [
 		'/node_modules/',
 		'/jest/',
@@ -31,5 +31,6 @@ module.exports = {
 	collectCoverageFrom: [
 		'src/*.{js,ts}'
 	],
-	coverageDirectory: 'coverage/unit'
+	coverageDirectory: 'coverage/unit',
+	setupFilesAfterEnv: ['jest-expect-message'],
 }

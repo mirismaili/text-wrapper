@@ -1,6 +1,7 @@
 node_modules/
 dist/
 tsc-out/
-tempst*
+temp*
 /coverage/
 *.iml
+/jest/unit/stub/output (*).txt
