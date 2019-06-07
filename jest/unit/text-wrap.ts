@@ -1,17 +1,14 @@
 import * as fs from 'fs'
-import * as path from "path"
 import {sha256} from 'js-sha256'
-import TextWrap, {WrapStyle} from '../../src/TextWrap'
+import * as path from "path"
+import TextWrap, {WrapOptions} from '../../src/TextWrap'
 
 /**
  * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io)
  * Created on 1398/2/13 (2019/5/3).
  */
 
-const inputExpectedHash = '117677f3e12ded864c527d4f03583d4dd0be3cc0542c3cbbdbb01574dcf280c8'
-const outputExpectedHash = '2e1bd0f9ae5b0ee9406908f58bd5b4030bbcdf464e5462e0fd1b142d49dbac2d'
-
-const input = fs.readFileSync(path.resolve(__dirname, 'stub', 'input.txt'), 'utf8')
+let originalInput = fs.readFileSync(path.resolve(__dirname, 'stub', 'input.txt'), 'utf8')
 		.replace(/\r\n|\r/g, '\n')
 
 const allOptions: (Options | undefined)[] = [
@@ -20,23 +17,56 @@ const allOptions: (Options | undefined)[] = [
 		indents: '\t',
 		wrapOn: 50,
 		continuationIndent: '',
+		expectedOutputHash: 'f90cb72aaae81b846ad5af9d7c03947fb2e858fc7c847f2c54ff1c27fe13ea7e',
 	},
 	{
 		indents: '',
 		wrapOn: 51,
 		continuationIndent: '\t',
+		expectedOutputHash: '0d4bdbb897a39fb462f21e066cbc798266e3ee85e0adaa441a030d333ae306a4',
 	},
 	{
 		indents: '',
 		wrapOn: 52,
 		continuationIndent: '    ',
+		expectedOutputHash: '8ca6cdd09ab4e49adb7dc489c745015c26e242aa70f478373e4ddf5dbcf40329',
+	},
+	{
+		indents: '\t',
+		wrapOn: 53,
+		continuationIndent: '\t\t',
+		tabLength: 2,
+		expectedOutputHash: 'e2af18c11ebc7a8c7b63b55ed953c0be30f38d7071f717725f6a30ff99e63b18',
+	},
+	{
+		indents: '    ',
+		wrapOn: 63,
+		continuationIndent: '\t',
+		tabLength: 8,
+		expectedOutputHash: 'da196f9855194d5f90eaff99ecbd655bfa32b0bed918b6f8708dff6d20bfed37',
+	},
+	{
+		indents: '\t    ',
+		wrapOn: 73,
+		continuationIndent: '\t  ',
+		tabLength: 3,
+		expectedOutputHash: 'c314c36352e0d0e27643a3100e94047df3af11efa8a1fbde90cb885a533fdfe6',
+	},
+	{
+		indents: '\t',
+		wrapOn: 74,
+		continuationIndent: '   ',
+		tabLength: 6,
+		enabledDebugNamespace: 'BR',
+		expectedOutputHash: '337a9d26400205e184ec6ef841cee70714bb4f751be46f877e27016248a3f9b1',
 	},
 ]
 
 const outputs: string[] = []
+//***********************************************************************************/
 
 describe('Case-specific tests:', () => {
-	it("Check input's hash", () => expect(sha256(input)).toBe(inputExpectedHash))
+	it("Check input's hash", () => expect(sha256(originalInput)).toBe('928c256346d0b16e69cd4c4ddd56e5608335f9ad16d1a25c26a9d8ff4b3e4edf'))
 })
 
 afterAll(() => {
@@ -47,21 +77,40 @@ afterAll(() => {
 for (let testNum = 0; testNum < allOptions.length; ++testNum) {
 	const options = allOptions[testNum]
 	const textWrap = new TextWrap(options)
-	
 	const maxLineLength = textWrap.wrapOn
 	const continuationIndent = textWrap.continuationIndent
-	const bc = textWrap.breakableCharactersClass
-	const ec = textWrap.allowedExceedingCharactersClass
+	const bc = textWrap.breakableCharacters
+	const ec = textWrap.allowedExceedingCharacters
 	
-	const indents = options === undefined ? '' : options.indents
-	const indentsN = indents + continuationIndent
+	let indents: string
+	let expectedOutputHash: string
+	
+	let input = originalInput
+	
+	if (options === undefined) { // Default values for first options (that is undefined):
+		indents = ''
+		expectedOutputHash = '971346506cad37fecd726196c2d75d577f02f160368953b9a261b36af3dec822'
+	} else {
+		indents = options.indents
+		expectedOutputHash = options.expectedOutputHash
+		
+		if (options.enabledDebugNamespace) {  // Just for test coverage. To cover debug callback functions (formatters)
+			textWrap.debug.setLog(() => null)  // Disable console outputs of `debug`
+			textWrap.debug.enable(options.enabledDebugNamespace)
+			input = input.slice(0, 500)
+		}
+	}
 	
 	const wrapResult = textWrap.wrap(input, indents)
+	
+	const indentsN = indents + continuationIndent
+	
 	const output = outputs[testNum] = wrapResult.wrappedText
 	const markers = wrapResult.markers
 	
 	describe(`General tests [${testNum}]:`, () => {
-		it('Check num of markers', () => expect(output.length).toBe(input.length + markers.length * ('\n' + indentsN).length))
+		it('Check num of markers',
+				() => expect(output.length).toBe(input.length + markers.length * ('\n' + indentsN).length))
 		
 		it('Reproduce output using markers', () => {
 			let anotherOutput = ''
@@ -78,12 +127,11 @@ for (let testNum = 0; testNum < allOptions.length; ++testNum) {
 		})
 		
 		it('Try to find an illegal short line',
-				// Two markers which [the distance between the first marker and the first breakable character after the second
-				// marker] is less than or equal with [maxLineLength]
+				// Two markers which [the distance between a marker and the first breakable character after next marker] is
+				// less than or equal with [maxLineLength]
 				() => {
 					let a = 0
-					const regExp = new RegExp(bc.source,
-							bc.flags.appendIfNot('g'))
+					const regExp = new RegExp(bc.source, bc.flags.appendIfNot('g'))
 					
 					for (let b of markers) {
 						regExp.lastIndex = b
@@ -119,19 +167,19 @@ for (let testNum = 0; testNum < allOptions.length; ++testNum) {
 					}
 				})
 		
-		it("Try to find an illegal long line using RegExp", // Same as above but using RegExp. This one is not strict because can only calculate length, but not vLen (visual-length)
-				() => {
-					expect(output).not.toMatch1(
-							// https://regex101.com/r/OfQoDb/1
-							new RegExp(
-									`^(?=.{${indentsN.length},}[^\\w\\xA0\\n](?![^\\S\\n]|$)).{${maxLineLength},}\\S`,
-									'm'),
-							`The text will be in ${outputPath(testNum)}`)
-				})
+		// it("Try to find an illegal long line using RegExp", // Same as above but using RegExp. This one is not strict and accurate because can only calculate length, but not vLen (visual-length)
+		// 		() => {
+		// 			expect(output).not.toMatch1(
+		// 					// https://regex101.com/r/OfQoDb/1
+		// 					new RegExp(
+		// 							`^(?=.{${indentsN.length},}[^\\w\\xA0\\n](?![^\\S\\n]|$)).{${maxLineLength},}\\S`,
+		// 							'm'),
+		// 					`The text will be in "${outputPath(testNum)}"`)
+		// 		})
 	})
 	
 	describe(`Case-specific tests [${testNum}]:`, () => {
-		it("Check output's hash", () => expect(sha256(output)).toBe(outputExpectedHash))
+		it("Check output's hash", () => expect(sha256(output)).toBe(expectedOutputHash))
 	})
 }
 //*************************************************************************************/
@@ -146,7 +194,7 @@ expect.extend({
 		
 		return passed ?
 				{
-					message: message(() => `doesn't match ${regExp}\nFirst match:\n[${match1}]`),
+					message: message(() => `not match ${regExp}\nFirst match:\n[${match1}]`),
 					pass: true,
 				} :
 				{
@@ -176,8 +224,10 @@ declare global {
 
 //*************************************************************************************/
 
-interface Options extends WrapStyle {
+interface Options extends WrapOptions {
 	indents: string
+	expectedOutputHash: string
+	enabledDebugNamespace?: string
 }
 
 function outputPath(i: number) {

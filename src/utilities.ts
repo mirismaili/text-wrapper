@@ -8,6 +8,10 @@ export function initiateObject(source: { [k: string]: any }, target: { [k: strin
 		const targetValue = target === undefined ? undefined : target[key];
 		
 		if (typeof defValue === 'object' && defValue !== null && !Array.isArray(defValue)) {
+			if (targetValue === undefined || targetValue === defValue) {
+				source[key] = defValue
+				continue
+			}
 			source[key] = {};
 			initiateObject(source[key], targetValue, defValue);
 			continue;
