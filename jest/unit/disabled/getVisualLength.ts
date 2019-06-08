@@ -1,11 +1,11 @@
-import TextWrap from '../../src/TextWrap'
+import TextWrapper from '../../src/TextWrapper'
 
 /**
  * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io)
  * Created on 1398/2/30 (2019/5/20).
  */
 
-const obj = new TextWrap()
+const obj = new TextWrapper()
 
 describe('Test `getVisualLength()`:', () => {
 	it('Check `getVisualLength()`', () => {

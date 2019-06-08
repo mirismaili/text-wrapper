@@ -4,7 +4,7 @@
  */
 'use strict'
 
-import TextWrap from '../../../dist/bundle.esm.js'
+import TextWrapper from '../../../dist/bundle.esm.js'
 
-if (!(new TextWrap() instanceof TextWrap))
-	throw new Error(`A problem in \`textWrap.default\`:\n${textWrap.default}`)
+if (!(new TextWrapper() instanceof TextWrapper))
+	throw new Error(`A problem in \`text_wrapper_lib.default\`:\n${text_wrapper_lib.default}`)

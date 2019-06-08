@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import {sha256} from 'js-sha256'
 import * as path from "path"
-import TextWrap, {WrapOptions} from '../../src/TextWrap'
+import TextWrapper, {WrapOptions} from '../../src/TextWrapper'
 
 /**
  * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io)
@@ -78,11 +78,11 @@ afterAll(() => {
 
 for (let testNum = 0; testNum < testsNum; ++testNum) {
 	const options = allOptions[testNum]
-	const textWrap = new TextWrap(options)
-	const maxLineLength = textWrap.wrapOn
-	const continuationIndent = textWrap.continuationIndent
-	const bc = textWrap.breakableCharacters
-	const ec = textWrap.allowedExceedingCharacters
+	const textWrapper = new TextWrapper(options)
+	const maxLineLength = textWrapper.wrapOn
+	const continuationIndent = textWrapper.continuationIndent
+	const bc = textWrapper.breakableCharacters
+	const ec = textWrapper.allowedExceedingCharacters
 	
 	let indents: string
 	let expectedOutputHash: string
@@ -97,13 +97,13 @@ for (let testNum = 0; testNum < testsNum; ++testNum) {
 		expectedOutputHash = options.expectedOutputHash
 		
 		if (options.enabledDebugNamespace) {  // Just for test coverage. To cover debug callback functions (formatters)
-			textWrap.debug.setLog(() => null)  // Disable console outputs of `debug`
-			textWrap.debug.enable(options.enabledDebugNamespace)
+			textWrapper.debug.setLog(() => null)  // Disable console outputs of `debug`
+			textWrapper.debug.enable(options.enabledDebugNamespace)
 			input = input.slice(0, 500)
 		}
 	}
 	
-	const wrapResult = textWrap.wrap(input, indents)
+	const wrapResult = textWrapper.wrap(input, indents)
 	
 	const indentsN = indents + continuationIndent
 	
@@ -143,8 +143,8 @@ for (let testNum = 0; testNum < testsNum; ++testNum) {
 						
 						// WARNING: Due to performance issues, never expose `expect` method outside of an `if` block (that
 						// checks the test condition) in a loop.
-						if (textWrap.getVisualLength(slice) <= maxLineLength)
-							expect(textWrap.getVisualLength(slice)).toBeGreaterThan(maxLineLength, `[${slice}]\n${regExp}`)
+						if (textWrapper.getVisualLength(slice) <= maxLineLength)
+							expect(textWrapper.getVisualLength(slice)).toBeGreaterThan(maxLineLength, `[${slice}]\n${regExp}`)
 						
 						a = b
 					}
@@ -160,12 +160,12 @@ for (let testNum = 0; testNum < testsNum; ++testNum) {
 						const match = regExp.exec(output)
 						if (match === null) break
 						
-						const vLen = textWrap.getVisualLength(match[0])
+						const vLen = textWrapper.getVisualLength(match[0])
 						const wrongCondition = vLen > maxLineLength
 						
 						if (wrongCondition &&
 								// Check to sure the line is breakable:
-								textWrap.getVisualLength(match[1]) > textWrap.getVisualLength(indentsN)
+								textWrapper.getVisualLength(match[1]) > textWrapper.getVisualLength(indentsN)
 						)
 							expect(vLen).toBeLessThanOrEqual(maxLineLength, `[${match[0]}]\n${regExp}`)
 					}

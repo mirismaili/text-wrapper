@@ -10,9 +10,11 @@
 
     <script src="../../../dist/bundle.umd.js"></script>
     <script>
-		 const TextWrap = textWrap.default
-		 if (!(new TextWrap() instanceof TextWrap))
-			 throw new Error(`A problem in \`textWrap.default\`:\n${textWrap.default}`)
+		 const TextWrapper = text_wrapper_lib.default
+		 const DEF_WRAP_STYLE = text_wrapper_lib.DEF_WRAP_STYLE
+
+		 if (!(new TextWrapper() instanceof TextWrapper))
+			 throw new Error(`A problem in \`text_wrapper_lib.default\`:\n${TextWrapper}`)
     </script>
 
     <script src="index.js" type="module"></script>

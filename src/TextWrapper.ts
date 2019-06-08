@@ -15,7 +15,7 @@ Debug.formatters.c = (f: () => string) => f()
  * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io)
  * Created on 1398/2/6 (2019/4/26).
  */
-export default class TextWrap implements WrapOptions {
+export default class TextWrapper implements WrapOptions {
 	// tslint:disable-next-line:variable-name
 	private readonly tabLength_1: number
 	

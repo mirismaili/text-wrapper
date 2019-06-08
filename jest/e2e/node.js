@@ -5,7 +5,10 @@
 'use strict'
 
 // noinspection JSUnresolvedVariable
-const TextWrapper = require('../../dist/main.umd.js').default
+const text_wrapper_lib = require('../../dist/main.umd.js')
+
+const TextWrapper = text_wrapper_lib.default
+const DEF_WRAP_STYLE = text_wrapper_lib.DEF_WRAP_STYLE
 
 describe(`Node.js environment: "main.umd.js"`, () => {
 	it("main.umd", () => expect(new TextWrapper()).toBeInstanceOf(TextWrapper))
