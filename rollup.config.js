@@ -3,7 +3,7 @@ import commonjs from 'rollup-plugin-commonjs'
 import sourceMaps from 'rollup-plugin-sourcemaps'
 import camelCase from 'lodash.camelcase'
 import typescript from 'rollup-plugin-typescript2'
-import {terser} from "rollup-plugin-terser"
+import {terser} from 'rollup-plugin-terser'
 import os from 'os'
 import autoExternal from 'rollup-plugin-auto-external'
 import globals from 'rollup-plugin-node-globals'
@@ -26,7 +26,7 @@ const commonPlugins = [
 		cacheRoot: `${os.tmpdir()}/.rpt2_cache`, // See: https://github.com/ezolenko/rollup-plugin-typescript2/issues/34#issuecomment-332591290
 	}),
 	commonjs(),
-	((uglify || isProd && uglify !== false) && terser()),
+	(uglify === 'true' || uglify !== 'false' && isProd) && terser(),
 	sourceMaps()
 ]
 

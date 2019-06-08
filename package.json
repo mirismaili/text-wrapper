@@ -19,6 +19,7 @@
 		"build:ugligy": "npm run build -- --environment UGLIFY",
 		"build:watch": "npm run build -- --watch",
 		"build:prod": "npm run build -- --environment BUILD:production",
+		"build:prod0": "npm run build -- --environment BUILD:production,UGLIFY:false",
 		"tsc": "tsc --module commonjs",
 		"tsc:watch": "tsc --module commonjs --watch",
 		"commit": "git-cz",
