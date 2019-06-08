@@ -9,8 +9,7 @@ const path = require('path')
 const os = require('os')
 
 const NodeEnvironment = require('jest-environment-node')
-// noinspection NpmUsedModulesInstalled
-const puppeteer = require('puppeteer')   // Cannot find module 'puppeteer' => See the note in "./setup.js"
+const puppeteer = require('puppeteer')
 
 const DIR = path.join(os.tmpdir(), 'jest_puppeteer_global_setup')
 

@@ -18,6 +18,7 @@ const libClassName = `${libVarName[0].toUpperCase() + libVarName.slice(1)}` // P
 const input = `src/${libClassName}.ts`
 const watch = {include: 'src/**'}
 const isProd = process.env.BUILD === 'production'
+const uglify = process.env.UGLIFY
 
 const commonPlugins = [
 	typescript({
@@ -25,7 +26,7 @@ const commonPlugins = [
 		cacheRoot: `${os.tmpdir()}/.rpt2_cache`, // See: https://github.com/ezolenko/rollup-plugin-typescript2/issues/34#issuecomment-332591290
 	}),
 	commonjs(),
-	(isProd && terser()),
+	((uglify || isProd && uglify !== false) && terser()),
 	sourceMaps()
 ]
 

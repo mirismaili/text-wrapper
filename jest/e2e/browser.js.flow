@@ -6,9 +6,7 @@
 
 const path = require('path')
 
-// noinspection NpmUsedModulesInstalled
-const Page = require('puppeteer')    // Cannot find module 'puppeteer' => See the note in "./config/setup.js"
-// noinspection NpmUsedModulesInstalled
+const Page = require('puppeteer')
 const Browser = require('puppeteer')
 
 const PORT = require('./config/options.js').listenPort
