@@ -39,8 +39,8 @@ jobs:
       name: "Build and Release"
       node_js: lts/*
 
-      if: env(BUILD_AND_RELEASE) == FORCE ||
-        env(BUILD_AND_RELEASE) && type == push && tag !~ ^v\d+\.\d+\.\d+ && branch == master &&
+      if: tag !~ ^v\d+\.\d+\.\d+ && env(BUILD_AND_RELEASE) == FORCE ||
+        env(BUILD_AND_RELEASE) && type == push && branch == master &&
         commit_message =~ /^((feat|fix|refactor|perf|build|revert)\(|test\((?i)[\s\S]*?\b(E2E|END-TO-END|END2END)\b)/ # https://regex101.com/r/XWKT5J/1/
 
       script: >-

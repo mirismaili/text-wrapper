@@ -1,6 +1,6 @@
 {
 	"name": "@live-html-editor/text-wrap",
-	"version": "0.6.0",
+	"version": "0.7.0",
 	"description": "A utility to wrap (break) long lines of large texts into limited-length lines, based on given options",
 	"main": "dist/main.umd.js",
 	"bundle": "dist/bundle.umd.js",
