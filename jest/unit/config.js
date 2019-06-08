@@ -32,5 +32,4 @@ module.exports = {
 		'src/*.{js,ts}'
 	],
 	coverageDirectory: 'coverage/unit',
-	setupFilesAfterEnv: ['jest-expect-message'],
 }

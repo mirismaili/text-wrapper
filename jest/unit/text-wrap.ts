@@ -69,12 +69,14 @@ describe('Case-specific tests:', () => {
 	it("Check input's hash", () => expect(sha256(originalInput)).toBe('928c256346d0b16e69cd4c4ddd56e5608335f9ad16d1a25c26a9d8ff4b3e4edf'))
 })
 
+const testsNum = allOptions.length
+
 afterAll(() => {
-	for (let i = 0; i < allOptions.length; ++i)
+	for (let i = 0; i < testsNum; ++i)
 		fs.writeFile(outputPath(i), outputs[i], err => {if (err) console.error(err)})
 })
 
-for (let testNum = 0; testNum < allOptions.length; ++testNum) {
+for (let testNum = 0; testNum < testsNum; ++testNum) {
 	const options = allOptions[testNum]
 	const textWrap = new TextWrap(options)
 	const maxLineLength = textWrap.wrapOn
@@ -138,22 +140,24 @@ for (let testNum = 0; testNum < allOptions.length; ++testNum) {
 						
 						const upBound = regExp.test(input) ? regExp.lastIndex : input.length
 						const slice = indentsN + input.slice(a, upBound) // is not strict in first cycle of the loop that hasn't indentsN
-						const distance = textWrap.getVisualLength(slice)
 						
-						expect(distance, `[${slice}]\n${regExp}`).toBeGreaterThan(maxLineLength)
+						// WARNING: Due to performance issues, never expose `expect` method outside of an `if` block (that
+						// checks the test condition) in a loop.
+						if (textWrap.getVisualLength(slice) <= maxLineLength)
+							expect(textWrap.getVisualLength(slice)).toBeGreaterThan(maxLineLength, `[${slice}]\n${regExp}`)
 						
 						a = b
 					}
 				})
 		
-		it("Try to find an illegal long line", // A line that should to be wrapped, but hasn't
+		it('Try to find an illegal long line', // A line that should to be wrapped, but hasn't
 				() => {
 					// https://regex101.com/r/4DaiXE/1/
-					const regexp = new RegExp(`^([^\\n]*)(?:(?!\\n)${bc.source})[^\\n]*(?!${ec.source}).`,
+					const regExp = new RegExp(`^([^\\n]*)(?:(?!\\n)${bc.source})[^\\n]*(?!${ec.source}).`,
 							bc.flags.appendIfNot('g').appendIfNot('m'))
 					
 					while (true) {
-						const match = regexp.exec(output)
+						const match = regExp.exec(output)
 						if (match === null) break
 						
 						const vLen = textWrap.getVisualLength(match[0])
@@ -163,13 +167,13 @@ for (let testNum = 0; testNum < allOptions.length; ++testNum) {
 								// Check to sure the line is breakable:
 								textWrap.getVisualLength(match[1]) > textWrap.getVisualLength(indentsN)
 						)
-							expect(vLen, `[${match[0]}]\n${regexp}`).toBeLessThanOrEqual(maxLineLength)
+							expect(vLen).toBeLessThanOrEqual(maxLineLength, `[${match[0]}]\n${regExp}`)
 					}
 				})
 		
 		// it("Try to find an illegal long line using RegExp", // Same as above but using RegExp. This one is not strict and accurate because can only calculate length, but not vLen (visual-length)
 		// 		() => {
-		// 			expect(output).not.toMatch1(
+		// 			expect(output).not.toMatch(
 		// 					// https://regex101.com/r/OfQoDb/1
 		// 					new RegExp(
 		// 							`^(?=.{${indentsN.length},}[^\\w\\xA0\\n](?![^\\S\\n]|$)).{${maxLineLength},}\\S`,
@@ -184,24 +188,47 @@ for (let testNum = 0; testNum < allOptions.length; ++testNum) {
 }
 //*************************************************************************************/
 
+// noinspection JSUnusedGlobalSymbols
 expect.extend({
-	toMatch1(text: string, regExp: RegExp, msg: string | (() => string)) {
-		const match1 = regExp.exec(text)
-		const passed = match1 !== null
-		
-		const message = (toClause: () => string) =>
-				() => `Expected the text to ${toClause()}\n${typeof msg === 'string' ? msg : msg()}`
-		
-		return passed ?
+	toBeGreaterThan(received: number, floor: number, msg: string | (() => string)) {
+		return received > floor ?
 				{
-					message: message(() => `not match ${regExp}\nFirst match:\n[${match1}]`),
+					message: () => `Expected: ${received} ≤ ${floor}\n${typeof msg === 'string' ? msg : msg()}`,
 					pass: true,
 				} :
 				{
-					message: message(() => `match ${regExp}`),
+					message: () => `Expected: ${received} > ${floor}\n${typeof msg === 'string' ? msg : msg()}`,
 					pass: false,
 				}
 	},
+	toBeLessThanOrEqual(received: number, roof: number, msg: string | (() => string)) {
+		return received <= roof ?
+				{
+					message: () => `Expected: ${received} > ${roof}\n${typeof msg === 'string' ? msg : msg()}`,
+					pass: true,
+				} :
+				{
+					message: () => `Expected: ${received} ≤ ${roof}\n${typeof msg === 'string' ? msg : msg()}`,
+					pass: false,
+				}
+	},
+	// toMatch(text: string, regExp: RegExp, msg: string | (() => string)) {
+	// 	const match1 = regExp.exec(text)
+	// 	const passed = match1 !== null
+	//
+	// 	const message = (toClause: () => string) =>
+	// 			() => `Expected the text to ${toClause()}\n${typeof msg === 'string' ? msg : msg()}`
+	//
+	// 	return passed ?
+	// 			{
+	// 				message: message(() => `not match ${regExp}\nFirst match:\n[${match1}]`),
+	// 				pass: true,
+	// 			} :
+	// 			{
+	// 				message: message(() => `match ${regExp}`),
+	// 				pass: false,
+	// 			}
+	// },
 })
 
 String.prototype.appendIfNot = function (part: string): string {
@@ -212,7 +239,9 @@ declare global {
 	namespace jest {
 		// noinspection JSUnusedGlobalSymbols
 		interface Matchers<R> {
-			toMatch1(regExp: RegExp, msg: string): R
+			//toMatch(regExp: RegExp, msg: string | (() => string)): R
+			toBeGreaterThan(floor: number, msg: string | (() => string)): R
+			toBeLessThanOrEqual(roof: number, msg: string | (() => string)): R
 		}
 	}
 	
