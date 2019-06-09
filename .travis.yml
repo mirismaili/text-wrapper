@@ -6,27 +6,27 @@ jobs:
   include:
     - stage: "Unit Tests"
 
-      name: "Unit Test (11)"
-      node_js: "11"
+      name: "Unit Test (latest)"
+      node_js: node
 
-      if: tag !~ ^v\d+\.\d+\.\d+ && env(UNIT_TEST_11) == FORCE ||
-        env(UNIT_TEST_11) != FALSE && type == push && commit_message =~ /^(test|feat|fix|refactor|perf|revert)\(/
+      if: tag !~ ^v\d+\.\d+\.\d+ && env(UNIT_TEST_LATEST) == FORCE ||
+        env(UNIT_TEST_LATEST) != FALSE && type == push && commit_message =~ /^(test|feat|fix|refactor|perf|revert)/
 
       script: npm run test:unit:prod
     #--------------------------------------------------------------------------------------#
 
-    - name: "Unit Test (10) + Report Coverage"
-      node_js: "10"
+    - name: "Unit Test (LTS) + Report Coverage"
+      node_js: --lts
 
-      if: tag !~ ^v\d+\.\d+\.\d+ && env(UNIT_TEST_10) == FORCE ||
-        env(UNIT_TEST_10) != FALSE && type == push && commit_message =~ /^(test|feat|fix|refactor|perf|revert)\(/
+      if: tag !~ ^v\d+\.\d+\.\d+ && env(UNIT_TEST_LTS) == FORCE ||
+        env(UNIT_TEST_LTS) != FALSE && type == push && commit_message =~ /^(test|feat|fix|refactor|perf|revert)/
 
       # For debug purposes:
       before_script: echo -e "BUILD_DIR          = $TRAVIS_BUILD_DIR\nBUILD_ID           = $TRAVIS_BUILD_ID\nBUILD_NUMBER       = $TRAVIS_BUILD_NUMBER\nBUILD_WEB_URL      = $TRAVIS_BUILD_WEB_URL\nCOMMIT             = $TRAVIS_COMMIT\nCOMMIT_MESSAGE     = $TRAVIS_COMMIT_MESSAGE\nCOMMIT_RANGE       = $TRAVIS_COMMIT_RANGE\nDEBUG_MODE         = $TRAVIS_DEBUG_MODE\nEVENT_TYPE         = $TRAVIS_EVENT_TYPE\nJOB_ID             = $TRAVIS_JOB_ID\nJOB_NAME           = $TRAVIS_JOB_NAME\nJOB_NUMBER         = $TRAVIS_JOB_NUMBER\nJOB_WEB_URL        = $TRAVIS_JOB_WEB_URL\nOS_NAME            = $TRAVIS_OS_NAME\nOSX_IMAGE          = $TRAVIS_OSX_IMAGE\nPULL_REQUEST       = $TRAVIS_PULL_REQUEST\nPULL_REQUEST_BRANCH= $TRAVIS_PULL_REQUEST_BRANCH\nPULL_REQUEST_SHA   = $TRAVIS_PULL_REQUEST_SHA\nPULL_REQUEST_SLUG  = $TRAVIS_PULL_REQUEST_SLUG\nSECURE_ENV_VARS    = $TRAVIS_SECURE_ENV_VARS\nSUDO               = $TRAVIS_SUDO\nTEST_RESULT        = $TRAVIS_TEST_RESULT\nTAG                = $TRAVIS_TAG\nBUILD_STAGE_NAME   = $TRAVIS_BUILD_STAGE_NAME"
 
       script: npm run test:unit:prod
       after_success: >-
-        if [ $CODECOV != FALSE ]; then
+        if [[ $CODECOV != FALSE ]]; then
           npx codecov;
         else
           echo CODECOV IS DISABLED;
@@ -37,23 +37,23 @@ jobs:
     - stage: "Release"
 
       name: "Build and Release"
-      node_js: lts/*
+      node_js: --lts
 
       if: tag !~ ^v\d+\.\d+\.\d+ && env(BUILD_AND_RELEASE) == FORCE ||
         env(BUILD_AND_RELEASE) != FALSE && type == push && branch == master &&
-        commit_message =~ /^((feat|fix|refactor|perf|build|revert)\(|test\((?i)[\s\S]*?\b(E2E|END-TO-END|END2END)\b)/ # https://regex101.com/r/XWKT5J/1/
+        commit_message =~ /^(?:(?:feat|fix|refactor|pref|build|revert)|test(?i)[\s\S]*?\b(E2E|END-TO-END|END2END)\b)/  # https://regex101.com/r/XWKT5J/2/
 
       script: >-
-        if [[ $E2E_TEST != FALSE || $SEMANTIC_RELEASE != FALSE ]]; then
+        if [[ $E2E_TEST != FALSE || $SEMANTIC_RELEASE != FALSE ]] && [[ $TRAVIS_COMMIT_MESSAGE != docs* ]]; then
           npm run build:prod && (
-            if [ $E2E_TEST != FALSE ]; then
+            if [[ $E2E_TEST != FALSE ]]; then
               npm run test:e2e;
             else
               echo E2E-TEST IS DISABLED;
             fi
           );
         else
-          echo ALL BUILD STEPS ARE DISABLED;
+          echo ALL BUILD STEPS ARE DISABLED OR THERE IS NO NEED TO NEW BUILD;
         fi
 
       deploy:
@@ -61,9 +61,9 @@ jobs:
         skip_cleanup: true
 
         # `bash -c ...` is required for the script in `deploy` section:
-        script: bash -c "
-          if [ $SEMANTIC_RELEASE != FALSE ]; then
+        script: bash -c '
+          if [[ "$SEMANTIC_RELEASE" != FALSE ]]; then
             npx semantic-release;
           else
             echo SEMANTIC-RELEASE IS DISABLED;
-          fi"
+          fi'
