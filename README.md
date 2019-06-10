@@ -43,6 +43,12 @@ A utility to wrap (break) long lines of large texts into limited-length lines, b
 
 ***
 
+**Table of Contents**
+
+* [Installation](#installation)
+* [Basic Usage](#basic-usage)
+* [Sample Input / Output](#sample-input--output)
+
 # Installation
 
 - In a *npm project*, run:
@@ -72,7 +78,7 @@ A utility to wrap (break) long lines of large texts into limited-length lines, b
     const TextWrapper = text_wrapper_lib.default
     ```
 
-    Or in a ES6-compatible environment, easily:
+    Or easily using ES6-module-import:
 
     ```javascript
     import TextWrapper from 'text-wrapper'
@@ -86,6 +92,7 @@ A utility to wrap (break) long lines of large texts into limited-length lines, b
     // Do the work:
     const wrapResult = textWrapper.wrap(tooLongText)
     
+    // Get the result:
     const wrappedOutput = wrapResult.wrappedText
     ```
 
@@ -96,7 +103,7 @@ const wrappedOutput =
       new (require('text-wrapper').default)().wrap(tooLongText).wrappedText
 ```
 
-By default, long lines will be broken after 100th character (max). You can customize this behavior:
+By default, long lines will be broken after 100th character (max) (except white-spaces). You can customize this behavior:
 
 ```javascript
 const textWrapper = new TextWrapper({wrapOn: 120})
@@ -104,7 +111,7 @@ const textWrapper = new TextWrapper({wrapOn: 120})
 
 # Sample Input / Output
 
-Suppose `input` to be:
+Below snippet:
 
 ```javascript
 const input = 
@@ -117,7 +124,7 @@ console.log(
 	new TextWrapper({wrapOn: 80}).wrap(input).wrappedText
 )
 ```
-Will outputs:
+will output:
 ```
 The Solar System is the gravitationally bound planetary system of the Sun and 
 the objects that orbit it, either directly or indirectly. Of the objects that 
@@ -140,4 +147,5 @@ eight planets have almost circular orbits that lie within a nearly flat disc
 called the ecliptic.
 ```
 Image:
+
 ![sample-output.png](https://raw.githubusercontent.com/mirismaili/text-wrapper/974b4440ffdc1eb27ae52c97c0e814936763e9bd/res/sample-output.png "Sample output")

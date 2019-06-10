@@ -7,7 +7,8 @@
 	"bundle-module": "dist/bundle.esm.js",
 	"types": "dist/types/TextWrapper.d.ts",
 	"scripts": {
-		"lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
+		"lint": "tslint --project tsconfig.json -t codeFrame 'src/**/*.ts' 'jest/**/*.ts'",
+		"README.md-TOC": "node PreBuild/markdown-toc.js -f README.md",
 		"test:unit": "jest --verbose --colors --config jest/unit/config.js",
 		"test:unit:watch": "npm run test:unit -- --watch",
 		"pretest:unit:coverage": "rimraf coverage/unit",
@@ -81,7 +82,8 @@
 		"tslint": "^5.16.0",
 		"tslint-config-prettier": "^1.18.0",
 		"tslint-config-standard": "^8.0.1",
-		"typescript": "^3.4.3"
+		"typescript": "^3.4.3",
+		"yargs": "^13.2.4"
 	},
 	"dependencies": {
 		"debug": "^4.1.1"
