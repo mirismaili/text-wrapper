@@ -12,6 +12,7 @@
 		"test:unit:watch": "npm run test:unit -- --watch",
 		"pretest:unit:coverage": "rimraf coverage/unit",
 		"test:unit:coverage": "npm run test:unit -- --coverage",
+		"test:unit:coverage:watch": "npm run test:unit:coverage -- --watch",
 		"test:unit:prod": "npm run test:unit:coverage -- --no-cache",
 		"test:e2e": "jest --verbose --colors --config jest/e2e/config/main.js",
 		"prebuild": "rimraf dist",

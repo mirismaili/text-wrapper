@@ -7,6 +7,7 @@ const logFastCheck = Debug('FC')
 const logBreak = Debug('BR')
 const logBreakLine = Debug('BL')
 const logMainLoop = Debug('ML')
+const log = Debug('GENERAL')
 Debug.log = console.debug.bind(console)
 
 Debug.formatters.c = (f: () => string) => f()
@@ -25,12 +26,13 @@ export default class TextWrapper implements WrapOptions {
 	readonly allowedExceedingCharacters!: RegExp
 	readonly breakableCharacters!: RegExp
 	
-	constructor(wrapStyle: WrapOptions = DEF_WRAP_STYLE) {
-		initiateObject(this, wrapStyle, DEF_WRAP_STYLE)
+	constructor(wrapStyle: WrapOptions = DEF_WRAP_OPTIONS) {
+		initiateObject(this, wrapStyle, DEF_WRAP_OPTIONS)
+		log(this)
 		this.tabLength_1 = this.tabLength - 1
 	}
 	
-	wrap(text: string, indents: string): WrapResult {
+	wrap(text: string, indents = ''): WrapResult {
 		const markers: number[] = []
 		const tabLength = this.tabLength
 		const length = text.length
@@ -178,10 +180,10 @@ export interface WrapOptions {
 	breakableCharacters?: RegExp
 }
 
-export const DEF_WRAP_STYLE: WrapOptions = {
+export const DEF_WRAP_OPTIONS: WrapOptions = {
 	continuationIndent: '',
 	tabLength: 4,
-	wrapOn: 120,
+	wrapOn: 100,
 	allowedExceedingCharacters: /\s/,
 	breakableCharacters: /[^\w\xA0]/,
 }

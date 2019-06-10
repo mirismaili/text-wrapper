@@ -84,14 +84,14 @@ for (let testNum = 0; testNum < testsNum; ++testNum) {
 	const bc = textWrapper.breakableCharacters
 	const ec = textWrapper.allowedExceedingCharacters
 	
-	let indents: string
+	let indents: string | undefined
 	let expectedOutputHash: string
 	
 	let input = originalInput
 	
 	if (options === undefined) { // Default values for first options (that is undefined):
-		indents = ''
-		expectedOutputHash = '971346506cad37fecd726196c2d75d577f02f160368953b9a261b36af3dec822'
+		indents = undefined
+		expectedOutputHash = '069a7cbd6b35f7649f7574a2346f33fbd715f34b4102ef4a3d4d82a4ab5dac92'
 	} else {
 		indents = options.indents
 		expectedOutputHash = options.expectedOutputHash
@@ -105,6 +105,7 @@ for (let testNum = 0; testNum < testsNum; ++testNum) {
 	
 	const wrapResult = textWrapper.wrap(input, indents)
 	
+	if (indents === undefined) indents = ''
 	const indentsN = indents + continuationIndent
 	
 	const output = outputs[testNum] = wrapResult.wrappedText
