@@ -194,7 +194,7 @@ new TextWrapper({
 
 ### The meaning of each option + Default values and Data-types
 
-(You can find these documentations and information in source-codes as well. This is a [**Typescript**](https://www.typescriptlang.org/) project.)
+*You can find these documentations and information in source-codes as well. This is a [**Typescript**](https://www.typescriptlang.org/) project. Or refer to [docs](http://htmlpreview.github.io/?https://github.com/mirismaili/text-wrapper/blob/master/docs/index.html) (Thank [TypeDoc](https://www.npmjs.com/package/typedoc)).*
 
 #### `wrapOn: number = 100`
 
