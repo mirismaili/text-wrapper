@@ -69,12 +69,10 @@ export default class TextWrapper implements WrapOptions {
 				if (fastCheck ||
 						start === -1 && draftMarker === previousMarker ||
 						start !== -1 &&
-								// The 2nd condition will always be true if the 1st is true. Actually, it is the main condition
-								// we need to check, but we know in almost all cases the 1st (that is much simpler) is true.
-								!(draftMarker - start > indentsNVLen ||
-										this.getVisualLength(text.slice(start, draftMarker)) > indentsNVLen)
-						// tslint:disable-next-line:no-conditional-assignment
-						//&& (fastCheck = true)
+						// The 2nd condition will always be true if the 1st is true. Actually, it is the main condition
+						// we need to check, but we know in almost all cases the 1st (that is much simpler) is true.
+						!(draftMarker - start > indentsNVLen ||
+								this.getVisualLength(text.slice(start, draftMarker)) > indentsNVLen)
 				) {
 					// 1.1. PASSED but CAN'T
 					fastCheck = true
@@ -172,18 +170,57 @@ export interface WrapResult {
 	wrappedText: string
 }
 
+/**
+ * Preferences to pass to the {@link TextWrapper} constructor to control its behavior.
+ * All choices are optional. See default values in {@link DEF_WRAP_OPTIONS}.
+ */
 export interface WrapOptions {
-	continuationIndent?: string
-	tabLength?: number
+	/**
+	 * This is the most useful option. It determines the maximum allowed length of each line. The words exceed this rule
+	 * will go to the next line. There are some configurable options to say the program how does this work:
+	 * 1. Allowed characters for exceeding the limitation (by default: white-spaces): {@link allowedExceedingCharacters}
+	 * 2. Word-boundaries: {@link breakableCharacters}
+	 * 3. Tab-character length: {@link tabLength}
+	 * 4. The indents to be inserted in the leading of each newly created line: {@link continuationIndent}
+	 */
 	wrapOn?: number
-	allowedExceedingCharacters?: RegExp
+	
+	/**
+	 * This determines the max-length that should be considered for tab-characters (`'\t'`). Notice that the length of
+	 * each tab-character is depended on its location in its line. For example if this option is set to `4`, then the
+	 * length of `'\tA'` will be appeared `5` and the length of `'A\t'` will be appeared `4`.
+	 */
+	tabLength?: number
+	
+	/**
+	 * Long lines don't break at any where the length is exceeded. But it occurs only on word-boundaries by default.
+	 * So this options has been set to `/[^\w\xA0]/` to be broken on any non-word character (`/^\w/ === /[^a-zA-Z0-9_]/`)
+	 * except a special white-space character named *non-breakable space (`'\xA0'`)*.
+	 *
+	 * Note: This RegExp will be tested against only a single character (each time)!
+	 */
 	breakableCharacters?: RegExp
+	
+	/**
+	 * This determines which characters are allowed to exceed the limitation (after {@link wrapOn} value). By default,
+	 * this has been set to `/\s/` to allow any white-space character. new-line-character (`'\n'`) will be ignored,
+	 * anyway.
+	 *
+	 * Note: This RegExp will be tested against only a single character (each time)!
+	 */
+	allowedExceedingCharacters?: RegExp
+	
+	/**
+	 * This value will be added after each line-break (`'\n'`) character that this tool adds to the text. So it appears
+	 * in the leading of each new line (not the already-present lines).
+	 */
+	continuationIndent?: string
 }
 
 export const DEF_WRAP_OPTIONS: WrapOptions = {
-	continuationIndent: '',
-	tabLength: 4,
 	wrapOn: 100,
-	allowedExceedingCharacters: /\s/,
+	tabLength: 4,
 	breakableCharacters: /[^\w\xA0]/,
+	allowedExceedingCharacters: /\s/,
+	continuationIndent: '',
 }
