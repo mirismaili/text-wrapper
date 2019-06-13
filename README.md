@@ -119,7 +119,7 @@ By default, long lines will be broken after **100th character** *(max) (except w
 const textWrapper = new TextWrapper({wrapOn: 120})
 ```
 
-See [Options](#options) for other customizations.
+See [Options](#options) for other possible customizations.
 
 # Sample Input / Output
 
@@ -200,11 +200,11 @@ new TextWrapper({
 
 #### `wrapOn: number = 100`
 
-This is the most useful option. It determines the maximum allowed length of each line. The words exceed this rule will go to the next line. There are some configurable options to say the program how does this work, which are coming ...
+This is the most common option. It determines the maximum allowed length of each line. The words exceed this rule will go to the next line. There are some configurable options to say the program how does this work, which are coming ...
 
 #### `tabLength: number = 4`
 
-This determines the max-length that should be considered for tab-characters (`'\t'`). Notice that the length of each tab-character is depended on its location in its line. For example if this option is set to `4`, then the length of `'\tA'` will be appeared `5` and the length of `'A\t'` will be appeared `4`.
+This determines the max-length that should be considered for tab-characters (`'\t'`). Notice that the length of each tab-character is depended on its location in its line. For example, if this option is set to `4`, then the length of `'\tA'` will appear `5` and the length of `'A\t'` will appear `4`.
 	
 #### `breakableCharacters: RegExp = /[^\w\xA0]/`
 	
