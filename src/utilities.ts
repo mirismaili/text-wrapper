@@ -1,6 +1,6 @@
 /**
- * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io)
- * Created on 1398/2/8 (2019/4/28).
+ * @author {@link https://mirismaili.github.io S. Mahdi Mir-Ismaili}
+ * Created at 1398/2/8 (2019/4/28).
  */
 
 export function initiateObject(source: { [k: string]: any }, target: { [k: string]: any }, def: object) {//console.debug(new Error().stack)

@@ -954,6 +954,16 @@ img { max-width: 100%; }
 </nav>
 <div class="container container-main">
 	<div class="content-wrap">
+		<section class="tsd-panel tsd-comment">
+			<div class="tsd-comment tsd-typography">
+				<div class="lead">
+					<p>The return value of the main operation of this library ({@link TextWrapper#wrap wrapping texts}) would be of this
+						type.
+						Although the final output will be stored in <a href="wrapresult.html#wrappedtext"><code>wrappedText</code></a> and you regularly need this,
+					but there is also a more advanced output: <a href="wrapresult.html#markers"><code>markers</code></a>.</p>
+				</div>
+			</div>
+		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
@@ -984,9 +994,17 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">markers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/3ef74f2/src/TextWrapper.ts#L169">TextWrapper.ts:169</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/f5cf6c1/src/TextWrapper.ts#L233">TextWrapper.ts:233</a></li>
 					</ul>
 				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Each member of this array would point to a location that a <em>line-break</em> (possibly: <em>line-break + indentation</em>)
+						is needed.</p>
+					</div>
+					<p>So you can reproduce the final output (<a href="wrapresult.html#wrappedtext"><code>wrappedText</code></a>) completely using
+					<strong><em>this array</em> + <em>your original input</em></strong>.</p>
+				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 				<a name="wrappedtext" class="tsd-anchor"></a>
@@ -994,9 +1012,24 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">wrapped<wbr>Text<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/3ef74f2/src/TextWrapper.ts#L170">TextWrapper.ts:170</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/f5cf6c1/src/TextWrapper.ts#L224">TextWrapper.ts:224</a></li>
 					</ul>
 				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The final output. This would be as same as the your original input,
+							but in addition to <strong><em>a few break-line characters</em> + <em>possibly indentations</em></strong>
+						(<strong><code>&#39;\n&#39; + calculated_indentations</code></strong>).</p>
+					</div>
+					<dl class="tsd-comment-tags">
+						<dt>see</dt>
+						<dd><p><code>alreadyPresentIndentation</code> in {@linkcode TextWrapper#wrap#alreadyPresentIndentation wrap()}</p>
+						</dd>
+						<dt>see</dt>
+						<dd><p>WrapOptions.continuationIndent</p>
+						</dd>
+					</dl>
+				</div>
 			</section>
 		</section>
 		<footer class="with-border-bottom">

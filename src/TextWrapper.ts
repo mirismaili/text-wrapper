@@ -13,8 +13,16 @@ Debug.log = console.debug.bind(console)
 Debug.formatters.c = (f: () => string) => f()
 
 /**
- * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io)
- * Created on 1398/2/6 (2019/4/26).
+ * The main class of this library.
+ *
+ * {@link TextWrapper#constructor Create an instance} (with or without {@link WrapOptions options}) and then use
+ * {@linkcode TextWrapper#wrap wrap()} method to do the task.
+ *
+ * Created at 1398/2/6 (2019/4/26).
+ * @author {@link https://mirismaili.github.io S. Mahdi Mir-Ismaili}
+ *
+ * @see {@link TextWrapper#constructor The constructor}
+ * @see {@linkcode TextWrapper#wrap wrap()}
  */
 export default class TextWrapper implements WrapOptions {
 	// tslint:disable-next-line:variable-name
@@ -26,17 +34,49 @@ export default class TextWrapper implements WrapOptions {
 	readonly allowedExceedingCharacters!: RegExp
 	readonly breakableCharacters!: RegExp
 	
-	constructor(wrapStyle: WrapOptions = DEF_WRAP_OPTIONS) {
-		initiateObject(this, wrapStyle, DEF_WRAP_OPTIONS)
+	/**
+	 * @see {@linkcode DEF_WRAP_OPTIONS}
+	 */
+	constructor(wrapOptions: WrapOptions = DEF_WRAP_OPTIONS) {
+		initiateObject(this, wrapOptions, DEF_WRAP_OPTIONS)
 		log(this)
 		this.tabLength_1 = this.tabLength - 1
 	}
 	
-	wrap(text: string, indents = ''): WrapResult {
+	/**
+	 * The main process in this library is done by this method. Gets a string and wraps illegal-too-long-lines of it. To
+	 * configure and customize its operation pass a {@linkcode WrapOptions} to the class constructor}.
+	 * Note: This is an *instance method* and needs to a an {@link TextWrapper#constructor object instantiation} first.
+	 *
+	 * @param text The string that probably has long lines and must be wrapped (broken to limited-length lines) based on
+	 * {@linkcode WrapOptions} that has been passed to the {@link TextWrapper#constructor class constructor}
+	 *
+	 * @param alreadyPresentIndentation If your input text has a fixed indentation in the leading of its lines already,
+	 * pass it (as a string) to this parameter. <br>
+	 * ***Important note***: The library doesn't check this *indentation* actually presents or not.
+	 * It just appends this to the {@linkcode WrapOptions.continuationIndent} (that you passed to the
+	 * {@link TextWrapper#constructor class constructor}).
+	 * In other words, (for a single run of this method per an instantiation) there is no difference whether you pass:
+	 * <br>
+	 * **`s1` to {@link WrapOptions.continuationIndent `WrapOptions.continuationIndent`}** and **`s2` to this parameter**
+	 * <br>or: <br>
+	 * **`s3` to {@link WrapOptions.continuationIndent `WrapOptions.continuationIndent`}** and **`s4` to this parameter**
+	 * <br>
+	 * **while `(s1 + s2 === s3 + s4)`**. The library works with *the whole* always.
+	 * In these cases, this is just a logical separation (and maybe usable in the future).
+	 *
+	 * @return {WrapResult} Two things that will be stored in a {@linkcode WrapResult}:
+	 * 1. {@linkcode WrapResult.wrappedText wrappedText: string} *(probably you want this)*
+	 * 2. {@linkcode WrapResult.markers markers: number[]}
+	 *
+	 * @see {@linkcode WrapResult}
+	 * @see {@linkcode TextWrapper#constructor class constructor}
+	 */
+	wrap(text: string, alreadyPresentIndentation = ''): WrapResult {
 		const markers: number[] = []
 		const tabLength = this.tabLength
 		const length = text.length
-		const indentsN = indents + this.continuationIndent
+		const indentsN = alreadyPresentIndentation + this.continuationIndent
 		const indentsNVLen = this.getVisualLength(indentsN, 0)
 		
 		let previousMarker = 0
@@ -165,9 +205,32 @@ export default class TextWrapper implements WrapOptions {
 	}
 }
 
+/**
+ * The return value of the main operation of this library ({@link TextWrapper#wrap wrapping texts}) would be of this
+ * type.
+ * Although the final output will be stored in {@linkcode wrappedText} and you regularly need this,
+ * but there is also a more advanced output: {@linkcode markers}.
+ */
 export interface WrapResult {
-	markers: number[]
+	/**
+	 * The final output. This would be as same as the your original input,
+	 * but in addition to ***a few break-line characters* + *possibly indentations***
+	 * (**`'\n' + calculated_indentations`**).
+	 *
+	 * @see <code>alreadyPresentIndentation</code> in {@linkcode TextWrapper#wrap#alreadyPresentIndentation wrap()}
+	 *
+	 * @see WrapOptions.continuationIndent
+	 */
 	wrappedText: string
+	
+	/**
+	 * Each member of this array would point to a location that a *line-break* (possibly: *line-break + indentation*)
+	 * is needed.
+	 *
+	 * So you can reproduce the final output ({@linkcode wrappedText}) completely using
+	 * ***this array* + *your original input***.
+	 */
+	markers: number[]
 }
 
 /**

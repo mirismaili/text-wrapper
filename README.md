@@ -119,11 +119,13 @@ By default, long lines will be broken after **100th character** *(max) (except w
 const textWrapper = new TextWrapper({wrapOn: 120})
 ```
 
+See [Options](#options) for other customizations.
+
 # Sample Input / Output
 
 Below snippet:
 
-<pre><span style="color:#d73a49">const</span> <span style="color:#005cc5">input</span> <span style="color:#d73a49">=</span> 
+<pre style="white-space:pre;overflow-x:scroll;"><span style="color:#d73a49">const</span> <span style="color:#005cc5">input</span> <span style="color:#d73a49">=</span> 
 <span style="color:#6a737d">// (From https://en.wikipedia.org/wiki/Solar_System):</span>
 <span style="color:#ad6101"><span>`The Solar System is the gravitationally bound planetary system of the Sun and the objects that orbit it, either directly or indirectly. Of the objects that orbit the Sun directly, the largest are the eight planets, with the remainder being smaller objects, such as the five dwarf planets and small Solar System bodies. Of the objects that orbit the Sun indirectly—the moons—two are larger than the smallest planet, Mercury.</span>
 <span style="color:#ad6101"></span>
@@ -194,7 +196,7 @@ new TextWrapper({
 
 ### The meaning of each option + Default values and Data-types
 
-*You can find these documentations and information in source-codes as well. This is a [**Typescript**](https://www.typescriptlang.org/) project. Or refer to [docs](http://htmlpreview.github.io/?https://github.com/mirismaili/text-wrapper/blob/master/docs/index.html) (Thank [TypeDoc](https://www.npmjs.com/package/typedoc)).*
+<sup>*You can find these documentations and information in source-codes as well. This is a [**Typescript**](https://www.typescriptlang.org/) project. Or refer to [docs](https://mirismaili.github.io/text-wrapper/) (Thank [TypeDoc](https://www.npmjs.com/package/typedoc)).*</sup>
 
 #### `wrapOn: number = 100`
 

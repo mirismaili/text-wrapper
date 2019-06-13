@@ -4,8 +4,8 @@ import * as path from "path"
 import TextWrapper, {WrapOptions} from '../../src/TextWrapper'
 
 /**
- * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io)
- * Created on 1398/2/13 (2019/5/3).
+ * @author {@link https://mirismaili.github.io S. Mahdi Mir-Ismaili}
+ * Created at 1398/2/13 (2019/5/3).
  */
 
 let originalInput = fs.readFileSync(path.resolve(__dirname, 'stub', 'input.txt'), 'utf8')

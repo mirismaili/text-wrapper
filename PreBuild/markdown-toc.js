@@ -1,8 +1,8 @@
 /**
  * Markdown-TOC (Table of Contents)
  *
- * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io)
- * Created on 1398/3/22 (2019/6/12).
+ * @author {@link https://mirismaili.github.io S. Mahdi Mir-Ismaili}
+ * Created at 1398/3/22 (2019/6/12).
  */
 'use strict'
 
@@ -54,7 +54,18 @@ fs.writeFileSync(filePath,
 console.log(`TOC is written to the file. TOC:\n${toc}`)
 //******************************************************************************/
 
-
+/**
+ * The main class of this library.
+ *
+ * {@link TextWrapper#constructor Create an instance} (with or without {@link WrapOptions options}) and then use
+ * {@linkcode TextWrapper#wrap wrap()} method to do the task.
+ *
+ * Created at 1398/2/6 (2019/4/26).
+ * @author {@link https://mirismaili.github.io S. Mahdi Mir-Ismaili}
+ *
+ * @see TextWrapper#constructor The constructor
+ * @see TextWrapper#wrap wrap()
+ */
 function getRegExpBasedOnLineBreakChar(input) {
 	const lineBreakChar = getLineBreakChar(input)
 	const lb = lineBreakChar === '\n' ? '\\n' : lineBreakChar === '\r' ? '\\r' : '\\r\\n'

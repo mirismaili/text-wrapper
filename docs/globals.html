@@ -1047,9 +1047,10 @@ img { max-width: 100%; }
       <span class="hljs-keyword">new</span> (<span class="hljs-built_in">require</span>(<span class="hljs-string">'text-wrapper'</span>).default)().wrap(tooLongText).wrappedText</code></pre>
 			<p>By default, long lines will be broken after <strong>100th character</strong> <em>(max) (except white-spaces) (tab-character length will be calculated)</em>. You can customize this behavior:</p>
 			<pre><code class="language-javascript"><span class="hljs-keyword">const</span> textWrapper = <span class="hljs-keyword">new</span> TextWrapper({<span class="hljs-attr">wrapOn</span>: <span class="hljs-number">120</span>})</code></pre>
+			<p>See <a href="#options">Options</a> for other customizations.</p>
 			<h1 id="sample-input-output">Sample Input / Output</h1>
 			<p>Below snippet:</p>
-			<pre><span style="color:#d73a49">const</span> <span style="color:#005cc5">input</span> <span style="color:#d73a49">=</span>
+			<pre style="white-space:pre;overflow-x:scroll;"><span style="color:#d73a49">const</span> <span style="color:#005cc5">input</span> <span style="color:#d73a49">=</span>
 <span style="color:#6a737d">// (From https://en.wikipedia.org/wiki/Solar_System):</span>
 <span style="color:#ad6101"><span>`The Solar System is the gravitationally bound planetary system of the Sun and the objects that orbit it, either directly or indirectly. Of the objects that orbit the Sun directly, the largest are the eight planets, with the remainder being smaller objects, such as the five dwarf planets and small Solar System bodies. Of the objects that orbit the Sun indirectly—the moons—two are larger than the smallest planet, Mercury.</span>
 <span style="color:#ad6101"></span>
@@ -1103,7 +1104,7 @@ called the ecliptic.</span>
     continuationIndent: <span class="hljs-string">'    '</span>,  <span class="hljs-comment">// 4 spaces</span>
 })</code></pre>
 			<h3 id="the-meaning-of-each-option-default-values-and-data-types">The meaning of each option + Default values and Data-types</h3>
-			<p><em>You can find these documentations and information in source-codes as well. This is a <a href="https://www.typescriptlang.org/"><strong>Typescript</strong></a> project. Or refer to <a href="http://htmlpreview.github.io/?https://github.com/mirismaili/text-wrapper/blob/master/docs/index.html">docs</a> (Thank <a href="https://www.npmjs.com/package/typedoc">TypeDoc</a>).</em></p>
+			<p><sup><em>You can find these documentations and information in source-codes as well. This is a <a href="https://www.typescriptlang.org/"><strong>Typescript</strong></a> project. Or refer to <a href="https://mirismaili.github.io/text-wrapper/">docs</a> (Thank <a href="https://www.npmjs.com/package/typedoc">TypeDoc</a>).</em></sup></p>
 			<h4 id="wrapon-number-100"><code>wrapOn: number = 100</code></h4>
 			<p>This is the most useful option. It determines the maximum allowed length of each line. The words exceed this rule will go to the next line. There are some configurable options to say the program how does this work, which are coming ...</p>
 			<h4 id="tablength-number-4"><code>tabLength: number = 4</code></h4>
@@ -1174,7 +1175,7 @@ called the ecliptic.</span>
 				<div class="tsd-signature tsd-kind-icon">log<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> =&nbsp;Debug(&#x27;GENERAL&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/3ef74f2/src/TextWrapper.ts#L10">TextWrapper.ts:10</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/f5cf6c1/src/TextWrapper.ts#L10">TextWrapper.ts:10</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1184,7 +1185,7 @@ called the ecliptic.</span>
 				<div class="tsd-signature tsd-kind-icon">log<wbr>Break<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> =&nbsp;Debug(&#x27;BR&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/3ef74f2/src/TextWrapper.ts#L7">TextWrapper.ts:7</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/f5cf6c1/src/TextWrapper.ts#L7">TextWrapper.ts:7</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1194,7 +1195,7 @@ called the ecliptic.</span>
 				<div class="tsd-signature tsd-kind-icon">log<wbr>Break<wbr>Line<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> =&nbsp;Debug(&#x27;BL&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/3ef74f2/src/TextWrapper.ts#L8">TextWrapper.ts:8</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/f5cf6c1/src/TextWrapper.ts#L8">TextWrapper.ts:8</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1204,7 +1205,7 @@ called the ecliptic.</span>
 				<div class="tsd-signature tsd-kind-icon">log<wbr>Each<wbr>Char<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> =&nbsp;Debug(&#x27;AC&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/3ef74f2/src/TextWrapper.ts#L5">TextWrapper.ts:5</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/f5cf6c1/src/TextWrapper.ts#L5">TextWrapper.ts:5</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1214,7 +1215,7 @@ called the ecliptic.</span>
 				<div class="tsd-signature tsd-kind-icon">log<wbr>Fast<wbr>Check<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> =&nbsp;Debug(&#x27;FC&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/3ef74f2/src/TextWrapper.ts#L6">TextWrapper.ts:6</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/f5cf6c1/src/TextWrapper.ts#L6">TextWrapper.ts:6</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1224,7 +1225,7 @@ called the ecliptic.</span>
 				<div class="tsd-signature tsd-kind-icon">log<wbr>Main<wbr>Loop<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> =&nbsp;Debug(&#x27;ML&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/3ef74f2/src/TextWrapper.ts#L9">TextWrapper.ts:9</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/f5cf6c1/src/TextWrapper.ts#L9">TextWrapper.ts:9</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1241,14 +1242,14 @@ called the ecliptic.</span>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/3ef74f2/src/utilities.ts#L6">utilities.ts:6</a></li>
+								<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/f5cf6c1/src/utilities.ts#L6">utilities.ts:6</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<dl class="tsd-comment-tags">
 								<dt>author</dt>
-								<dd><p><a href="https://mirismaili.github.io">S. Mahdi Mir-Ismaili</a>
-									Created on 1398/2/8 (2019/4/28).</p>
+								<dd><p><a href="https://mirismaili.github.io" class="external">S. Mahdi Mir-Ismaili</a>
+									Created at 1398/2/8 (2019/4/28).</p>
 								</dd>
 							</dl>
 						</div>
@@ -1287,7 +1288,7 @@ called the ecliptic.</span>
 				<div class="tsd-signature tsd-kind-icon">DEF_<wbr>WRAP_<wbr>OPTIONS<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/3ef74f2/src/TextWrapper.ts#L220">TextWrapper.ts:220</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/f5cf6c1/src/TextWrapper.ts#L283">TextWrapper.ts:283</a></li>
 					</ul>
 				</aside>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -1296,7 +1297,7 @@ called the ecliptic.</span>
 					<div class="tsd-signature tsd-kind-icon">allowed<wbr>Exceeding<wbr>Characters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/\s/</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/3ef74f2/src/TextWrapper.ts#L224">TextWrapper.ts:224</a></li>
+							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/f5cf6c1/src/TextWrapper.ts#L287">TextWrapper.ts:287</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1306,7 +1307,7 @@ called the ecliptic.</span>
 					<div class="tsd-signature tsd-kind-icon">breakable<wbr>Characters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/[^\w\xA0]/</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/3ef74f2/src/TextWrapper.ts#L223">TextWrapper.ts:223</a></li>
+							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/f5cf6c1/src/TextWrapper.ts#L286">TextWrapper.ts:286</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1316,7 +1317,7 @@ called the ecliptic.</span>
 					<div class="tsd-signature tsd-kind-icon">continuation<wbr>Indent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/3ef74f2/src/TextWrapper.ts#L225">TextWrapper.ts:225</a></li>
+							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/f5cf6c1/src/TextWrapper.ts#L288">TextWrapper.ts:288</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1326,7 +1327,7 @@ called the ecliptic.</span>
 					<div class="tsd-signature tsd-kind-icon">tab<wbr>Length<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;4</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/3ef74f2/src/TextWrapper.ts#L222">TextWrapper.ts:222</a></li>
+							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/f5cf6c1/src/TextWrapper.ts#L285">TextWrapper.ts:285</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1336,7 +1337,7 @@ called the ecliptic.</span>
 					<div class="tsd-signature tsd-kind-icon">wrap<wbr>On<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;100</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/3ef74f2/src/TextWrapper.ts#L221">TextWrapper.ts:221</a></li>
+							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/f5cf6c1/src/TextWrapper.ts#L284">TextWrapper.ts:284</a></li>
 						</ul>
 					</aside>
 				</section>

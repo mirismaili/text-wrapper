@@ -1,6 +1,6 @@
 /**
- * @author [S. Mahdi Mir-Ismaili](https://mirismaili.github.io)
- * Created on 1398/3/3 (2019/5/24).
+ * @author {@link https://mirismaili.github.io S. Mahdi Mir-Ismaili}
+ * Created at 1398/3/3 (2019/5/24).
  */
 'use strict'
 
