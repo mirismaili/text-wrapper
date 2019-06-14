@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import {sha256} from 'js-sha256'
 import * as path from "path"
-import TextWrapper, {WrapOptions} from '../../src/TextWrapper'
+import TextWrapper, {WrapOptions, wrapper} from '../../src/TextWrapper'
 
 /**
  * @author {@link https://mirismaili.github.io S. Mahdi Mir-Ismaili}
@@ -65,8 +65,16 @@ const allOptions: (Options | undefined)[] = [
 const outputs: string[] = []
 //***********************************************************************************/
 
+const expectedHashOfOutputWithDefOptions = '069a7cbd6b35f7649f7574a2346f33fbd715f34b4102ef4a3d4d82a4ab5dac92'
+
 describe('Case-specific tests:', () => {
-	it("Check input's hash", () => expect(sha256(originalInput)).toBe('928c256346d0b16e69cd4c4ddd56e5608335f9ad16d1a25c26a9d8ff4b3e4edf'))
+	it("Check input's hash", () =>
+			expect(sha256(originalInput)).toBe('928c256346d0b16e69cd4c4ddd56e5608335f9ad16d1a25c26a9d8ff4b3e4edf')
+	)
+	
+	it("Check `wrapper()` utility", () =>
+			expect(sha256(wrapper(originalInput))).toBe(expectedHashOfOutputWithDefOptions)
+	)
 })
 
 const testsNum = allOptions.length
@@ -184,6 +192,8 @@ for (let testNum = 0; testNum < testsNum; ++testNum) {
 	})
 	
 	describe(`Case-specific tests [${testNum}]:`, () => {
+		it("Check output's hash", () => expect(sha256(output)).toBe(expectedOutputHash))
+
 		it("Check output's hash", () => expect(sha256(output)).toBe(expectedOutputHash))
 	})
 }

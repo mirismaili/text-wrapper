@@ -287,3 +287,7 @@ export const DEF_WRAP_OPTIONS: WrapOptions = {
 	allowedExceedingCharacters: /\s/,
 	continuationIndent: '',
 }
+
+export function wrapper(text: string, wrapOptions = DEF_WRAP_OPTIONS, alreadyPresentIndentation = ''): string {
+	return new TextWrapper(wrapOptions).wrap(text, alreadyPresentIndentation).wrappedText
+}
