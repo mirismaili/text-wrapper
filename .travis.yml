@@ -46,7 +46,7 @@ jobs:
           commit_message =~ /^(?:(?:feat|fix|refactor|pref|build|revert)|test(?i)[\s\S]*?\b(E2E|END-TO-END|END2END)\b)/)  # https://regex101.com/r/XWKT5J/2/
 
       script: >-
-        if [[ $E2E_TEST != FALSE || $SEMANTIC_RELEASE != FALSE ]] && [[ $TRAVIS_COMMIT_MESSAGE != docs* ]] || [[ $E2E_TEST == FORCE || $SEMANTIC_RELEASE == FORCE ]]; then
+        if [[ $E2E_TEST != FALSE || $SEMANTIC_RELEASE != FALSE ]] && [[ 1 == 1 ]] || [[ $E2E_TEST == FORCE || $SEMANTIC_RELEASE == FORCE ]]; then
           npm run build:prod && (
             if [[ $E2E_TEST != FALSE ]]; then
               npm run test:e2e;
