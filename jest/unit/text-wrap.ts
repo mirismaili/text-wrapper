@@ -9,7 +9,7 @@ import TextWrapper, {WrapOptions, wrapper} from '../../src/TextWrapper'
  */
 
 let originalInput = fs.readFileSync(path.resolve(__dirname, 'stub', 'input.txt'), 'utf8')
-		.replace(/\r\n|\r/g, '\n')
+		.replace(/\r\n?/g, '\n')
 
 const allOptions: (Options | undefined)[] = [
 	undefined,
@@ -92,16 +92,16 @@ for (let testNum = 0; testNum < testsNum; ++testNum) {
 	const bc = textWrapper.breakableCharacters
 	const ec = textWrapper.allowedExceedingCharacters
 	
-	let indents: string | undefined
+	let alreadyIndents: string | undefined
 	let expectedOutputHash: string
 	
 	let input = originalInput
 	
 	if (options === undefined) { // Default values for first options (that is undefined):
-		indents = undefined
+		alreadyIndents = undefined
 		expectedOutputHash = '069a7cbd6b35f7649f7574a2346f33fbd715f34b4102ef4a3d4d82a4ab5dac92'
 	} else {
-		indents = options.indents
+		alreadyIndents = options.indents
 		expectedOutputHash = options.expectedOutputHash
 		
 		if (options.enabledDebugNamespace) {  // Just for test coverage. To cover debug callback functions (formatters)
@@ -111,10 +111,10 @@ for (let testNum = 0; testNum < testsNum; ++testNum) {
 		}
 	}
 	
-	const wrapResult = textWrapper.wrap(input, indents)
+	const wrapResult = textWrapper.wrap(input, alreadyIndents)
 	
-	if (indents === undefined) indents = ''
-	const indentsN = indents + continuationIndent
+	if (alreadyIndents === undefined) alreadyIndents = ''
+	const indentsN = alreadyIndents + continuationIndent
 	
 	const output = outputs[testNum] = wrapResult.wrappedText
 	const markers = wrapResult.markers
@@ -189,6 +189,8 @@ for (let testNum = 0; testNum < testsNum; ++testNum) {
 		// 							'm'),
 		// 					`The text will be in "${outputPath(testNum)}"`)
 		// 		})
+		
+		it('Wrap wrapped!', () => expect(textWrapper.wrap(output, alreadyIndents).wrappedText).toBe(output))
 	})
 	
 	describe(`Case-specific tests [${testNum}]:`, () => {
