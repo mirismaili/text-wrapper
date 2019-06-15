@@ -1,7 +1,7 @@
 {
 	"name": "text-wrapper",
 	"version": "1.1.1",
-	"description": "A utility to wrap (break) long lines of large texts into limited-length lines, based on given options",
+	"description": "A library for wrapping (breaking) long lines of large texts into limited-length lines, based on given options",
 	"main": "dist/main.umd.js",
 	"bundle": "dist/bundle.umd.js",
 	"bundle-module": "dist/bundle.esm.js",

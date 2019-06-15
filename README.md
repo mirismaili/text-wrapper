@@ -39,7 +39,7 @@
 
 **Text-Wrapper**
 
-A tool for wrapping (breaking) long lines of large texts into limited-length lines, based on given options
+A library for wrapping (breaking) long lines of large texts into limited-length lines, based on given options
 
 ***
 
@@ -98,7 +98,8 @@ A tool for wrapping (breaking) long lines of large texts into limited-length lin
     ```javascript
     const wrappedOutput = wrapper(tooLongText)
     ```
-
+    
+    <sup>*See: **[Sample Input / Output](#sample-input--output)***</sup>
 ***
 
 By default, long lines will be broken after **100th character** *(max) (except white-spaces) (tab-character length will be calculated)*. You can customize this behavior:
