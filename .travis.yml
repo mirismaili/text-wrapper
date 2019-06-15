@@ -2,6 +2,9 @@ language: node_js
 
 cache: npm
 
+# `XX` means "disabled", "false", "forbidden", etc
+# `YY` means "yes", "true", "force", etc
+
 jobs:
   include:
     - stage: "Unit Tests"
@@ -10,8 +13,8 @@ jobs:
       node_js: node
 
       if: tag !~ ^v\d+\.\d+\.\d+ && (
-        env(UNIT_TEST_LATEST) == FORCE ||
-          (env(UNIT_TEST_LATEST) != FALSE && type == push && commit_message =~ /^(test|feat|fix|refactor|perf|revert)/))
+        env(UNIT_TEST_LATEST) == YY ||
+          (env(UNIT_TEST_LATEST) != XX && type == push && commit_message =~ /^(test|feat|fix|refactor|perf|revert)/))
 
       script: npm run test:unit:prod
     #--------------------------------------------------------------------------------------#
@@ -20,15 +23,15 @@ jobs:
       node_js: --lts
 
       if: tag !~ ^v\d+\.\d+\.\d+ && (
-        env(UNIT_TEST_LTS) == FORCE ||
-          env(UNIT_TEST_LTS) != FALSE && type == push && commit_message =~ /^(test|feat|fix|refactor|perf|revert)/)
+        env(UNIT_TEST_LTS) == YY ||
+          env(UNIT_TEST_LTS) != XX && type == push && commit_message =~ /^(test|feat|fix|refactor|perf|revert)/)
 
       # For debug purposes:
       before_script: echo -e "BUILD_DIR          = $TRAVIS_BUILD_DIR\nBUILD_ID           = $TRAVIS_BUILD_ID\nBUILD_NUMBER       = $TRAVIS_BUILD_NUMBER\nBUILD_WEB_URL      = $TRAVIS_BUILD_WEB_URL\nCOMMIT             = $TRAVIS_COMMIT\nCOMMIT_MESSAGE     = $TRAVIS_COMMIT_MESSAGE\nCOMMIT_RANGE       = $TRAVIS_COMMIT_RANGE\nDEBUG_MODE         = $TRAVIS_DEBUG_MODE\nEVENT_TYPE         = $TRAVIS_EVENT_TYPE\nJOB_ID             = $TRAVIS_JOB_ID\nJOB_NAME           = $TRAVIS_JOB_NAME\nJOB_NUMBER         = $TRAVIS_JOB_NUMBER\nJOB_WEB_URL        = $TRAVIS_JOB_WEB_URL\nOS_NAME            = $TRAVIS_OS_NAME\nOSX_IMAGE          = $TRAVIS_OSX_IMAGE\nPULL_REQUEST       = $TRAVIS_PULL_REQUEST\nPULL_REQUEST_BRANCH= $TRAVIS_PULL_REQUEST_BRANCH\nPULL_REQUEST_SHA   = $TRAVIS_PULL_REQUEST_SHA\nPULL_REQUEST_SLUG  = $TRAVIS_PULL_REQUEST_SLUG\nSECURE_ENV_VARS    = $TRAVIS_SECURE_ENV_VARS\nSUDO               = $TRAVIS_SUDO\nTEST_RESULT        = $TRAVIS_TEST_RESULT\nTAG                = $TRAVIS_TAG\nBUILD_STAGE_NAME   = $TRAVIS_BUILD_STAGE_NAME"
 
       script: npm run test:unit:prod
       after_success: >-
-        if [[ $CODECOV != FALSE ]]; then
+        if [[ $CODECOV != XX ]]; then
           npx codecov;
         else
           echo CODECOV IS DISABLED;
@@ -39,21 +42,21 @@ jobs:
 
       name: "Build and Release"
       node_js: --lts
+      env: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=""
 
       if: tag !~ ^v\d+\.\d+\.\d+ && (
-        (env(E2E_TEST) == FORCE || env(SEMANTIC_RELEASE) == FORCE) ||
-          (env(E2E_TEST) != FALSE || env(SEMANTIC_RELEASE) != FALSE) && type == push && branch == master &&
+        (env(E2E_TEST) == YY || env(SEMANTIC_RELEASE) == YY) ||
+          (env(E2E_TEST) != XX || env(SEMANTIC_RELEASE) != XX) && type == push && branch == master &&
           commit_message =~ /^(?:(?:feat|fix|refactor|pref|build|revert)|test(?i)[\s\S]*?\b(E2E|END-TO-END|END2END)\b)/)  # https://regex101.com/r/XWKT5J/2/
 
       script: >-
-        if [[ $E2E_TEST != FALSE || $SEMANTIC_RELEASE != FALSE ]] && [[ 1 == 1 ]] || [[ $E2E_TEST == FORCE || $SEMANTIC_RELEASE == FORCE ]]; then
-          npm run build:prod && (
-            if [[ $E2E_TEST != FALSE ]]; then
+        if [[ $E2E_TEST != XX || $SEMANTIC_RELEASE != XX ]] && [[ 1 == 1 ]] || [[ $E2E_TEST == YY || $SEMANTIC_RELEASE == YY ]]; then
+          npm run build:prod &&
+            if [[ $E2E_TEST != XX ]]; then
               npm run test:e2e;
             else
               echo E2E-TEST IS DISABLED;
-            fi
-          );
+            fi;
         else
           echo ALL BUILD STEPS ARE DISABLED OR THERE IS NO NEED TO NEW BUILD;
         fi
@@ -64,7 +67,7 @@ jobs:
 
         # `bash -c ...` is required for the script in `deploy` section, also quotes around env-vars even in `if [[ ]]`:
         script: bash -c '
-          if [[ "$SEMANTIC_RELEASE" != FALSE || "$SEMANTIC_RELEASE" == FORCE ]]; then
+          if [[ "$SEMANTIC_RELEASE" != XX || "$SEMANTIC_RELEASE" == YY ]]; then
             npx semantic-release@$SEMANTIC_RELEASE_VERSION;
           else
             echo SEMANTIC-RELEASE IS DISABLED;
