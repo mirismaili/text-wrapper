@@ -58,6 +58,7 @@ A library for wrapping (breaking) long lines of large texts into limited-length 
       * [allowedExceedingCharacters: RegExp = /\\s/](#allowedexceedingcharacters-regexp--s)
       * [continuationIndent: string = ''](#continuationindent-string--)
   * [Unicode support](#unicode-support)
+* [Technical Overview](#technical-overview)
 
 # Installation
 
@@ -222,3 +223,84 @@ Unicode character classes are not supported widely, but if you just want distinc
 { breakableCharacters: /[^\w\xA0]/u }
  ```
 Note: Unicode-aware regular expressions needs ES2015 at least. See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/unicode#Specifications
+
+# Technical Overview
+
+<p dir="auto">
+	<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">#Javascript</a>
+	<br>
+	<a href="https://www.npmjs.com/">#npm</a>
+</p>
+
+<p dir="auto">
+	<b>Source</b>:<br>
+	&emsp;&emsp;<a href="https://github.com/mirismaili/text-wrapper">https://github.com/mirismaili/text-wrapper</a>
+</p>
+
+<p dir="auto">
+	<b>Targets</b>:
+	<br>
+	&emsp;&emsp;All ES6+ Javascript environments
+	<br>
+	&emsp;&emsp;<b>Tested on</b>: Node 10, 11, 12 / Chromium: 76
+</p>
+
+<p dir="auto">
+	<b>Release 1</b> (npm):
+	<br>
+	&emsp;&emsp;<a href="https://www.npmjs.com/package/text-wrapper">https://www.npmjs.com/package/text-wrapper</a>
+</p>
+
+<p dir="auto">
+	<b>Release 2</b> (all):
+	<br>
+	&emsp;&emsp;<a href="https://github.com/mirismaili/text-wrapper/releases">https://github.com/mirismaili/text-wrapper/releases</a>
+</p>
+
+<p dir="auto">
+	<b>Documentation</b> (full):
+	<br>
+	&emsp;&emsp;<a href="https://mirismaili.github.io/text-wrapper/">https://mirismaili.github.io/text-wrapper/</a>
+</p>
+
+<p dir="auto">
+	<b>GitHub project</b>:
+	<br>
+	&emsp;&emsp;<a href="https://github.com/users/mirismaili/projects/1">https://github.com/users/mirismaili/projects/1</a>
+</p>
+
+<p dir="auto">
+	<b>Distribution-type</b>: library
+</p>
+
+<p dir="auto">
+	<b>Executables</b>: none
+</p>
+
+<p dir="auto">
+	<b>Most important used technologies</b>:
+	<br>
+	&emsp;&emsp;● jest (test framework)
+	<br>
+	&emsp;&emsp;● puppeteer (browser-based end-to-end test)
+	<br>
+	&emsp;&emsp;● codecov (test-coverage report) - <a href="https://codecov.io/github/mirismaili/text-wrapper">Report</a>
+	<br>
+	&emsp;&emsp;● rollup.js (bundle tool)
+	<br>
+	&emsp;&emsp;● Typescript
+	<br>
+	&emsp;&emsp;● Travis (CI) - <a href="https://travis-ci.com/mirismaili/text-wrapper/builds">Log</a>
+	<br>
+	&emsp;&emsp;● commitizen (conventional commits)
+	<br>
+	&emsp;&emsp;● semantic-release (automatic version and release manager)
+</p>
+
+<p dir="auto">
+	Dependencies #: <a href="https://david-dm.org/mirismaili/text-wrapper">1</a>
+</p>
+
+<p dir="auto">
+	Dev-dependencies #: <a href="https://david-dm.org/mirismaili/text-wrapper?type=dev">36</a>
+</p>
