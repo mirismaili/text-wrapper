@@ -252,7 +252,7 @@ export interface WrapOptions {
 	 * This determines the max-length that should be considered for tab-characters (`'\t'`). Notice that the length of
 	 * each tab-character is depended on its location in its line. For example if this option is set to `4`, then the
 	 * length of `'\tA'` will appear `5` and the length of `'A\t'` will appear `4`.
-	 * @see visual (virtual) length: {@linkcode TextWrapper.vLen vLen}
+	 * @see {@link TextWrapper.vLen visual (virtual) length: <b>vLen</b>}
 	 */
 	tabLength?: number
 	

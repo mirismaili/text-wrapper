@@ -1013,6 +1013,8 @@ img { max-width: 100%; }
 							</ul>
 						</li>
 						<li><a href="#unicode-support">Unicode support</a></li>
+						<li><a href="#markers-an-advanced-way-to-get-access-to-the-process-result">markers: An advanced way to get access to the process result</a></li>
+						<li><a href="#wrap-wrapped">Wrap wrapped!</a></li>
 					</ul>
 				</li>
 				<li><a href="#technical-overview">Technical Overview</a></li>
@@ -1040,7 +1042,7 @@ img { max-width: 100%; }
 				</li>
 				<li><p>Take the job:</p>
 					<pre><code class="language-javascript"> <span class="hljs-keyword">const</span> wrappedOutput = wrapper(tooLongText)</code></pre>
-					<p> <sup><em>See: *</em><a href="#sample-input--output">Sample Input / Output</a>***</sup></p>
+					<p> <sup><em>See:</em> <strong><a href="#sample-input--output">Sample Input / Output</a></strong></sup></p>
 				</li>
 			</ol>
 			<hr>
@@ -1094,6 +1096,9 @@ img { max-width: 100%; }
 			<p><em>Note:</em> Sometimes this is not possible, beacuse there is no breakable character (space, etc) until the limitation (<code>wrapOn</code> value). In these cases, the line will break later, but as soon as possible.</p>
 			<h4 id="tablength-number-4"><code>tabLength: number = 4</code></h4>
 			<p>This determines the max-length that should be considered for tab-characters (<code>&#39;\t&#39;</code>). Notice that the length of each tab-character is depended on its location in its line. For example, if this option is set to <code>4</code>, then the length of <code>&#39;\tA&#39;</code> will appear <code>5</code> and the length of <code>&#39;A\t&#39;</code> will appear <code>4</code>.</p>
+			<ul>
+				<li><em>See also:</em> <a href="https://mirismaili.github.io/text-wrapper/classes/textwrapper.html#vlen">visual (virtual) length: <b>vLen</b></a> </li>
+			</ul>
 			<h4 id="breakablecharacters-regexp-w-xa0-"><code>breakableCharacters: RegExp = /[^\w\xA0]/</code></h4>
 			<p>Long lines don&#39;t break at any where the length is exceeded. But it occurs only on word-boundaries by default. So this options has been set to <code>/[^\w\xA0]/</code> to be broken on any non-word character (<code>/^\w/ === /[^a-zA-Z0-9_]/</code>) except a special white-space character named <em>non-breakable space (<code>&#39;\xA0&#39;</code>)</em>.</p>
 			<p>Note: This RegExp will be tested against only a single character (each time)!</p>
@@ -1108,6 +1113,31 @@ img { max-width: 100%; }
 			<p>Unicode character classes are not supported widely, but if you just want distinct between word-characters and non-word characters, add a <code>u</code> flag to <code>breakableCharacters</code> default value:</p>
 			<pre><code class="language-javascript">{ <span class="hljs-attr">breakableCharacters</span>: <span class="hljs-regexp">/[^\w\xA0]/u</span> }</code></pre>
 			<p>Note: Unicode-aware regular expressions needs ES2015 at least. See: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/unicode#Specifications">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/unicode#Specifications</a></p>
+			<h2 id="markers-an-advanced-way-to-get-access-to-the-process-result"><code>markers</code>: An advanced way to get access to the process result</h2>
+			<p>In cases, you don&#39;t want the final output itself (<code>wrappedText</code>), but you want a pure result of the process, <code>markers</code> is that you want! It&#39;s an array of all offsets that input-text needs line-breaks at them (to be wrapped correctly). To better understanding, we can <em>reproduce</em> the final output (<code>wrappedText</code>) using <code>markers</code> in a loop. Suppose you have an <code>inputText</code>, a <code>wrapOptions</code> object and an <code>alreadyPresentIndents</code> and:</p>
+			<pre><code class="language-javascript"><span class="hljs-keyword">const</span> wrapResult = <span class="hljs-keyword">new</span> TextWrapper(wrapOptions).wrap(inputText, alreadyPresentIndents)
+
+<span class="hljs-keyword">const</span> output = wrapResult.wrappedText
+<span class="hljs-keyword">const</span> markers = wrapResult.markers</code></pre>
+			<p>Then:</p>
+			<pre><code class="language-javascript"><span class="hljs-keyword">const</span> indentsN = alreadyPresentIndents + wrapOptions.continuationIndent
+
+<span class="hljs-keyword">let</span> anotherOutput = <span class="hljs-string">''</span>
+<span class="hljs-keyword">let</span> a = <span class="hljs-number">0</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> b <span class="hljs-keyword">of</span> markers) {
+    anotherOutput += input.slice(a, b) + <span class="hljs-string">'\n'</span> + indentsN
+    a = b
+}
+
+<span class="hljs-keyword">if</span> (a &gt; <span class="hljs-number">0</span>) anotherOutput += input.slice(a)
+<span class="hljs-keyword">else</span> anotherOutput = input
+
+expect(anotherOutput).toBe(output)</code></pre>
+			<p><em>This is one of the unit tests that this library must pass!</em> (See <em>&quot;Reproduce output using markers&quot;</em> in <a href="https://github.com/mirismaili/text-wrapper/blob/master/jest/unit/text-wrap.ts">jest/unit/text-wrapper.ts</a>)</p>
+			<h2 id="wrap-wrapped-">Wrap wrapped!</h2>
+			<p>What occurs if you double-wrap an input-text? This is another of unit tests in <a href="https://github.com/mirismaili/text-wrapper/blob/master/jest/unit/text-wrap.ts">jest/unit/text-wrapper.ts</a>:</p>
+			<pre><code class="language-javascript">test(<span class="hljs-string">'Wrap wrapped!'</span>, () =&gt;
+     expect(textWrapper.wrap(output, alreadyIndents).wrappedText).toBe(output))</code></pre>
 			<h1 id="technical-overview">Technical Overview</h1>
 			<p dir="auto">
 				<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">#Javascript</a>
@@ -1231,7 +1261,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">log<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> =&nbsp;getDebugger(&#x27;GENERAL&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L304">TextWrapper.ts:304</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L304">TextWrapper.ts:304</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1241,7 +1271,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">log<wbr>Break<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> =&nbsp;getDebugger(&#x27;BR&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L301">TextWrapper.ts:301</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L301">TextWrapper.ts:301</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1251,7 +1281,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">log<wbr>Break<wbr>Line<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> =&nbsp;getDebugger(&#x27;BL&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L302">TextWrapper.ts:302</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L302">TextWrapper.ts:302</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1261,7 +1291,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">log<wbr>Each<wbr>Char<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> =&nbsp;getDebugger(&#x27;AC&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L299">TextWrapper.ts:299</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L299">TextWrapper.ts:299</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1271,7 +1301,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">log<wbr>Fast<wbr>Check<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> =&nbsp;getDebugger(&#x27;FC&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L300">TextWrapper.ts:300</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L300">TextWrapper.ts:300</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1281,7 +1311,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">log<wbr>Main<wbr>Loop<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> =&nbsp;getDebugger(&#x27;ML&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L303">TextWrapper.ts:303</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L303">TextWrapper.ts:303</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1298,7 +1328,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L297">TextWrapper.ts:297</a></li>
+								<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L297">TextWrapper.ts:297</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1321,7 +1351,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/utilities.ts#L6">utilities.ts:6</a></li>
+								<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/utilities.ts#L6">utilities.ts:6</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1368,7 +1398,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L292">TextWrapper.ts:292</a></li>
+								<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L292">TextWrapper.ts:292</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1396,7 +1426,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">DEF_<wbr>WRAP_<wbr>OPTIONS<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L284">TextWrapper.ts:284</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L284">TextWrapper.ts:284</a></li>
 					</ul>
 				</aside>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -1405,7 +1435,7 @@ img { max-width: 100%; }
 					<div class="tsd-signature tsd-kind-icon">allowed<wbr>Exceeding<wbr>Characters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/\s/</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L288">TextWrapper.ts:288</a></li>
+							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L288">TextWrapper.ts:288</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1415,7 +1445,7 @@ img { max-width: 100%; }
 					<div class="tsd-signature tsd-kind-icon">breakable<wbr>Characters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/[^\w\xA0]/</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L287">TextWrapper.ts:287</a></li>
+							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L287">TextWrapper.ts:287</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1425,7 +1455,7 @@ img { max-width: 100%; }
 					<div class="tsd-signature tsd-kind-icon">continuation<wbr>Indent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L289">TextWrapper.ts:289</a></li>
+							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L289">TextWrapper.ts:289</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1435,7 +1465,7 @@ img { max-width: 100%; }
 					<div class="tsd-signature tsd-kind-icon">tab<wbr>Length<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;4</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L286">TextWrapper.ts:286</a></li>
+							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L286">TextWrapper.ts:286</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1445,7 +1475,7 @@ img { max-width: 100%; }
 					<div class="tsd-signature tsd-kind-icon">wrap<wbr>On<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;100</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L285">TextWrapper.ts:285</a></li>
+							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L285">TextWrapper.ts:285</a></li>
 						</ul>
 					</aside>
 				</section>

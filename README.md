@@ -58,6 +58,7 @@ A library for wrapping (breaking) long lines of large texts into limited-length 
       * [allowedExceedingCharacters: RegExp = /\\s/](#allowedexceedingcharacters-regexp--s)
       * [continuationIndent: string = ''](#continuationindent-string--)
   * [Unicode support](#unicode-support)
+  * [markers: An advanced way to get access to the process result](#markers-an-advanced-way-to-get-access-to-the-process-result)
 * [Technical Overview](#technical-overview)
 
 # Installation
@@ -100,7 +101,7 @@ A library for wrapping (breaking) long lines of large texts into limited-length 
     const wrappedOutput = wrapper(tooLongText)
     ```
     
-    <sup>*See: **[Sample Input / Output](#sample-input--output)***</sup>
+    <sup>*See:* **[Sample Input / Output](#sample-input--output)**</sup>
 ***
 
 By default, long lines will be broken after **100th character** *(max) (except white-spaces) (tab-character length will be calculated)*. You can customize this behavior:
@@ -198,6 +199,8 @@ This is the most common option. It determines the maximum allowed length of each
 #### `tabLength: number = 4`
 
 This determines the max-length that should be considered for tab-characters (`'\t'`). Notice that the length of each tab-character is depended on its location in its line. For example, if this option is set to `4`, then the length of `'\tA'` will appear `5` and the length of `'A\t'` will appear `4`.
+
+ - *See also:* [visual (virtual) length: <b>vLen</b>](https://mirismaili.github.io/text-wrapper/classes/textwrapper.html#vlen) 
 	
 #### `breakableCharacters: RegExp = /[^\w\xA0]/`
 
@@ -223,6 +226,36 @@ Unicode character classes are not supported widely, but if you just want distinc
 { breakableCharacters: /[^\w\xA0]/u }
  ```
 Note: Unicode-aware regular expressions needs ES2015 at least. See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/unicode#Specifications
+
+## `markers`: An advanced way to get access to the process result
+
+In cases, you don't want the final output itself (`wrappedText`), but you want a pure result of the process, `markers` is that you want! It's an array of all offsets that input-text needs line-breaks at them (to be wrapped correctly). To better understanding, we can *reproduce* the final output (`wrappedText`) using `markers` in a loop. Suppose you have an `inputText`, a `wrapOptions` object and an `alreadyPresentIndents` and:
+
+```javascript
+const wrapResult = new TextWrapper(wrapOptions).wrap(inputText, alreadyPresentIndents)
+
+const output = wrapResult.wrappedText
+const markers = wrapResult.markers
+```
+
+Then:
+
+```javascript
+const indentsN = alreadyPresentIndents + wrapOptions.continuationIndent
+
+let anotherOutput = ''
+let a = 0
+for (const b of markers) {
+    anotherOutput += input.slice(a, b) + '\n' + indentsN
+    a = b
+}
+
+anotherOutput += input.slice(a)
+
+expect(anotherOutput).toBe(output)
+```
+
+*This is one of the unit tests that this library must pass!* (See *"Reproduce output using markers"* in [jest/unit/text-wrapper.ts](https://github.com/mirismaili/text-wrapper/blob/master/jest/unit/text-wrap.ts))
 
 # Technical Overview
 
@@ -302,5 +335,5 @@ Note: Unicode-aware regular expressions needs ES2015 at least. See: https://deve
 </p>
 
 <p dir="auto">
-	Dev-dependencies #: <a href="https://david-dm.org/mirismaili/text-wrapper?type=dev">36</a>
+	Dev-dependencies #: <a href="https://david-dm.org/mirismaili/text-wrapper?type=dev">37</a>
 </p>

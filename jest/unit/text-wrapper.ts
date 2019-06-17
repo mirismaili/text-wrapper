@@ -131,8 +131,7 @@ for (let testNum = 0; testNum < testsNum; ++testNum) {
 				a = b
 			}
 			
-			if (a > 0) anotherOutput += input.slice(a)
-			else anotherOutput = input
+			anotherOutput += input.slice(a)
 			
 			expect(anotherOutput).toBe(output)
 		})

@@ -1016,14 +1016,14 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">allowed<wbr>Exceeding<wbr>Characters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L275">TextWrapper.ts:275</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L275">TextWrapper.ts:275</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>This determines which characters are allowed to exceed the limitation (after <a href="wrapoptions.html#wrapon">wrapOn</a> value). By default,
-							this has been set to <code>/\s/</code> to allow any white-space character. new-line-character (<code>&#39;\n&#39;</code>) will be ignored,
-						anyway.</p>
+						<p>This determines which characters are allowed to exceed the limitation (after <a href="wrapoptions.html#wrapon"><code>wrapOn</code></a> value).
+							By default, this has been set to <code>/\s/</code> to allow any white-space character.
+						new-line-character (<code>&#39;\n&#39;</code>) will be ignored, anyway.</p>
 					</div>
 					<p>Note: This RegExp will be tested against only a single character (each time)!</p>
 				</div>
@@ -1034,7 +1034,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">breakable<wbr>Characters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L266">TextWrapper.ts:266</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L266">TextWrapper.ts:266</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1052,13 +1052,13 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">continuation<wbr>Indent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L281">TextWrapper.ts:281</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L281">TextWrapper.ts:281</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>This value will be added after each line-break (<code>&#39;\n&#39;</code>) character that this tool adds to the text. So it appears
-						in the leading of each new line (not the already-present lines).</p>
+						<p>This value will be added after each line-break (<code>&#39;\n&#39;</code>) character that this tool adds to the text.
+						So it appears in the leading of each new line (not the already-present lines).</p>
 					</div>
 				</div>
 			</section>
@@ -1068,7 +1068,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">tab<wbr>Length<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L257">TextWrapper.ts:257</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L257">TextWrapper.ts:257</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1079,7 +1079,7 @@ img { max-width: 100%; }
 					</div>
 					<dl class="tsd-comment-tags">
 						<dt>see</dt>
-						<dd><p>visual (virtual) length: <a href="../classes/textwrapper.html#vlen"><code>vLen</code></a></p>
+						<dd><p><a href="../classes/textwrapper.html#vlen">visual (virtual) length: <b>vLen</b></a></p>
 						</dd>
 					</dl>
 				</div>
@@ -1090,18 +1090,19 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">wrap<wbr>On<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/b0efa71/src/TextWrapper.ts#L249">TextWrapper.ts:249</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L249">TextWrapper.ts:249</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>This is the most useful option. It determines the maximum allowed length of each line. The words exceed this rule
-						will go to the next line. There are some configurable options to say the program how does this work:</p>
+						<p>This is the most common option. It determines the maximum allowed length of each line.
+							The words exceed this rule will go to the next line.
+						There are some configurable options to say the program how does this work:</p>
 						<ol>
-							<li>Allowed characters for exceeding the limitation (by default: white-spaces): <a href="wrapoptions.html#allowedexceedingcharacters">allowedExceedingCharacters</a></li>
-							<li>Word-boundaries: <a href="wrapoptions.html#breakablecharacters">breakableCharacters</a></li>
-							<li>Tab-character length: <a href="wrapoptions.html#tablength">tabLength</a></li>
-							<li>The indents to be inserted in the leading of each newly created line: <a href="wrapoptions.html#continuationindent">continuationIndent</a></li>
+							<li>Allowed characters for exceeding the limitation (by default: white-spaces): <a href="wrapoptions.html#allowedexceedingcharacters"><code>allowedExceedingCharacters</code></a></li>
+							<li>Word-boundaries: <a href="wrapoptions.html#breakablecharacters"><code>breakableCharacters</code></a></li>
+							<li>Tab-character length: <a href="wrapoptions.html#tablength"><code>tabLength</code></a></li>
+							<li>The indents to be inserted in the leading of each newly created line: <a href="wrapoptions.html#continuationindent"><code>continuationIndent</code></a></li>
 						</ol>
 					</div>
 				</div>
