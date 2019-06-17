@@ -58,9 +58,9 @@ export default class TextWrapper implements WrapOptions {
 	 * {@link TextWrapper.constructor class constructor}).
 	 * In other words, (for a single run of this method per an instantiation) there is no difference whether you pass:
 	 * <br>
-	 * **`s1` to {@link WrapOptions.continuationIndent `WrapOptions.continuationIndent`}** and **`s2` to this parameter**
+	 * **`s1` to {@linkcode WrapOptions.continuationIndent}** and **`s2` to this parameter**
 	 * <br>or: <br>
-	 * **`s3` to {@link WrapOptions.continuationIndent `WrapOptions.continuationIndent`}** and **`s4` to this parameter**
+	 * **`s3` to {@linkcode WrapOptions.continuationIndent}** and **`s4` to this parameter**
 	 * <br>
 	 * **while `(s1 + s2 === s3 + s4)`**. The library works with *the whole* always.
 	 * In these cases, this is just a logical separation (and maybe usable in the future).
@@ -70,14 +70,14 @@ export default class TextWrapper implements WrapOptions {
 	 * 2. {@linkcode WrapResult.markers markers: number[]}
 	 *
 	 * @see {@linkcode WrapResult}
-	 * @see {@linkcode TextWrapper.constructor class constructor}
+	 * @see {@link TextWrapper.constructor class constructor}
 	 */
 	wrap(text: string, alreadyPresentIndentation = ''): WrapResult {
 		const markers: number[] = []
 		const tabLength = this.tabLength
 		const length = text.length
 		const indentsN = alreadyPresentIndentation + this.continuationIndent
-		const indentsNVLen = this.getVisualLength(indentsN, 0)
+		const indentsNVLen = this.vLen(indentsN, 0)
 		
 		let previousMarker = 0
 		let wrappedText = ''
@@ -112,7 +112,7 @@ export default class TextWrapper implements WrapOptions {
 						// The 2nd condition will always be true if the 1st is true. Actually, it is the main condition
 						// we need to check, but we know in almost all cases the 1st (that is much simpler) is true.
 						!(draftMarker - start > indentsNVLen ||
-								this.getVisualLength(text.slice(start, draftMarker)) > indentsNVLen)
+								this.vLen(text.slice(start, draftMarker)) > indentsNVLen)
 				) {
 					// 1.1. PASSED but CAN'T
 					fastCheck = true
@@ -180,7 +180,23 @@ export default class TextWrapper implements WrapOptions {
 		}
 	}
 	
-	getVisualLength(s: string, visualOffset: number = 0): number {
+	/**
+	 * Calculate <b>v</b>isual (or <b>v</b>irtual) <b>len</b>gth of a string and returns it.
+	 * *V-length* is the same as regular length, but when the string contains tab-characters can be different.
+	 * So it's depended on {@linkcode TextWrapper.tabLength tab-length} and also the position of tab-characters.
+	 * *Example*: When **`tabLength === 4`** then **`vLen('\tA') === 5`**,
+	 * but **`vLen('A\t') === vLen('AB\t') === vLen('ABC\t') === 4`** and **`vLen('ABCD\t') === 8`**.
+	 *
+	 * @param s The string to calculate its v-length
+	 *
+	 * @param vOffset This is an offset from the beginning of the line that `s` (param) supposed to be started from it.
+	 * But note that this is NOT a regular offset!
+	 * In other words:<br>
+	 * **`s === line.slice(offset)`** and **`vOffset === vLen(line.slice(0, offset))`**.
+	 * <br>
+	 * *Example*: When **`tabLength === 4`** then **`vLen('\t', 1) === 3`**.
+	 */
+	vLen(s: string, vOffset: number = 0): number {
 		let a = 0
 		let b: number
 		let vLen = 0
@@ -190,7 +206,7 @@ export default class TextWrapper implements WrapOptions {
 			if (b === -1) return vLen + (s.length - a)
 			
 			vLen += (b - a)
-			vLen += this.tabLength - (vLen + visualOffset) % this.tabLength
+			vLen += this.tabLength - (vLen + vOffset) % this.tabLength
 			
 			a = b + 1
 		}
@@ -239,19 +255,21 @@ export interface WrapResult {
  */
 export interface WrapOptions {
 	/**
-	 * This is the most useful option. It determines the maximum allowed length of each line. The words exceed this rule
-	 * will go to the next line. There are some configurable options to say the program how does this work:
-	 * 1. Allowed characters for exceeding the limitation (by default: white-spaces): {@link allowedExceedingCharacters}
-	 * 2. Word-boundaries: {@link breakableCharacters}
-	 * 3. Tab-character length: {@link tabLength}
-	 * 4. The indents to be inserted in the leading of each newly created line: {@link continuationIndent}
+	 * This is the most common option. It determines the maximum allowed length of each line.
+	 * The words exceed this rule will go to the next line.
+	 * There are some configurable options to say the program how does this work:
+	 * 1. Allowed characters for exceeding the limitation (by default: white-spaces): {@linkcode allowedExceedingCharacters}
+	 * 2. Word-boundaries: {@linkcode breakableCharacters}
+	 * 3. Tab-character length: {@linkcode tabLength}
+	 * 4. The indents to be inserted in the leading of each newly created line: {@linkcode continuationIndent}
 	 */
 	wrapOn?: number
 	
 	/**
 	 * This determines the max-length that should be considered for tab-characters (`'\t'`). Notice that the length of
 	 * each tab-character is depended on its location in its line. For example if this option is set to `4`, then the
-	 * length of `'\tA'` will be appeared `5` and the length of `'A\t'` will be appeared `4`.
+	 * length of `'\tA'` will appear `5` and the length of `'A\t'` will appear `4`.
+	 * @see visual (virtual) length: {@linkcode TextWrapper.vLen vLen}
 	 */
 	tabLength?: number
 	
@@ -265,17 +283,17 @@ export interface WrapOptions {
 	breakableCharacters?: RegExp
 	
 	/**
-	 * This determines which characters are allowed to exceed the limitation (after {@link wrapOn} value). By default,
-	 * this has been set to `/\s/` to allow any white-space character. new-line-character (`'\n'`) will be ignored,
-	 * anyway.
+	 * This determines which characters are allowed to exceed the limitation (after {@linkcode wrapOn} value).
+	 * By default, this has been set to `/\s/` to allow any white-space character.
+	 * new-line-character (`'\n'`) will be ignored, anyway.
 	 *
 	 * Note: This RegExp will be tested against only a single character (each time)!
 	 */
 	allowedExceedingCharacters?: RegExp
 	
 	/**
-	 * This value will be added after each line-break (`'\n'`) character that this tool adds to the text. So it appears
-	 * in the leading of each new line (not the already-present lines).
+	 * This value will be added after each line-break (`'\n'`) character that this tool adds to the text.
+	 * So it appears in the leading of each new line (not the already-present lines).
 	 */
 	continuationIndent?: string
 }

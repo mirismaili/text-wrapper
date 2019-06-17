@@ -152,8 +152,8 @@ for (let testNum = 0; testNum < testsNum; ++testNum) {
 						
 						// WARNING: Due to performance issues, never expose `expect` method outside of an `if` block (that
 						// checks the test condition) in a loop.
-						if (textWrapper.getVisualLength(slice) <= maxLineLength)
-							expect(textWrapper.getVisualLength(slice)).toBeGreaterThan(maxLineLength, `[${slice}]\n${regExp}`)
+						if (textWrapper.vLen(slice) <= maxLineLength)
+							expect(textWrapper.vLen(slice)).toBeGreaterThan(maxLineLength, `[${slice}]\n${regExp}`)
 						
 						a = b
 					}
@@ -169,12 +169,12 @@ for (let testNum = 0; testNum < testsNum; ++testNum) {
 						const match = regExp.exec(output)
 						if (match === null) break
 						
-						const vLen = textWrapper.getVisualLength(match[0])
+						const vLen = textWrapper.vLen(match[0])
 						const wrongCondition = vLen > maxLineLength
 						
 						if (wrongCondition &&
 								// Check to sure the line is breakable:
-								textWrapper.getVisualLength(match[1]) > textWrapper.getVisualLength(indentsN)
+								textWrapper.vLen(match[1]) > textWrapper.vLen(indentsN)
 						)
 							expect(vLen).toBeLessThanOrEqual(maxLineLength, `[${match[0]}]\n${regExp}`)
 					}
