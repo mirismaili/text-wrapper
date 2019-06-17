@@ -59,6 +59,7 @@ A library for wrapping (breaking) long lines of large texts into limited-length 
       * [continuationIndent: string = ''](#continuationindent-string--)
   * [Unicode support](#unicode-support)
   * [markers: An advanced way to get access to the process result](#markers-an-advanced-way-to-get-access-to-the-process-result)
+  * [Wrap wrapped\!](#wrap-wrapped)
 * [Technical Overview](#technical-overview)
 
 # Installation
@@ -256,6 +257,15 @@ expect(anotherOutput).toBe(output)
 ```
 
 *This is one of the unit tests that this library must pass!* (See *"Reproduce output using markers"* in [jest/unit/text-wrapper.ts](https://github.com/mirismaili/text-wrapper/blob/master/jest/unit/text-wrap.ts))
+
+## Wrap wrapped!
+
+What occurs if you double-wrap an input-text? This is another of unit tests in [jest/unit/text-wrapper.ts](https://github.com/mirismaili/text-wrapper/blob/master/jest/unit/text-wrap.ts):
+
+```javascript
+test('Wrap wrapped!', () => 
+     expect(textWrapper.wrap(output, alreadyIndents).wrappedText).toBe(output))
+```
 
 # Technical Overview
 
