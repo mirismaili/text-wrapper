@@ -1,16 +1,6 @@
-import Debug from 'debug'
+import debug from 'debug'
 
 import {initiateObject} from './utilities'
-
-const logEachChar = Debug('AC')
-const logFastCheck = Debug('FC')
-const logBreak = Debug('BR')
-const logBreakLine = Debug('BL')
-const logMainLoop = Debug('ML')
-const log = Debug('GENERAL')
-Debug.log = console.debug.bind(console)
-
-Debug.formatters.c = (f: () => string) => f()
 
 /**
  * The main class of this library.
@@ -210,16 +200,9 @@ export default class TextWrapper implements WrapOptions {
 			
 			a = b + 1
 		}
-		
-		//return s.length + this.tabLength_1 * (s.split('\t').length - 1) // (s.split('\t').length-1) counts '\t's in `s`
-	}
-	
-	debug = {
-		enable: Debug.enable,
-		disable: Debug.disable,
-		setLog: (log: (...args: any[]) => any) => Debug.log = log
 	}
 }
+//*****************************************************************************************/
 
 /**
  * The return value of the main operation of this library ({@link TextWrapper.wrap wrapping texts}) would be of this
@@ -309,3 +292,21 @@ export const DEF_WRAP_OPTIONS: WrapOptions = {
 export function wrapper(text: string, wrapOptions = DEF_WRAP_OPTIONS, alreadyPresentIndentation = ''): string {
 	return new TextWrapper(wrapOptions).wrap(text, alreadyPresentIndentation).wrappedText
 }
+//*****************************************************************************************/
+
+const getDebugger = (namespace: string): debug.Debugger => debug(`<@MODULE_NAME@>:${namespace}`)
+
+const logEachChar = getDebugger('AC')
+const logFastCheck = getDebugger('FC')
+const logBreak = getDebugger('BR')
+const logBreakLine = getDebugger('BL')
+const logMainLoop = getDebugger('ML')
+const log = getDebugger('GENERAL')
+
+//debug.log = console.debug.bind(console)
+
+debug.formatters.c = (f: () => string) => f()
+
+debug.disable()  // Default behavior
+
+export {debug}

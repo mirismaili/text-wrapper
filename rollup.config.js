@@ -9,6 +9,7 @@ import {terser} from 'rollup-plugin-terser'
 import autoExternal from 'rollup-plugin-auto-external'
 import globals from 'rollup-plugin-node-globals'
 import builtins from 'rollup-plugin-node-builtins'
+import replace from 'rollup-plugin-replace'
 
 const pkg = require('./package.json')
 
@@ -23,6 +24,16 @@ const isProd = process.env.BUILD === 'production'
 const uglify = process.env.UGLIFY
 
 const commonPlugins = [
+	replace({
+		include: [
+			'src/**/*.js',
+			'src/**/*.ts',
+		],
+		delimiters: ['<@', '@>'],
+		values: {
+			MODULE_NAME: libraryName, //JSON.stringify(libraryName)
+		},
+	}),
 	typescript({
 		useTsconfigDeclarationDir: true,
 		cacheRoot: `${os.tmpdir()}/.rpt2_cache`, // See: https://github.com/ezolenko/rollup-plugin-typescript2/issues/34#issuecomment-332591290
