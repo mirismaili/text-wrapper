@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import {sha256} from 'js-sha256'
 import * as path from "path"
-import TextWrapper, {WrapOptions, wrapper, debug as TextWrapperDebug} from '../../src/TextWrapper'
+import TextWrapper, {WrapOptions, wrapper, debug as textWrapperDebug} from '../../src/TextWrapper'
 
 /**
  * @author {@link https://mirismaili.github.io S. Mahdi Mir-Ismaili}
@@ -105,8 +105,8 @@ for (let testNum = 0; testNum < testsNum; ++testNum) {
 		expectedOutputHash = options.expectedOutputHash
 		
 		if (options.enabledDebugNamespace) {  // Just for test coverage. To cover debug callback functions (formatters)
-			TextWrapperDebug.log = () => null  // Disable console outputs of `debug`
-			TextWrapperDebug.enable(options.enabledDebugNamespace)
+			textWrapperDebug.log = () => null  // Disable console outputs of `debug`
+			textWrapperDebug.enable(options.enabledDebugNamespace)
 			input = input.slice(0, 500)
 		}
 	}

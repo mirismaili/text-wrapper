@@ -1017,6 +1017,7 @@ img { max-width: 100%; }
 						<li><a href="#wrap-wrapped">Wrap wrapped!</a></li>
 					</ul>
 				</li>
+				<li><a href="#debug">Debug</a></li>
 				<li><a href="#technical-overview">Technical Overview</a></li>
 			</ul>
 			<h1 id="installation">Installation</h1>
@@ -1129,8 +1130,7 @@ img { max-width: 100%; }
     a = b
 }
 
-<span class="hljs-keyword">if</span> (a &gt; <span class="hljs-number">0</span>) anotherOutput += input.slice(a)
-<span class="hljs-keyword">else</span> anotherOutput = input
+anotherOutput += input.slice(a)
 
 expect(anotherOutput).toBe(output)</code></pre>
 			<p><em>This is one of the unit tests that this library must pass!</em> (See <em>&quot;Reproduce output using markers&quot;</em> in <a href="https://github.com/mirismaili/text-wrapper/blob/master/jest/unit/text-wrap.ts">jest/unit/text-wrapper.ts</a>)</p>
@@ -1138,6 +1138,15 @@ expect(anotherOutput).toBe(output)</code></pre>
 			<p>What occurs if you double-wrap an input-text? This is another of unit tests in <a href="https://github.com/mirismaili/text-wrapper/blob/master/jest/unit/text-wrap.ts">jest/unit/text-wrapper.ts</a>:</p>
 			<pre><code class="language-javascript">test(<span class="hljs-string">'Wrap wrapped!'</span>, () =&gt;
      expect(textWrapper.wrap(output, alreadyIndents).wrappedText).toBe(output))</code></pre>
+			<h1 id="debug">Debug</h1>
+			<p>This library uses <a href="https://www.npmjs.com/package/debug">npm debug library</a> (as its only dependency). The API completely exported by this library and you have full-control on it. To access:</p>
+			<pre><code class="language-javascript"><span class="hljs-keyword">const</span> textWrapperDebug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../dist/main.umd.js'</span>).debug</code></pre>
+			<p>Or:</p>
+			<pre><code class="language-javascript"><span class="hljs-keyword">import</span> {debug <span class="hljs-keyword">as</span> textWrapperDebug} <span class="hljs-keyword">from</span> <span class="hljs-string">'text-wrapper'</span></code></pre>
+			<p>Then you just need to know <a href="https://www.npmjs.com/package/debug">debug package</a>. For example, to enable debug-mode (according to <a href="https://www.npmjs.com/package/debug#set-dynamically">this</a>) write:</p>
+			<pre><code class="language-javascript">textWrapperDebug.enable(<span class="hljs-string">'text-wrapper:*'</span>)</code></pre>
+			<p><em>Note 1: In this package, <strong>debug-mode is disabled by default</strong> (see <code>debug.disable()</code> in <a href="https://github.com/mirismaili/text-wrapper/blob/master/src/TextWrapper.ts">src/TextWrapper.ts</a>). So even when <code>DEBUG</code> environment-variable is set to `</em>` you have no debug output from this package.*</p>
+			<p><em>Note 2: All debug-namespaces (see <a href="https://github.com/visionmedia/debug/blob/master/README.md">debug&#39;s docs</a>) start with <code>text-wrapper:</code>.</em></p>
 			<h1 id="technical-overview">Technical Overview</h1>
 			<p dir="auto">
 				<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">#Javascript</a>
@@ -1204,7 +1213,7 @@ expect(anotherOutput).toBe(output)</code></pre>
 				Dependencies #: <a href="https://david-dm.org/mirismaili/text-wrapper">1</a>
 			</p>
 			<p dir="auto">
-				Dev-dependencies #: <a href="https://david-dm.org/mirismaili/text-wrapper?type=dev">36</a>
+				Dev-dependencies #: <a href="https://david-dm.org/mirismaili/text-wrapper?type=dev">37</a>
 			</p>
 		</div>
 		<div style="position:relative;"><a name="typedoc-main-index" class="tsd-anchor"></a></div>
@@ -1261,7 +1270,7 @@ expect(anotherOutput).toBe(output)</code></pre>
 				<div class="tsd-signature tsd-kind-icon">log<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> =&nbsp;getDebugger(&#x27;GENERAL&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L304">TextWrapper.ts:304</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/9054f7d/src/TextWrapper.ts#L304">TextWrapper.ts:304</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1271,7 +1280,7 @@ expect(anotherOutput).toBe(output)</code></pre>
 				<div class="tsd-signature tsd-kind-icon">log<wbr>Break<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> =&nbsp;getDebugger(&#x27;BR&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L301">TextWrapper.ts:301</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/9054f7d/src/TextWrapper.ts#L301">TextWrapper.ts:301</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1281,7 +1290,7 @@ expect(anotherOutput).toBe(output)</code></pre>
 				<div class="tsd-signature tsd-kind-icon">log<wbr>Break<wbr>Line<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> =&nbsp;getDebugger(&#x27;BL&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L302">TextWrapper.ts:302</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/9054f7d/src/TextWrapper.ts#L302">TextWrapper.ts:302</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1291,7 +1300,7 @@ expect(anotherOutput).toBe(output)</code></pre>
 				<div class="tsd-signature tsd-kind-icon">log<wbr>Each<wbr>Char<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> =&nbsp;getDebugger(&#x27;AC&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L299">TextWrapper.ts:299</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/9054f7d/src/TextWrapper.ts#L299">TextWrapper.ts:299</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1301,7 +1310,7 @@ expect(anotherOutput).toBe(output)</code></pre>
 				<div class="tsd-signature tsd-kind-icon">log<wbr>Fast<wbr>Check<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> =&nbsp;getDebugger(&#x27;FC&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L300">TextWrapper.ts:300</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/9054f7d/src/TextWrapper.ts#L300">TextWrapper.ts:300</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1311,7 +1320,7 @@ expect(anotherOutput).toBe(output)</code></pre>
 				<div class="tsd-signature tsd-kind-icon">log<wbr>Main<wbr>Loop<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Debugger</span><span class="tsd-signature-symbol"> =&nbsp;getDebugger(&#x27;ML&#x27;)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L303">TextWrapper.ts:303</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/9054f7d/src/TextWrapper.ts#L303">TextWrapper.ts:303</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1328,7 +1337,7 @@ expect(anotherOutput).toBe(output)</code></pre>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L297">TextWrapper.ts:297</a></li>
+								<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/9054f7d/src/TextWrapper.ts#L297">TextWrapper.ts:297</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1351,7 +1360,7 @@ expect(anotherOutput).toBe(output)</code></pre>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/utilities.ts#L6">utilities.ts:6</a></li>
+								<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/9054f7d/src/utilities.ts#L6">utilities.ts:6</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1398,7 +1407,7 @@ expect(anotherOutput).toBe(output)</code></pre>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L292">TextWrapper.ts:292</a></li>
+								<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/9054f7d/src/TextWrapper.ts#L292">TextWrapper.ts:292</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1426,7 +1435,7 @@ expect(anotherOutput).toBe(output)</code></pre>
 				<div class="tsd-signature tsd-kind-icon">DEF_<wbr>WRAP_<wbr>OPTIONS<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L284">TextWrapper.ts:284</a></li>
+						<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/9054f7d/src/TextWrapper.ts#L284">TextWrapper.ts:284</a></li>
 					</ul>
 				</aside>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -1435,7 +1444,7 @@ expect(anotherOutput).toBe(output)</code></pre>
 					<div class="tsd-signature tsd-kind-icon">allowed<wbr>Exceeding<wbr>Characters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/\s/</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L288">TextWrapper.ts:288</a></li>
+							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/9054f7d/src/TextWrapper.ts#L288">TextWrapper.ts:288</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1445,7 +1454,7 @@ expect(anotherOutput).toBe(output)</code></pre>
 					<div class="tsd-signature tsd-kind-icon">breakable<wbr>Characters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/[^\w\xA0]/</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L287">TextWrapper.ts:287</a></li>
+							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/9054f7d/src/TextWrapper.ts#L287">TextWrapper.ts:287</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1455,7 +1464,7 @@ expect(anotherOutput).toBe(output)</code></pre>
 					<div class="tsd-signature tsd-kind-icon">continuation<wbr>Indent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L289">TextWrapper.ts:289</a></li>
+							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/9054f7d/src/TextWrapper.ts#L289">TextWrapper.ts:289</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1465,7 +1474,7 @@ expect(anotherOutput).toBe(output)</code></pre>
 					<div class="tsd-signature tsd-kind-icon">tab<wbr>Length<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;4</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L286">TextWrapper.ts:286</a></li>
+							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/9054f7d/src/TextWrapper.ts#L286">TextWrapper.ts:286</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1475,7 +1484,7 @@ expect(anotherOutput).toBe(output)</code></pre>
 					<div class="tsd-signature tsd-kind-icon">wrap<wbr>On<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;100</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/5540f26/src/TextWrapper.ts#L285">TextWrapper.ts:285</a></li>
+							<li>Defined in <a href="https://github.com/mirismaili/text-wrapper/blob/9054f7d/src/TextWrapper.ts#L285">TextWrapper.ts:285</a></li>
 						</ul>
 					</aside>
 				</section>

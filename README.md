@@ -60,6 +60,7 @@ A library for wrapping (breaking) long lines of large texts into limited-length 
   * [Unicode support](#unicode-support)
   * [markers: An advanced way to get access to the process result](#markers-an-advanced-way-to-get-access-to-the-process-result)
   * [Wrap wrapped\!](#wrap-wrapped)
+* [Debug](#debug)
 * [Technical Overview](#technical-overview)
 
 # Installation
@@ -266,6 +267,30 @@ What occurs if you double-wrap an input-text? This is another of unit tests in [
 test('Wrap wrapped!', () => 
      expect(textWrapper.wrap(output, alreadyIndents).wrappedText).toBe(output))
 ```
+
+# Debug
+
+This library uses [npm debug library](https://www.npmjs.com/package/debug) (as its only dependency). The API completely exported by this library and you have full control over it. To access:
+
+```javascript
+const textWrapperDebug = require('../dist/main.umd.js').debug
+```
+
+Or:
+
+```javascript
+import {debug as textWrapperDebug} from 'text-wrapper'
+```
+
+Then you just need to know [debug package](https://www.npmjs.com/package/debug). For example, to enable debug-mode (according to [this](https://www.npmjs.com/package/debug#set-dynamically)) write:
+
+```javascript
+textWrapperDebug.enable('text-wrapper:*')
+```
+
+*Note 1: In this package, **debug-mode is disabled by default** (see `debug.disable()` in [src/TextWrapper.ts](https://github.com/mirismaili/text-wrapper/blob/master/src/TextWrapper.ts)). So even when `DEBUG` environment-variable is set to `*` you have no debug output from this package.*
+
+*Note 2: All debug-namespaces (see [debug's docs](https://github.com/visionmedia/debug/blob/master/README.md)) start with `text-wrapper:`.*
 
 # Technical Overview
 
