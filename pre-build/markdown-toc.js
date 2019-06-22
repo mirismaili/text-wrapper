@@ -38,7 +38,7 @@ try {
 			{encoding: 'utf8', maxBuffer: 100 * 1024}
 	).toString()
 } catch (error) {
-	console.error('\nDo you installed "gh-md-toc" executable in your path? Get it from\nhttps://github.com/ekalinin/github-markdown-toc.')
+	console.error('\nHave you installed "gh-md-toc" executable in your path? Get it from\nhttps://github.com/ekalinin/github-markdown-toc.')
 	process.exit(1)
 }
 //console.log(data)
@@ -52,25 +52,14 @@ fs.writeFileSync(filePath,
 )
 
 console.log(`TOC is written to the file. TOC:\n${toc}`)
+
 //******************************************************************************/
 
-/**
- * The main class of this library.
- *
- * {@link TextWrapper#constructor Create an instance} (with or without {@link WrapOptions options}) and then use
- * {@linkcode TextWrapper#wrap wrap()} method to do the task.
- *
- * Created at 1398/2/6 (2019/4/26).
- * @author {@link https://mirismaili.github.io S. Mahdi Mir-Ismaili}
- *
- * @see TextWrapper#constructor The constructor
- * @see TextWrapper#wrap wrap()
- */
 function getRegExpBasedOnLineBreakChar(input) {
 	const lineBreakChar = getLineBreakChar(input)
 	const lb = lineBreakChar === '\n' ? '\\n' : lineBreakChar === '\r' ? '\\r' : '\\r\\n'
-
-// https://regex101.com/r/SFJMgH/1
+	
+	// https://regex101.com/r/SFJMgH/1
 	return new RegExp(`(Table of Contents[^\\w${lb}]*?${lb}(?:={10,}${lb})?[^\\S${lb}]*?${lb})([\\s\\S]*?)([^\\S${lb}]*?${lb}[^\\S${lb}]*?${lb})`)
 }
 

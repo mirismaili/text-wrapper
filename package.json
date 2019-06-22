@@ -8,7 +8,7 @@
 	"types": "dist/types/TextWrapper.d.ts",
 	"scripts": {
 		"lint": "tslint --project tsconfig.json -t codeFrame 'src/**/*.ts' 'jest/**/*.ts'",
-		"README.md-TOC": "node PreBuild/markdown-toc.js -f README.md",
+		"README.md-TOC": "node pre-build/markdown-toc.js -f README.md",
 		"typedoc": "typedoc --out docs/ --target es6 --theme minimal --mode file src/ --ignoreCompilerErrors",
 		"doc": "npm run README.md-TOC && npm run typedoc",
 		"test:unit": "jest --verbose --colors --config jest/unit/config.js",
