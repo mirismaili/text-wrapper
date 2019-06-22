@@ -149,8 +149,8 @@ for (let testNum = 0; testNum < testsNum; ++testNum) {
 						const upBound = regExp.test(input) ? regExp.lastIndex : input.length
 						const slice = indentsN + input.slice(a, upBound) // is not strict in first cycle of the loop that hasn't indentsN
 						
-						// WARNING: Due to performance issues, never expose `expect` method outside of an `if` block (that
-						// checks the test condition) in a loop.
+						// WARNING: Due to performance issues, never expose `expect` method in a loop outside of an
+						// `if` block (that checks test's condition).
 						if (textWrapper.vLen(slice) <= maxLineLength)
 							expect(textWrapper.vLen(slice)).toBeGreaterThan(maxLineLength, `[${slice}]\n${regExp}`)
 						
@@ -193,8 +193,6 @@ for (let testNum = 0; testNum < testsNum; ++testNum) {
 	})
 	
 	describe(`Case-specific tests [${testNum}]:`, () => {
-		it("Check output's hash", () => expect(sha256(output)).toBe(expectedOutputHash))
-
 		it("Check output's hash", () => expect(sha256(output)).toBe(expectedOutputHash))
 	})
 }
