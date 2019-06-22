@@ -34,7 +34,7 @@ export default class TextWrapper implements WrapOptions {
 	}
 	
 	/**
-	 * The main process in this library is done by this method. Gets a string and wraps illegal-too-long-lines of it. To
+	 * The main process of this library is done by this method. Gets a string and wraps illegal-too-long-lines of it. To
 	 * configure and customize its operation pass a {@linkcode WrapOptions} to the class constructor}.
 	 * Note: This is an *instance method* and needs to a an {@link TextWrapper.constructor object instantiation} first.
 	 *
@@ -81,7 +81,6 @@ export default class TextWrapper implements WrapOptions {
 			vLen += c === '\t' ? tabLength - vLen % tabLength : 1
 			logEachChar(`%s / %d`, c, vLen)
 			
-			// tslint:disable-next-line:label-position
 			if (c === '\n') {
 				logBreakLine('vLen: %d / draftVLen: %d / fastCheck: %s', vLen, draftVLen, fastCheck)
 				fastCheck = false
