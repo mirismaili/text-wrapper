@@ -24,7 +24,7 @@
 		"build:watch": "npm run build -- --watch",
 		"build:prod": "npm run build -- --environment BUILD:production",
 		"build:prod0": "npm run build -- --environment BUILD:production,UGLIFY:false",
-		"prepublishOnly": "npm run build:prod",
+		"prepublishOnly": "npm run test:unit:prod & (npm run build:prod && npm run test:e2e)",
 		"tsc": "tsc --module commonjs",
 		"tsc:watch": "tsc --module commonjs --watch",
 		"commit": "git-cz",
