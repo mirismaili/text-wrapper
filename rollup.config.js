@@ -6,10 +6,10 @@ import camelCase from 'lodash.camelcase'
 import snakeCase from 'lodash.snakecase'
 import typescript from 'rollup-plugin-typescript2'
 import {terser} from 'rollup-plugin-terser'
-import autoExternal from 'rollup-plugin-auto-external'
 import nodeGlobals from 'rollup-plugin-node-globals'
 import nodeBuiltins from 'rollup-plugin-node-builtins'
 import replace from 'rollup-plugin-replace'
+import builtins from 'builtin-modules/static'
 
 const pkg = require('./package.json')
 
@@ -57,16 +57,17 @@ const bundledOutput = {
 	],
 }
 
+const externals = [...builtins, ...Object.keys(pkg.dependencies || {})]
+
+const globals = {}
+externals.map(key => globals[key] = /[-.]/.test(key) ? camelCase(key) : key)
+
 const dependentOutput = {
 	input: input,
-	output: {
-		format: 'umd', file: pkg.main, name: libVarName, sourcemap: true, exports: 'named',
-		globals: {debug: 'debug'}
-	},
+	output: {format: 'umd', file: pkg.main, name: libVarName, sourcemap: true, exports: 'named', globals: globals},
 	watch: watch,
-	plugins: [...plugins,
-		autoExternal(),
-	],
+	external: externals,
+	plugins: plugins,
 }
 
 // noinspection JSUnusedGlobalSymbols
