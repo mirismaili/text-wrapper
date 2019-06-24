@@ -12,7 +12,7 @@ jobs:
       name: "Unit Test (latest)"
       node_js: node
 
-      if: tag !~ ^v\d+\.\d+\.\d+ && (
+      if: tag !~ ^(v|typedoc-)\d+\.\d+\.\d+ && (
         env(UNIT_TEST_LATEST) == YY ||
           (env(UNIT_TEST_LATEST) != XX && type == push && commit_message =~ /^(test|feat|fix|refactor|perf|revert)/))
 
@@ -22,7 +22,7 @@ jobs:
     - name: "Unit Test (LTS) + Report Coverage"
       node_js: --lts
 
-      if: tag !~ ^v\d+\.\d+\.\d+ && (
+      if: tag !~ ^(v|typedoc-)\d+\.\d+\.\d+ && (
         env(UNIT_TEST_LTS) == YY ||
           env(UNIT_TEST_LTS) != XX && type == push && commit_message =~ /^(test|feat|fix|refactor|perf|revert)/)
 
@@ -44,7 +44,7 @@ jobs:
       node_js: --lts
       env: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=""
 
-      if: tag !~ ^v\d+\.\d+\.\d+ && (
+      if: tag !~ ^(v|typedoc-)\d+\.\d+\.\d+ && (
         (env(E2E_TEST) == YY || env(SEMANTIC_RELEASE) == YY) ||
           (env(E2E_TEST) != XX || env(SEMANTIC_RELEASE) != XX) && type == push && branch == master &&
           commit_message =~ /^(?:(?:feat|fix|refactor|pref|build|revert)|test(?i)[\s\S]*?\b(E2E|END-TO-END|END2END)\b)/)  # https://regex101.com/r/XWKT5J/2/
