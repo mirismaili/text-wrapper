@@ -7,8 +7,8 @@ import snakeCase from 'lodash.snakecase'
 import typescript from 'rollup-plugin-typescript2'
 import {terser} from 'rollup-plugin-terser'
 import autoExternal from 'rollup-plugin-auto-external'
-import globals from 'rollup-plugin-node-globals'
-import builtins from 'rollup-plugin-node-builtins'
+import nodeGlobals from 'rollup-plugin-node-globals'
+import nodeBuiltins from 'rollup-plugin-node-builtins'
 import replace from 'rollup-plugin-replace'
 
 const pkg = require('./package.json')
@@ -23,7 +23,7 @@ const watch = {include: 'src/**'}
 const isProd = process.env.BUILD === 'production'
 const uglify = process.env.UGLIFY
 
-const commonPlugins = [
+const plugins = [
 	replace({
 		include: [
 			'src/**/*.js',
@@ -40,7 +40,7 @@ const commonPlugins = [
 	}),
 	commonjs(),
 	(uglify === 'true' || uglify !== 'false' && isProd) && terser(),
-	sourceMaps()
+	sourceMaps(),
 ]
 
 const bundledOutput = {
@@ -50,23 +50,23 @@ const bundledOutput = {
 		{format: 'esm', file: pkg["bundle-module"], sourcemap: true},
 	],
 	watch: watch,
-	plugins: commonPlugins.concat([
-		globals(),
-		builtins(),
+	plugins: [...plugins,
+		nodeGlobals(),
+		nodeBuiltins(),
 		resolve(),
-	]),
+	],
 }
 
 const dependentOutput = {
 	input: input,
 	output: {
 		format: 'umd', file: pkg.main, name: libVarName, sourcemap: true, exports: 'named',
-		globals: {debug: 'Debug'}
+		globals: {debug: 'debug'}
 	},
 	watch: watch,
-	plugins: commonPlugins.concat([
+	plugins: [...plugins,
 		autoExternal(),
-	]),
+	],
 }
 
 // noinspection JSUnusedGlobalSymbols

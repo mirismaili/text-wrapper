@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"outDir": "dist/lib",
+		"outDir": "tsc-out",
 		"noImplicitAny": true,
 		"lib": [
 			"es2018"
