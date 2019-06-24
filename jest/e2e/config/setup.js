@@ -57,9 +57,9 @@ const staticServerPromise = new Promise((resolve, reject) => {
 			res.end()
 			
 		} catch (exeption) {
-			console.error(e.stack)
+			console.error(exeption.stack)
 			res.writeHead(500, {'Content-Type': 'text/plain'})
-			res.write(e.toString())
+			res.write(exeption.toString())
 			res.end()
 		}
 	})
