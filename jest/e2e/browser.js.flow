@@ -35,7 +35,11 @@ describe(`Browser environment: "bundle.umd.js" & "bundle.esm.js" (at: ${mockPage
 		page.on('pageerror', handler)
 		page.on('error', handler)
 		
-		await page.goto(mockPageUrl)
+		const response = await page.goto(mockPageUrl)
+		
+		expect(response.status()).toStrictEqual(200)
+		
+		expect(response.headers()['content-type']).toBe('text/html')
 		
 		pageTitle = await page.title()
 	}, timeout)

@@ -51,7 +51,7 @@
 		"semi": false,
 		"singleQuote": true
 	},
-	"//": "devDependencies: `@types/node` is needed to be in dependencies due to some notes in IntelliJ IDEs. See: https://intellij-support.jetbrains.com/hc/en-us/community/posts/206324989/comments/360000603579",
+	"//": "devDependencies: `@types/...` is needed to be in dependencies due to some notes in IntelliJ IDEs. See: https://intellij-support.jetbrains.com/hc/en-us/community/posts/206324989/comments/360000603579",
 	"devDependencies": {
 		"@babel/core": "^7.4.4",
 		"@babel/preset-env": "^7.4.4",
@@ -59,7 +59,7 @@
 		"@types/debug": "^4.1.4",
 		"@types/jest": "^24.0.12",
 		"@types/node": "^12.0.10",
-		"@types/puppeteer": "^1.12.4",
+		"@types/puppeteer": "~1.12.4",
 		"babel-jest": "^24.8.0",
 		"builtin-modules": "^3.1.0",
 		"cz-conventional-changelog": "^2.1.0",
