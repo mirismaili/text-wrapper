@@ -2,8 +2,14 @@
 	<a href="https://npmjs.com/package/text-wrapper">
 		<img alt="npm (scoped)" src="https://img.shields.io/npm/v/text-wrapper.svg">
 	</a>
-	<a href="https://npmjs.com/package/text-wrapper">
-		<img alt="npm" src="https://img.shields.io/npm/dt/text-wrapper.svg">
+	<a href="https://david-dm.org/mirismaili/text-wrapper">
+		<img src="https://david-dm.org/mirismaili/text-wrapper.svg" alt="Dependencies Status">
+	</a>
+	<a href="https://david-dm.org/mirismaili/text-wrapper?type=dev">
+		<img src="https://david-dm.org/mirismaili/text-wrapper/dev-status.svg" alt="devDependencies Status">
+	</a>
+	<a href="https://snyk.io//test/github/mirismaili/text-wrapper?targetFile=package.json">
+		<img src="https://snyk.io//test/github/mirismaili/text-wrapper/badge.svg?targetFile=package.json" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io//test/github/mirismaili/text-wrapper?targetFile=package.json">
 	</a>
 	<a href="https://packagephobia.now.sh/result?p=text-wrapper">
 		<img src="https://packagephobia.now.sh/badge?p=text-wrapper" alt="install size">
@@ -13,13 +19,7 @@
 		<img src="https://travis-ci.com/mirismaili/text-wrapper.svg?branch=master" alt="Build Status">
 	</a>
 	<a href="https://codecov.io/github/mirismaili/text-wrapper">
-		<img src="https://codecov.io/github/mirismaili/text-wrapper/branch/master/graph/badge.svg" alt="codecov">
-	</a>
-	<a href="https://david-dm.org/mirismaili/text-wrapper">
-		<img src="https://david-dm.org/mirismaili/text-wrapper.svg" alt="Dependency Status">
-	</a>
-	<a href="https://david-dm.org/mirismaili/text-wrapper?type=dev">
-		<img src="https://david-dm.org/mirismaili/text-wrapper/dev-status.svg" alt="devDependency Status">
+		<img src="https://codecov.io/github/mirismaili/text-wrapper/branch/master/graph/badge.svg" alt="Coverage Status">
 	</a>
 	<br>
 	<a href="http://commitizen.github.io/cz-cli/">
@@ -81,7 +81,7 @@ A library for wrapping (breaking) long lines of large texts into limited-length 
 
 # Basic Usage
 
-1. Access to `wrapper()` function:
+1. Get access to `wrapper()` function:
 
     ```javascript
     // Below line is not required when you import the module in your HTML 
