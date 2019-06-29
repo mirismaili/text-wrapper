@@ -9,7 +9,9 @@ const TMP_DIR = require('./options.js').tmpDir
 
 module.exports = async function () {
 	// noinspection JSUnresolvedVariable
-	const teardownStaticServerPromise = global.__STATIC_SERVER__.close()
+	const teardownStaticServerPromise = new Promise((resolve, reject) =>
+			global.__STATIC_SERVER__.close(err => err === undefined ? resolve() : reject(err))
+	)
 	
 	// noinspection JSUnresolvedVariable
 	const teardownPuppeteerPromise = new Promise((resolve, reject) =>

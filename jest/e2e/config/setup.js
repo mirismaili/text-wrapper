@@ -91,7 +91,9 @@ const launchPuppeteerPromise = new Promise((resolve, reject) => {
 		// use the file system to expose the wsEndpoint for TestEnvironments
 		mkdirp.sync(TMP_DIR)
 		fs.writeFileSync(path.join(TMP_DIR, 'wsEndpoint'), browser.wsEndpoint())
-	}, reject).then(resolve, reject)
+		
+		resolve()
+	}, reject)
 })
 
 // noinspection JSCheckFunctionSignatures
