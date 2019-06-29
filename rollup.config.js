@@ -26,7 +26,6 @@ const uglify = process.env.UGLIFY
 const plugins = [
 	replace({
 		include: [
-			'src/**/*.js',
 			'src/**/*.ts',
 		],
 		delimiters: ['<@', '@>'],

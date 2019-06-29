@@ -39,7 +39,7 @@
 		"wrapper",
 		"wrap-long-lines",
 		"break-long-lines",
-		"dev4dev"
+		"library"
 	],
 	"author": "S. M. Mir-Ismaili <s.m.mirismaili@gmail.com>",
 	"license": "MIT",
@@ -82,6 +82,7 @@
 		"rollup-plugin-sourcemaps": "^0.4.2",
 		"rollup-plugin-terser": "^5.0.0",
 		"rollup-plugin-typescript2": "^0.21.1",
+		"simplatic-http-server": "1.1.0",
 		"supports-color": "^7.0.0",
 		"temp-dir": "^2.0.0",
 		"ts-jest": "^24.0.2",

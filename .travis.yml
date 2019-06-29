@@ -2,12 +2,12 @@ language: node_js
 
 cache: npm
 
-# `XX` means "disabled", "false", "forbidden", etc
+# `XX` means "false", "forbidden", "disabled", etc
 # `YY` means "yes", "true", "force", etc
 
 jobs:
   include:
-    - stage: "Unit Tests"
+    - stage: "Unit tests"
 
       name: "Unit Test (latest)"
       node_js: node

@@ -9,20 +9,15 @@ const TMP_DIR = require('./options.js').tmpDir
 
 module.exports = async function () {
 	// noinspection JSUnresolvedVariable
-	const teardownStaticServerPromise = new Promise((resolve, reject) =>
-			global.__STATIC_SERVER__.close(err => err === undefined ? resolve() : reject(err))
-	)
-	
-	// noinspection JSUnresolvedVariable
 	const teardownPuppeteerPromise = new Promise((resolve, reject) =>
-			global.__BROWSER_GLOBAL__.close()
+			global.browser.close()
 					.then(() => fs.remove(TMP_DIR), reject)
 					.then(resolve, reject)
 	)
 	
-	// noinspection JSCheckFunctionSignatures
+	// noinspection JSCheckFunctionSignatures, JSUnresolvedVariable
 	await Promise.all([
-		teardownStaticServerPromise,
+		global.staticServer.shutdown(),
 		teardownPuppeteerPromise,
 	])
 }
