@@ -35,10 +35,16 @@
 		"url": "https://github.com/mirismaili/text-wrapper.git"
 	},
 	"keywords": [
-		"editor",
-		"wrapper",
 		"wrap-long-lines",
 		"break-long-lines",
+		"text-wrap",
+		"word-wrap",
+		"hard-wrap",
+		"line-length",
+		"line-width",
+		"wrap",
+		"wrapper",
+		"editor",
 		"library"
 	],
 	"author": "S. M. Mir-Ismaili <s.m.mirismaili@gmail.com>",

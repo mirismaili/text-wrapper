@@ -260,7 +260,7 @@ export interface WrapOptions {
 	 * So this options has been set to `/[^\w\xA0]/` to be broken on any non-word character (`/^\w/ === /[^a-zA-Z0-9_]/`)
 	 * except a special white-space character named *non-breakable space (`'\xA0'`)*.
 	 *
-	 * Note: This RegExp will be tested against only a single character (each time)!
+	 * *Note: This `RegExp` will be tested against only a single character (each time)!*
 	 */
 	breakableCharacters?: RegExp
 	
@@ -269,7 +269,7 @@ export interface WrapOptions {
 	 * By default, this has been set to `/\s/` to allow any white-space character.
 	 * new-line-character (`'\n'`) will be ignored, anyway.
 	 *
-	 * Note: This RegExp will be tested against only a single character (each time)!
+	 * *Note: This `RegExp` will be tested against only a single character (each time)!*
 	 */
 	allowedExceedingCharacters?: RegExp
 	

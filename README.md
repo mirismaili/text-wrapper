@@ -39,7 +39,7 @@
 
 **Text-Wrapper**
 
-A library for wrapping (breaking) long lines of large texts into limited-length lines, based on given options
+A library for wrapping (breaking) long lines of large texts into limited-length lines, based on given [options](#options)
 
 ***
 
@@ -83,7 +83,7 @@ A library for wrapping (breaking) long lines of large texts into limited-length 
 
 1. Get access to `wrapper()` function:
 
-    ```javascript
+    ```js
     // Below line is not required when you import the module in your HTML 
     // using <script> tag. it will be done automatically in that case.
     const text_wrapper_lib = require('text-wrapper')  
@@ -93,13 +93,13 @@ A library for wrapping (breaking) long lines of large texts into limited-length 
     
 	Or through ES6-module-import way:
 	
-	```javascript
+	```js
 	import {wrapper} from 'text-wrapper'
 	```
 
 2. Take the job:
 
-    ```javascript
+    ```js
     const wrappedOutput = wrapper(tooLongText)
     ```
     
@@ -108,7 +108,7 @@ A library for wrapping (breaking) long lines of large texts into limited-length 
 
 By default, long lines will be broken after **100th character** *(max) (except white-spaces) (tab-character length will be calculated)*. You can customize this behavior:
 
-```javascript
+```js
 const wrappedOutput = wrapper(tooLongText, {wrapOn: 120})
 ```
 
@@ -135,19 +135,19 @@ will out:
 
 Although you can still use `wrapper()` function without any limitation, but for advanced usage, it's recommended to first make a new instance and then work with its `wrap()` method. So first:
 
-```javascript
+```js
 const TextWrapper = text_wrapper_lib.default
 ```
 
 or:
 
-```javascript
+```js
 import TextWrapper from 'text-wrapper'
 ```
 
 and then instantiate and do the job:
 
-```javascript
+```js
 const textWrapper = new TextWrapper()
 const wrappedOutput = textWrapper.wrap(inputText)
 ```
@@ -156,30 +156,30 @@ const wrappedOutput = textWrapper.wrap(inputText)
 
 You can pass your custom options to the constructor:
 
-```javascript
+```js
 new TextWrapper(options)
 ```
 
 or to the `wrapper()` function:
 
-```javascript
+```js
 wrapper(inputText, options)
 ```
 
 ### Examples
-```javascript
+```js
 new TextWrapper({
 	tabLength: 2,
 	wrapOn: 120,
 })
 ```
-```javascript
+```js
 new TextWrapper({
 	tabLength: 8,
 	continuationIndent: '\t',
 })
 ```
-```javascript
+```js
 new TextWrapper({
 	wrapOn: 95,
 	tabLength: 3,
@@ -208,7 +208,7 @@ This determines the max-length that should be considered for tab-characters (`'\
 
 Long lines don't break at any where the length is exceeded. But it occurs only on word-boundaries by default. So this options has been set to `/[^\w\xA0]/` to be broken on any non-word character (`/^\w/ === /[^a-zA-Z0-9_]/`) except a special white-space character named *non-breakable space (`'\xA0'`)*.
 
-Note: This RegExp will be tested against only a single character (each time)!
+*Note: This `RegExp` will be tested against only a single character (each time)!*
 
 #### `allowedExceedingCharacters: RegExp = /\s/`
 
@@ -216,7 +216,7 @@ This determines which characters are allowed to exceed the limitation (after [`w
 this has been set to `/\s/` to allow any white-space character. new-line-character (`'\n'`) will be ignored,
 anyway.
 
-Note: This RegExp will be tested against only a single character (each time)!
+*Note: This `RegExp` will be tested against only a single character (each time)!*
 
 #### `continuationIndent: string = ''`
 
@@ -224,7 +224,7 @@ This value will be added after each line-break (`'\n'`) character that this tool
 
 ## Unicode support
 Unicode character classes are not supported widely, but if you just want distinct between word-characters and non-word characters, add a `u` flag to `breakableCharacters` default value:
- ```javascript
+ ```js
 { breakableCharacters: /[^\w\xA0]/u }
  ```
 Note: Unicode-aware regular expressions needs ES2015 at least. See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/unicode#Specifications
@@ -233,7 +233,7 @@ Note: Unicode-aware regular expressions needs ES2015 at least. See: https://deve
 
 In cases, you don't want the final output itself (`wrappedText`), but you want a pure result of the process, `markers` is that you want! It's an array of all offsets that input-text needs line-breaks at them (to be wrapped correctly). To better understanding, we can *reproduce* the final output (`wrappedText`) using `markers` in a loop. Suppose you have an `inputText`, a `wrapOptions` object and an `alreadyPresentIndents` and:
 
-```javascript
+```js
 const wrapResult = new TextWrapper(wrapOptions).wrap(inputText, alreadyPresentIndents)
 
 const output = wrapResult.wrappedText
@@ -242,7 +242,7 @@ const markers = wrapResult.markers
 
 Then:
 
-```javascript
+```js
 const indentsN = alreadyPresentIndents + wrapOptions.continuationIndent
 
 let anotherOutput = ''
@@ -263,7 +263,7 @@ expect(anotherOutput).toBe(output)
 
 What happens if you double-wrap an input-text? This is another of unit tests in [jest/unit/text-wrapper.ts](https://github.com/mirismaili/text-wrapper/blob/master/jest/unit/text-wrap.ts):
 
-```javascript
+```js
 test('Wrap wrapped!', () => 
      expect(textWrapper.wrap(output, alreadyIndents).wrappedText).toBe(output))
 ```
@@ -272,19 +272,19 @@ test('Wrap wrapped!', () =>
 
 This library uses [npm debug library](https://www.npmjs.com/package/debug) (as its only dependency). The API has been completely exported by this library and you have full control over it. To access:
 
-```javascript
+```js
 const textWrapperDebug = require('../dist/main.umd.js').debug
 ```
 
 Or:
 
-```javascript
+```js
 import {debug as textWrapperDebug} from 'text-wrapper'
 ```
 
 Then you just need to know [debug package](https://www.npmjs.com/package/debug). For example, to enable debug-mode (according to [this](https://www.npmjs.com/package/debug#set-dynamically)) write:
 
-```javascript
+```js
 textWrapperDebug.enable('text-wrapper:*')
 ```
 
