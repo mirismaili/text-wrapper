@@ -65,7 +65,7 @@ jobs:
         provider: script
         skip_cleanup: true
 
-        # `bash -c ...` is required for the script in `deploy` section, also quotes around env-vars even in `if [[ ]]`:
+        # `bash -c ...` is required for the script in `deploy` section. Also, quotes around env-vars even in `if [[ ]]`.
         script: bash -c '
           if [[ "$SEMANTIC_RELEASE" != XX || "$SEMANTIC_RELEASE" == YY ]]; then
             npx semantic-release@$SEMANTIC_RELEASE_VERSION;

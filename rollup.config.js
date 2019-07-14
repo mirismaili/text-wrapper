@@ -7,7 +7,7 @@ import snakeCase from 'lodash.snakecase'
 import typescript from 'rollup-plugin-typescript2'
 import {terser} from 'rollup-plugin-terser'
 import nodeGlobals from 'rollup-plugin-node-globals'
-import nodeBuiltins from 'rollup-plugin-node-builtins'
+import nodeBuiltins from '@joseph184/rollup-plugin-node-builtins'
 import replace from 'rollup-plugin-replace'
 import builtins from 'builtin-modules/static'
 
